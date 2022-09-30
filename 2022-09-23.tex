@@ -1,0 +1,213 @@
+\section{A glimpse into Bayesian methods (for supervised ML)}
+
+We have a data sample \(D = \{ x^i, y^i\} i = 1, \dots, n\)
+where \(x \in \mathcal{X} = \mathds{R}^d, y^i \in \mathcal{Y}\)
+We consider a hypothesis space
+\(\mathcal{F} := \{ f_\theta (x), \theta \in \Theta \subset \mathds{R}^d \}\).
+
+The Bayesian idea is not to consider the optimal solution
+\(\hat{\theta}\) as a point solution, but as a set of possible solutions,
+some of which are more likely (to be correct) than others.
+
+The available data \(D\) serves to reduce the uncertainty of the
+distribution.
+
+The Bayesian machinery makes use of the Bayes formula.
+
+\begin{align*}
+	P(D | \theta) \tag{likelihood} \\
+	P(\theta | D) \tag{posterior}  \\
+	P(\theta) \tag{prior}          \\
+	\int_\Theta P(D | \theta') P(\theta') d\theta' = P(D) \tag{EXPECTED \equiv EVIDENCE}
+\end{align*}
+
+\[
+	P(\theta | D) = \frac{P(D | \theta) P(\theta)}
+	{ \int_\Theta P(D | \theta') P(\theta') d\theta' }
+\]
+
+\subsection{Procedure}
+
+\begin{quote}
+	Modelling is choosing
+\end{quote}
+
+\begin{enumerate}
+	\item
+	      Collect the data \(D\)
+
+	      \begin{enumerate}
+		      \item
+		            Decide the \uline{functional form of the models} \(f_\theta (x)\)
+		      \item
+		            Choose the \uline{prior} \(P(\theta)\) about the parameters
+	      \end{enumerate}
+	\item
+	      Calculate the \uline{likelihood function} \(P(y | x, \theta)\) (The
+	      probability of getting the data \(D\) for a specific value of
+	      \(\theta\))
+	\item
+	      Calculate the \uline{posterior distribution} of \(\theta\)
+\end{enumerate}
+
+\[
+	P(\theta | D) = \frac{P(\theta) \prod_{i=1}^n}{P(y^i|x^i, \theta)
+		{\int_\Theta d\theta' P(\theta')\prod_{i=1}^n} P(y^i|x^i, \theta')}
+\]
+
+\begin{enumerate}
+	\item
+	      Decide a method for making predictions (when new data \(x^0\) comes):
+
+	      \begin{enumerate}
+		      \item
+		            Eliminate the prior \(P(\theta)\) -\textgreater{}
+		            \(P(\theta | D) \propto \mathcal{L}(\sigma ; D) \cdot P(\theta)\)
+
+		            \begin{enumerate}
+			            \item
+			                  Then, the only thing that matters is the likelihood
+			            \item
+			                  You then find a set of parameters \(\theta\) that maximizes the
+			                  likelihood function
+			                  \(\hat{\theta_{ML}} argmax_{\theta \in \Theta} \mathcal{L}(\sigma ; D)\)
+		            \end{enumerate}
+		      \item
+		            Half Bayesian
+		            \(P(\theta | D) \propto \mathcal{L}(\sigma ; D) \cdot P(\theta)\)
+
+		            \begin{enumerate}
+			            \item
+			                  \(\hat{\theta_{MAP}} argmax_{\theta \in \Theta} \mathcal{L}(\sigma ; D) \cdot P(\theta)\)
+			                  (Maximum a posteriori)
+			            \item
+			                  Since we have a multiplication to minimize, we use logarithms.
+			            \item
+			                  It is then:
+			                  \(\hat{\theta_{MAP}} argmax_{\theta \in \Theta} \log \mathcal{L}(\sigma ; D) + \log P(\theta)\)
+		            \end{enumerate}
+		      \item
+		            Calculate the \uline{average of the posteriors} \(P(\theta | D)\)
+		            instead of the maximum. (average -\textgreater{} expected value)
+
+		            \begin{enumerate}
+			            \item
+			                  \(\hat{\theta_{avg}} = \int_\Theta \theta P(\theta | D) d\theta\)
+			            \item
+			                  In practice, this integral is intractable, we have to use
+			                  numerical integration. Which is quite delicate.
+		            \end{enumerate}
+		      \item
+		            Fully Bayesian: you have to work with the full posterior
+
+		            \begin{enumerate}
+			            \item
+			                  You don't return any model. You return a distribution over models.
+			            \item
+			                  Since we have a distribution, we can compute confidence integrals
+			                  (bayesian confidence intervals) (not in the scope of the course)
+			            \item
+			                  Suppose that a new data point comes, \(x^0\):
+
+			                  \[P(y^0 | x^0, D) = \int_\Theta P(y^0 | x^0, \theta) P(\theta | D) d\theta
+			                  \]
+
+			                  In the first 2 cases, we obtain a single unique model.In all
+			                  cases, the data is constant.
+		            \end{enumerate}
+	      \end{enumerate}
+\end{enumerate}
+
+\subsubsection{Fully worked example}
+
+We depart from a data sample and face a regression task.
+
+So \(x^i \in \mathds{R}^d, y^i \in \mathds{R}\) and we want to perform
+\uline{linear regression}.
+
+By convention \(\underbar{\omega} := (\omega, \omega_0)\)
+
+\begin{itemize}
+	\item
+	      What loss function do we use?
+	\item
+	      What king of regularizer (penalty on model complexity) should I
+	      use?
+\end{itemize}
+
+\paragraph{Procedure}
+
+\begin{enumerate}
+	\item
+	      For an arbitrary input \(x \in \mathds{R}^d\), we want to predict
+	      \(y \in \mathds{R}\)
+\end{enumerate}
+
+\begin{align*}
+	\epsilon                      & \sim \mathcal{N}(0, \sigma^2)                                       \\
+	P(y | x, \underbar{\omega})   & = \mathcal{N}(y | f_{\underbar{\omega}}(x), \sigma^2)               \\
+	\beta                         & = \frac{1}{\sigma^2} \text{ (precision)}                            \\
+	P(\underbar{\omega})          & = \mathcal{N}(\underbar{\omega} ; 0 , \Sigma)                       \\
+	\Sigma                        & := \text{ covariance matrix (Not viable in practice, we use other)} \\
+	P(\underbar{\omega} | \alpha) & = \mathcal{N}(\underbar{\omega} ; 0 , \sigma_{\omega}^2 I))         \\
+	\alpha                        & := \frac{1}{\sigma_{\omega}^2}
+\end{align*}
+
+A parameter that controls other parameters is called a
+\uline{hyperparameter}. In this case, \(\sigma_\omega\) is an
+hyperparameter.
+
+\begin{enumerate}
+	\item
+	      \uline{The likelihood function}
+\end{enumerate}
+
+\[
+	\mathcal{L}(\underbar{\omega} ; \beta) = \prod_{i=1}^n P(y^i | x^i, \underbar{\omega}) =
+	\prod_{i=1}^n \mathcal{N}(y^i | f_{\underbar{\omega}}(x^i), \sigma^2)
+\]
+
+\begin{enumerate}
+	\item
+	      \uline{The posterior distribution}
+\end{enumerate}
+
+\[P(\underbar{\omega} | y, X, \alpha, \beta) = \frac{\mathcal{L}(\underbar{\omega}; \beta) P(\underbar{\omega} | \alpha)}
+	{\int_{\mathds{R}} \mathcal{L}(\underbar{\omega}; \beta) P(\underbar{\omega} | \alpha) d\underbar{\omega}}
+\]
+
+\paragraph{Recap}
+
+\subparagraph{Model}
+
+\[
+	P(y |  X, \underbar{\omega}, \beta) = \mathcal{N}(y | f_{\underbar{\omega}}(x), \beta) =
+	\sqrt{\frac{\beta}{2\pi}} \exp \left( -\frac{\beta}{2} (y - f_{\underbar{\omega}}(x))^2 \right)
+\]
+
+\subparagraph{Prior}
+
+\[P(\underbar{\omega} | \alpha) = \mathcal{N}(\underbar{\omega} ; 0 , \sigma_{\omega}^2 I)) =
+	\sqrt{\frac{\alpha}{2\pi}} \exp \left( -\frac{\alpha}{2} \underbar{\omega}^T \underbar{\omega} \right)
+\]
+
+\subparagraph{Result}
+
+The posterior distribution turns out to be:
+
+\[P(\underbar{\omega} | D) = \mathcal{N}(\underbar{\omega} ; \mu, \Sigma)
+	\mu = \beta \Sigma X^T y
+	\Sigma = \left( \alpha I + \beta X^T X \right)^{-1}
+\]
+
+\begin{enumerate}
+	\item
+	      Maximum likelihood: \(\hat{\underbar{\omega}} = (X^T X)^{-1} X^T y\)
+	\item
+	      Maximum posteriori: \(\hat{\underbar{\omega}} = ???\) (Standard ridge
+	      regression)
+	\item
+	      Average posteriori: \(\hat{\underbar{\omega}} = ???\)
+	\item
+	      Full Bayesian: \(\hat{\underbar{\omega}} = ???\)
+\end{enumerate}
