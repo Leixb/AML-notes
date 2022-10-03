@@ -1,0 +1,99 @@
+\section{Problems}
+
+\subsection{Ridge Regression}
+
+The optimal value for the regularization parameter $\lambda$ in \emph{ridge regression} is:
+
+\begin{equation}
+	\lambda^* = \frac{\sigma^2}{n \sigma_{\omega}^2}
+\end{equation}
+
+\subsubsection{Predictive distribution} % (fold)
+
+\paragraph{``Full Bayessian''} Suppose we are given a \emph{new data point}
+\(x^0 \to y^0\).
+
+\begin{align*}
+	P(y^0 | x^0, y, \alpha, \beta) & = \int_{\mathds{R}^{d+1}}
+	\underbrace{P(y^0 | x^0, \underbar{\omega}, \beta)}_{\substack{\text{Prob. setting}        \\ \text{of my model}}}
+	\cdot
+	P(\underbar{\omega} | y, \alpha, \beta)
+	d\underbar{\omega}                                                                         \\
+	                               & = \mathcal{N}\left(y^0\mu^Tx^0,\; \sigma^2(x^0) \right)   \\
+	\sigma^2(x)                    & = \underbrace{\frac{1}{\beta}}_\text{Noise in the data} +
+	\underbrace{X^T\Sigma X \vphantom{\frac{1}{\beta}}
+	}_\text{Uncertainty on the parameters $\underbar\omega$} \tag{variance of the pred. dist.}
+\end{align*}
+
+\subsection{GLMs}
+
+\begin{enumerate}
+	\item \emph{Linear regression} \textrightarrow{} regression ($\mathds{R}$)
+	\item \emph{Logistic regression} \textrightarrow{} binary classification
+	\item \emph{Poisson regression} \textrightarrow{} counter
+	\item \emph{Multinomial regression} \textrightarrow{} multiclass classification
+\end{enumerate}
+
+\subsubsection{Multinomial regression}
+
+We wish to create a GLM to predict one of $c$ classes: $\{ \omega_1, \omega_2, \cdots, \omega_c\}$
+
+\begin{equation}
+  x \in \begin{pmatrix}
+    0 \\
+    0 \\
+    1 \\
+    \vdots \\
+    0
+  \end{pmatrix} \Longleftrightarrow x \in \omega_3
+  \tag {one-hot encoding}
+\end{equation}
+
+If we denote the probability of $x_l = 1$ by $\pi_l$
+
+\begin{align*}
+  P(x | \boldsymbol\pi) = \prod_{l=1}^c \pi_l^{x_l},\quad
+  \boldsymbol{\pi} = (\pi_1, \pi_2, \cdots, \pi_c)^T,
+  \pi_l \geq 0,\quad \sum_{l=1}^c \pi_l = 1
+\end{align*}
+
+\paragraph{Homework} Prove that:
+
+\begin{align*}
+  \sum_x P(x | \pi) &= 1 \\
+  \mathds{E}[x | \boldsymbol\pi] &= \boldsymbol\pi
+\end{align*}
+
+\paragraph{Multinomial distribution}
+The multinomial distribution is a generalization of the binomial distribution to more than two outcomes.
+
+Given a number of observations of data $x_1, x_2, \cdots, x_n$. We define:
+
+% and a set of probabilities $\pi_1, \pi_2, \cdots, \pi_k$ such that $\sum_{l=1}^k \pi_l = 1$, the probability of observing $x_1, x_2, \cdots, x_n$ is given by:
+
+% \begin{equation}
+  % P(x_1, x_2, \cdots, x_n | \boldsymbol\pi) = \frac{n!}{x_1! x_2! \cdots x_n!} \prod_{l=1}^k \pi_l^{x_l}
+% \end{equation}
+
+\begin{equation}
+  m_l = \sum_{i=1}^n x_l^i \tag{number of observations of class $l$ in data}
+\end{equation}
+
+We consider now the joint distribution of the $m_1, m_2, \cdots, m_c$ conditional on the
+parameters $\boldsymbol\pi$:
+
+\begin{align*}
+  \text{Mult}(\boldsymbol{m} | \boldsymbol\pi, n) &=
+\underbrace{\binom{n}{m_1, m_2, \cdots, m_c}}_{\substack{\text{number of ways to distribute} \\ \text{$n$ observations among $m_1, m_2, \cdots, m_c$}}}
+        \prod_{l=1}^c \pi_l^{m_l} \\
+    \text{where } \sum_{l=1}^c m_l &= n \\
+    \boldsymbol{m} &= (m_1, m_2, \cdots, m_c)^T
+\end{align*}
+
+
+\begin{enumerate}
+  \item Obtaining the likelihood function $l = \mathcal{L}(\boldsymbol\pi)$.
+  \item Maximize it \textrightarrow{} error function $- \ln \mathcal{L}(\boldsymbol\pi)$
+  \item Softmax !
+\end{enumerate}
+

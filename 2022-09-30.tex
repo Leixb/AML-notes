@@ -1,0 +1,214 @@
+\subsection{Homework} % (fold)
+\label{sub:Homework}
+
+Ridge regression ($\lambda$)
+\begin{equation}
+	\rightsquigarrow \lambda ^* := \frac{.}{.}
+\end{equation}
+% subsection subsection name (end)
+
+\section{Regularization-based learning} % (fold)
+\label{sec:Regularization-based-learning}
+
+Many \emph{MLA}s can be expressed as optimization problem.
+
+\begin{itemize}
+	\item We depart from:
+	      \begin{itemize}
+		      \item hypothesis space $\mathcal{F}$
+		      \item loss function $L \geq 0$
+		      \item a regularizer $\Omega \geq 0$ which expresses how to discourage complex models.
+	      \end{itemize}
+	\item .
+\end{itemize}
+
+\[
+	\min_{f \in \mathcal{F}} \left(\frac{1}{n} \sum_{i=1}^n L\left(f(x^i),\, y^i\right) + \lambda\Omega(f) \right)
+	, \quad \lambda > 0 \text{ is a regularization parameter.}
+\]
+
+\subsection{Typical choices for the regularizer} % (fold)
+
+\begin{align*}
+	\Omega(f) & = ||f||_q^q, \quad q \geq 1                 \\
+	\text{e.g. } q = 2 \text{ is the } \ell_2 \text{ norm.} \\
+	||f||_2^2 & = \sqrt{\int f^2(x) \, dx}
+\end{align*}
+
+\subsection*{Is this problem convex?} % (fold)
+
+\begin{itemize}
+	\item All norms are convex.
+	\item If $L$ is convex on its first argument $\Rightarrow$ the problem is convex.
+\end{itemize}
+
+Suppose we chose $\mathcal{F}, L, \Omega$ Questions:
+
+\begin{itemize}
+	\item How can I justify these choices?
+	\item How do we optimize $\lambda \xrightarrow[D]{} \hat\lambda$?
+	\item What kind of knowledge do we obtain upon solving the problem?
+	\item How do we solve the general optimization problem?
+\end{itemize}
+
+\subsection{Learning models} % (fold)
+
+\begin{align*}
+	x \in \mathcal{X} = \mathbb{R}^d & , \quad y \in \mathcal{Y} = \mathbb{R}                                            \\
+	f_{\text{basic model}}(x)        & = \omega_0 + \sum_{l = 1}^d \omega_l x_l, \quad \theta = \binom{\omega}{\omega_0}
+\end{align*}
+
+\paragraph{Linear model}
+
+A model $f_\theta$ is linear when it has a linear dependence on its parameters.
+
+ex:
+\begin{align*}
+	d      & = 1                            \\
+	f_c(x) & = f(x;c)                       \\
+	       & = \sum_{l=0}^d c_l \cdot (x)^l
+\end{align*}
+
+\subparagraph{Hint} Define $z_l = x^l$ and $c_l = \omega_l$.
+
+\subsection{Homework}
+
+Express a model in $\mathds{R}$ as a truncated Fourier series and
+that it is a \emph{linear model}
+
+\hrulefill
+
+We can introduce:
+
+\begin{equation*}
+	\phi (x) = \left(\begin{array}{c}
+			\phi_1(x) \\
+			\vdots    \\
+			\phi_n(x)
+		\end{array}\right), \quad x \in \mathds{R}^d
+\end{equation*}
+
+Generalize on basic model:
+
+\begin{equation}
+	\boxed{f_\omega(x) = \sum_{l=1}^n \omega_l \phi_l(x)}
+\end{equation}
+
+A further generalization:
+
+\begin{align*}
+	f_\omega(x) = g\left(\sum_{l=1}^n \omega_l \phi_l(x)\right) = g\left(\omega^T\phi(x)\right) \\
+	g: \mathds{R} \to \mathds{R} \text{ is a monotonic function (increasing)}                   \\
+	\text{Typically non-linear}
+\end{align*}
+
+In the context of neural networks $g$ is called an \emph{activation function}.
+
+For linear regression we have $g(z) = z$ (identity function) or
+no activation function at all.
+
+\paragraph{Examples of activation functions}
+
+\begin{equation*}
+	g(z) = \begin{cases}
+		z & \text{if } z \geq \frac{1}{2} \\
+		0 & \text{otherwise}
+	\end{cases}  = \mathds{1}_{\{z \geq 1/2\}}(z), \quad z \in (0, 1)
+\end{equation*}
+
+We can set $\frac{1}{2}$ as a hyperparameter.
+
+\subsection{A gentle introduction to GLMs}
+
+Generalized Linear Models (GLMs) are a class of models that are
+
+Recall:
+
+\begin{align*}
+	glm  & := g(\omega^T\phi(x))  \tag{\text{General Linear Model}} \\
+	GMLs & \subset glms
+\end{align*}
+
+\newcommand\hcancel[2][black]{\setbox0=\hbox{$#2$}%
+	\rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2}
+
+
+\begin{align*}
+	y^i         & = f_\omega(x^i) + \varepsilon^i, \quad \varepsilon^i \sim \mathcal{N}(0, \sigma^2) \\
+	f_\omega(x) & = g\left(\omega^T\phi(x)\right) \quad \leftarrow \text{ glm}                       \\
+	            & \hcancel[red]{\omega^T\phi(x) + \omega_0}                                          \\
+	            & \Rightarrow y^i \sim \mathcal{N}\left(y; f_\omega(x^i), \sigma^2\right)            \\
+	\mu_i       & := \mathds{E}[y^i  | X = x^i] = f_\omega(x^i) = \omega^T\phi(x^i)
+\end{align*}
+
+\begin{enumerate}
+	\item Can we arrange for distributions other than the Gaussian?
+
+	      It turns out that other distributions can be used. Those that
+	      we name the \emph{exponential family of distributions}.
+	      % \footnote{\href{https://en.wikipedia.org/wiki/Exponential_family#Table_of_distributions}{Wikipedia table}}
+
+	      \begin{equation*}
+		      P(y | \theta) = h(y)c(\theta) \exp\left(\sum_{j=1}^J \omega_j(\theta)t_j(x)\right)
+	      \end{equation*}
+
+	\item Can we merge the relation between our model's prediction
+	      and the expected value of the predicted variable non-linear?
+
+	      We admit a (normally) non-linear relation between $\mu_i$ and $f_\omega(x^i)$.
+
+	      In the GLM context:
+
+	      \begin{equation*}
+		      \boxed{
+			      h\left(\mathds{E} [y | X = x] \right) = \omega^T x
+		      }
+	      \end{equation*}
+
+	      If $h$ admits an inverse function, then $g = h^{-1}$
+
+	      The function $h$ is called the \emph{link function}.
+
+
+\end{enumerate}
+
+\paragraph{ex}.
+
+\begin{center}
+	\begin{tabular}{ccc}
+		\toprule
+		\text{Distribution}       & $g(z)$     & \text{Expected value} \\
+		\midrule
+		\text{Gaussian}           & $z$        & $\mu_i$               \\
+		\text{Poisson}$(\lambda)$ & $\ln(z)$   & $\lambda$             \\
+		\text{Bernoulli}$(p)$     & logit$(z)$ & $p$                   \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+The last layer of a neural network is a GLM.
+
+\subsection{Kinds of response/target variables}
+
+\begin{center}
+	\begin{tabular}{lll}
+		\toprule
+		variable     & regression  & distribution \\
+		\midrule
+		continuous   & linear      & gaussian     \\
+		binary       & logistic    & bernoulli    \\
+		nominal      & multinomial & multinomial  \\
+		ordinal      & ordinal     & ordinal      \\
+		count        & Poisson     & Poisson      \\
+		failure time & survival    & Weibull      \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+\paragraph{Procedure to learn a GLM}
+
+\begin{enumerate}
+  \item Identify the kind of variable you want to predict.
+\end{enumerate}
+
+Reference: "An introduction to GLMs" by A. Dobson and Barnett 4th edition
