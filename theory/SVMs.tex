@@ -1,0 +1,143 @@
+%! TEX root = ../000-main.tex
+% 2022-10-07
+\section{Support Vector Machines}
+
+\subsection{Linear SVM}
+\label{sec:linear-svm}
+
+\begin{equation*}
+  D = \{ (x^1,\, y^1),\, \dots,\, (x^n,\, y^n) \} \quad  x^i \in \mathds{R}^d \; y^i \in \{-1,\, 1\} \mid i = 1,\, \dots,\, n
+\end{equation*}
+
+The sum is a \emph{binary classification}.
+
+\begin{equation}
+  \mathcal{F}_{\text{lim}} = \{x \to f\left(\omega^Tx + b\right),\quad \omega \in \mathds{R}^d, \; b \in \mathds{R} \}
+\end{equation}
+
+The equation $\pi : \omega^Tx + b = 0$ defines a hyperplane.
+The idea is to predict class $+1$ whenever $\omega^Tx + b \geq 0$ and class $-1$ otherwise.
+
+\begin{definition}{linsep}{}
+% \paragraph{Def: linsep}
+A dataset is \emph{linsep} if:
+
+\begin{equation*}
+\exists (\omega,\, \omega_0) \in \mathds{R}^d \setminus \{0\} \times \mathds{R}
+\text{ such that: }
+\forall i=1,\,\dots,\,n\quad y^i(\omega^Tx^i +b) > 0
+\end{equation*}
+\end{definition}
+
+We assume from now on that $D$ is \emph{linsep}.
+
+\begin{definition}{geometric margin}{}
+The \emph{geometric margin} of a linear
+classifier $f \to \omega^Tx + b$ at a data point $x$ is the
+euclidean distance from $x$ to the hyperplane $\pi$.
+
+\begin{equation*}
+  \gamma(x) = \frac{\|\omega^Tx + b\|}{\lVert\omega\rVert} \tag{geometric margin}
+\end{equation*}
+\end{definition}
+
+The geometric margin of a linear classifier on $D$ is the minimum of
+these geometric margins over all data points. That is, it is the distance
+from the closest point to the hyperplane.
+
+\begin{equation*}
+  \gamma = \min_{x \in D} \gamma(x) \tag{geometric margin of a linear classifier}
+\end{equation*}
+
+\begin{figure}[H]
+	\begin{tikzpicture}
+		\begin{axis}[
+				domain=0:11,
+				xmin=0, xmax=10,
+				ymin=0, ymax=10,
+				samples=100,
+				% axis y line=center,
+				% axis x line=bottom,
+				xlabel = {$n$},
+				legend pos=south east,
+				% area style,
+				% ticks=none,
+			]
+			\addplot+[mark=none] {-x + 5};
+			\addplot+[mark=none] {x};
+			\addlegendentry{\(\pi: \omega^Tx + b = 0\)};
+			\addlegendentry{\omega};
+		\end{axis}
+
+	\end{tikzpicture}
+	\caption{Hyperplane and its normal vector}
+\end{figure}
+
+We set into the problem of finding the hyperplane $f$ that minimizes
+its geometric margin over the data, $\gamma_{\text{min}}(f)$.
+
+\begin{equation*}
+  \max_{(\omega,\, b)}
+  \left\{
+  \min_{i=1,\,\dots,\, n}
+    \frac{| \omega^Tx^i + b |}{\lVert\omega\rVert}
+  \right\}
+\end{equation*}
+
+\subsection*{Questions}
+
+\begin{enumerate}
+  \item Why should we be doing this? ???
+  \item Does a solution always exists? Yes
+  \item Is the solution unique? Yes
+  \item How do we find the solution?
+
+The problem boils down to:
+ \begin{align*}
+  \max_{(\omega, b)}
+  \left\{
+    \min_{\substack{i=1,\dots, n \\ y^i(\omega^Tx^i + b) > 0}}
+    \underbrace{\frac{1}{\lVert\omega\rVert}}_{\text{margin of the solution}}
+  \right\} \\
+  \min_{(\omega, b)} \frac{1}{2}\lVert\omega\rVert^2 \\
+  \text{subject to} \quad y^i(\omega^Tx^i + b) \geq 1 \quad \forall i=1,\dots,n \\
+  \begin{rcases*}
+    \text{convex} \\
+    \text{QP} \\
+  \end{rcases*} \Rightarrow \text{Solution is unique}
+\end{align*}
+
+\begin{enumerate}
+  \item Convex
+  \item Quadratic Programming (QP)
+\end{enumerate}
+
+\end{enumerate}
+
+\subsubsection{The dual problem}
+
+The Lagrangian function:
+
+\begin{align*}
+  \mathscr{L}(\omega, b, \alpha) &= \frac{1}{2}\lVert\omega\rVert^2 - \sum_{i=1}^n \alpha_i \left[ y^i(\omega^Tx^i + b) - 1 \right] \\
+  \alpha &= \begin{pmatrix} \alpha_1 \\ \vdots \\ \alpha_n \end{pmatrix}
+  \tag{Lagrangian multiplier} \\
+  \frac{\partial \mathscr{L}}{\partial \omega} = 0 &\Rightarrow \omega = \sum_{i=1}^n \alpha_i y^i x^i \tag{p1}\label{eq:lagp1} \\
+  \frac{\partial \mathscr{L}}{\partial b} = 0 &\Rightarrow \sum_{i=1}^n \alpha_i y^i = 0 \tag{p2}\label{eq:lagp2} \\
+  \text{KKT} \begin{pmatrix}
+  \text{Karush} \\
+  \text{Kuhn} \\
+  \text{Tucker}
+\end{pmatrix} \text{ conditions} \\
+\forall i=1,\dots,n \quad \alpha_i \left[ y^i(\omega^Tx^i + b) - 1 \right] = 0 \tag{kkt}\label{eq:kkt}
+\end{align*}
+
+\begin{enumerate}
+  \item \ref{eq:lagp1} \textrightarrow{} The solution $\omega$ must be a linear combination of the TR data points $x^i$
+  \item \ref{eq:lagp2} \textrightarrow{} The sum of the Lagrangian multipliers is the same for both classes.
+  \item \ref{eq:kkt} \textrightarrow{} $\alpha_i = 0$  xor $y^i(\omega^Tx^i + b) = 1$
+    \begin{enumerate}
+      \item $\alpha_i = 0$ \textrightarrow{} The data point $x^i$ is not a support vector
+      \item $y^i(\omega^Tx^i + b) = 1$ \textrightarrow{} The data point $x^i$ is a support vector. And coincide with the points on the margins of the hyperplanes.
+    \end{enumerate}
+\end{enumerate}

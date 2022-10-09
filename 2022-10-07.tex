@@ -1,0 +1,41 @@
+\paragraph{Procedure to learn a GLM}
+
+Reference: "An introduction to GLMs" by A. Dobson and Barnett 4th edition
+
+\newcommand{\dcheckmark}{\checkmark~\hspace{-0.9em}\checkmark}
+
+\begin{enumerate}
+  \item Identify the kind of variable you want to predict. \checkmark
+  \item Chose a \emph{suitable}\footnote{Matches the previous choice} probability distribution (must be a member of the EFDs). \dcheckmark
+  \item Calculate the \emph{expected value} of this distribution for a particular
+    data point. \dcheckmark
+  \item Use \emph{maximum likelihood} to obtain an estimator of this quantity.
+  \item Obtain an \emph{error function} as $E = -2\ln \mathcal{L}$ (deviance).
+  \item Minimize the error $E$ by (typicall) Newton-Raphson.
+    \begin{enumerate}
+      \item initialize $\theta (0) := \boldsymbol 0, \; t \gets 0$
+        \begin{align*}
+          \text{loop until convergence:} \\
+          \theta (t+1) = \theta(t) - \nabla E(\theta(t)) \cdot H_\theta^{-1} E(\theta(t)) \\
+          t \gets t + 1
+        \end{align*}
+        \begin{align*}
+          H_\theta E &= \begin{pmatrix}
+            \frac{\partial^2 E}{\partial \theta_1^2} & \cdots & \frac{\partial^2 E}{\partial \theta_1 \partial \theta_k} \\
+            \vdots & \ddots & \vdots \\
+            \frac{\partial^2 E}{\partial \theta_k \partial \theta_1} & \cdots & \frac{\partial^2 E}{\partial \theta_k^2}
+          \end{pmatrix} \\
+          \nabla E &= \begin{pmatrix}
+            \frac{\partial E}{\partial \theta_1} \\
+            \vdots \\
+            \frac{\partial E}{\partial \theta_k}
+          \end{pmatrix}
+        \end{align*}
+    \end{enumerate}
+\end{enumerate}
+
+\begin{itemize}
+  \item Typically, in the GLM setting, Newton-Raphson yields updating
+    steps that require the solution of \emph{weighted least squares problems}.
+    (called the IRLS family of algorithms: Iterated Reweighted Least Squares)
+\end{itemize}

@@ -23,10 +23,45 @@
 \usepackage{dsfont}
 \usepackage{tikz}
 % \usepackage{tikzexternal}
+\usetikzlibrary{shapes,arrows,positioning}
+
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 
 \usepackage{cancel}
+\usepackage{mathrsfs}
+
+\DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\argmax}{argmax}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{most}
+
+\theoremstyle{plain}% from `amsthm'
+\newtheorem{lem}{Lemma}% from `amsthm'
+% \newtheorem{prop}{Proposition}% from `amsthm'
+
+\theoremstyle{definition}% from `amsthm'
+\newtheorem{defn}{Definition}% from `amsthm'
+
+\theoremstyle{remark}% from `amsthm'
+\newtheorem*{rem}{Remark}% from `amsthm'
+\newtheorem{ex}{Example}% from `amsthm'
+\newtheorem{prob}{Problem}% from `amsthm'
+\newtheorem{ques}{Question}% from `amsthm'
+\newtheorem*{note}{Note}% from `amsthm'
+
+\newtcbtheorem[number within=section]{definition}{Definition}%
+{colback=orange!5,colframe=yellow!35!black,fonttitle=\bfseries}{def}
+
+\newtcbtheorem[number within=section]{theorem}{Theorem}%
+{colback=yellow!5,colframe=lime!35!black,fonttitle=\bfseries}{th}
+
+\newtcbtheorem[number within=section]{prop}{Proposition}%
+{colback=cyan!5,colframe=cyan!35!black,fonttitle=\bfseries}{prop}
+
+\newtcbtheorem[number within=section]{recap}{Recap}%
+{colback=red!5,colframe=red!55!black,fonttitle=\bfseries}{rec}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % METADATA
@@ -44,39 +79,44 @@
 % TITLE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    % Default title or use titlepage.tex
+% Default title or use titlepage.tex
 
-    %\maketitle
-    \include{005-titlepage}
+%\maketitle
+\include{005-titlepage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TOC & lists
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    \pagenumbering{Roman}
+\pagenumbering{Roman}
 
-    %\setcounter{tocdepth}{2}
-    \tableofcontents \pagebreak
+%\setcounter{tocdepth}{2}
+\tableofcontents \pagebreak
 
-    \listoffigures \listoftables \clearpage
+\listoffigures \listoftables \clearpage
 
-    \pagenumbering{arabic}
+\pagenumbering{arabic}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTIONS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    % Paragraph spacing (placed after ToC)
-    \setlength{\parskip}{1em plus 0.5em minus 0.2em}
-    %\setlength{\parindent}{0pt}
+% Paragraph spacing (placed after ToC)
+\setlength{\parskip}{1em plus 0.5em minus 0.2em}
+%\setlength{\parindent}{0pt}
 
-    \include{2022-09-12}
-    \include{2022-09-23}
-    \include{2022-09-30}
-    \include{2022-10-02}
+% Theory
+\include{2022-09-12} % Problemes
+\include{2022-09-23} % Teoria
+\include{2022-09-30} % Teoria
+\include{2022-10-07} % Teoria
+\include{theory/SVMs}
 
-    \nocite{*}
+% Problem sessions
+\include{2022-10-02}
 
-    \printbibliography
+\nocite{*}
+
+\printbibliography
 
 \end{document}
