@@ -38,7 +38,7 @@
 \tcbuselibrary{most}
 
 \theoremstyle{plain}% from `amsthm'
-\newtheorem{lem}{Lemma}% from `amsthm'
+\newtheorem{lemma}{Lemma}% from `amsthm'
 % \newtheorem{prop}{Proposition}% from `amsthm'
 
 \theoremstyle{definition}% from `amsthm'
@@ -50,6 +50,7 @@
 \newtheorem{prob}{Problem}% from `amsthm'
 \newtheorem{ques}{Question}% from `amsthm'
 \newtheorem*{note}{Note}% from `amsthm'
+\newtheorem*{hint}{Hint}% from `amsthm'
 
 \newtcbtheorem[number within=section]{definition}{Definition}%
 {colback=orange!5,colframe=yellow!35!black,fonttitle=\bfseries}{def}
@@ -62,6 +63,12 @@
 
 \newtcbtheorem[number within=section]{recap}{Recap}%
 {colback=red!5,colframe=red!55!black,fonttitle=\bfseries}{rec}
+
+\newtcbtheorem[number within=section]{exercise}{Exercise}%
+{colback=purple!5,colframe=purple!35!black,fonttitle=\bfseries}{rec}
+
+\newtcbtheorem[number within=section]{question}{Question}%
+{colback=purple!5,colframe=green!35!black,fonttitle=\bfseries}{rec}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % METADATA
