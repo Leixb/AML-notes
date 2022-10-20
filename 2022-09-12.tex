@@ -5,15 +5,15 @@
 Can be defined as 3 components:
 \begin{itemize}
 	\item
-	      A \emph{generator} \(G\) of random data \(x\) from a
-	      probability distribution \(P(x)\)which is fixed and unknown to us.
+	      A \iemph{generator} \(G\) of random data \(x\) from a
+	      probability distribution \(P(x)\) which is fixed and unknown to us.
 	\item
-	      A \emph{supervisor} \(S\) which returns an output value ${y \in Y}$
-	      for each everyinput \(x \in X\) according to a conditional
-	      probability distribution \(P(y | x)\), also fixed and unknown
+	      A \iemph{supervisor} \(S\) which returns an output value ${y \in Y}$
+	      for every input \(x \in X\) according to a conditional
+	      probability distribution \(P(y \mid x)\), also fixed and unknown
 	      to us.
 	\item
-	      A \emph{learning machine (algorithm)} \(L\) which is capable of
+	      A \iemph{learning machine (algorithm)} \(L\) which is capable of
 	      implementing(computing) any of a set of functions (models).
 	      \(f_\theta\) where \(\theta\) is a set of parameters belonging to the
 	      parameter space \(\theta\).
@@ -91,7 +91,7 @@ In most of the cases, randomness is ignorance of the true effects.
 \end{definition}
 
 \begin{definition}{Risk}{}
-
+  \index{risk}\index{expected loss}\index{generalization error}\index{true error}
 	The risk of a function is its \emph{expected loss}. Also known as true
 	error or generalization error.
 
@@ -101,11 +101,12 @@ In most of the cases, randomness is ignorance of the true effects.
 
 	\begin{note}
 		A function that takes a function as an argument is called a functional.
-		Risk is a functional.
+
+    Risk is a functional. \index{functional}
 	\end{note}
 \end{definition}
 
-\begin{definition}{Empirical error}{}
+\begin{definition}{Empirical error}{}\index{empirical error}
 
 	The average error or loss function evaluated on a specific data sample
 	\(D\).
@@ -120,7 +121,7 @@ In most of the cases, randomness is ignorance of the true effects.
 \end{definition}
 
 \begin{definition}{Training error}{}
-	The \emph{empirical error} obtained in the data
+	The \iemph{empirical error} obtained in the data
 	sample used for training.
 \end{definition}
 
@@ -140,14 +141,14 @@ In most of the cases, randomness is ignorance of the true effects.
 
 \subsection{Discriminative vs generative classifiers}
 
-\begin{definition}{Discriminative classifier}{discriminative}
+\begin{definition}{Discriminative classifier}{discriminative}\index{discriminative}
 	A classifier that directly models the conditional probability
 	\(P(y | x)\) of the output given the input.
 
 	\paragraph{Example:} Logistic regression
 \end{definition}
 
-\begin{definition}{Generative classifier}{generative}
+\begin{definition}{Generative classifier}{generative}\index{generative}
 	A classifier that models the joint probability distribution
 	\(P(x, y)\) of the input and the output.
 
@@ -208,6 +209,7 @@ Where:
 \end{prop}
 
 \begin{prop}{bias-variance decomposition}{}
+  \index{bias-variance decomposition}
 
 	The bias / variance decomposition of the mean squared error.
 
@@ -273,11 +275,11 @@ How the prediction coming from a specific data sample $D_n$ varies around its me
 where \(\sigma^2\) is the variance of the noise.
 
 Since \(\sigma\) cannot be reduced, it is called irreducible error. The
-rest is called reducible error.
+rest is called reducible error. \index{irreducible error}
 
 Getting better data we reduce the irreducible error. (ignorance)
 
-\section{Consistency}
+\section{Consistency}\index{consistency}
 
 We depart from a specific data sample \(D_n\) The training error of a
 model \(f\) is:
@@ -289,8 +291,8 @@ So, when we learn a specific model \(f_n\) from \(D_n\) its
 \emph{training error} is \(\hat{R}_n(f_n)\) The true error of \(f_n\)
 is \(R(f_n)\)
 
-The \emph{Empirical Risk Minimization} (ERM) prescribes to minimize the
-training error.
+The \iemph{Empirical Risk Minimization} (ERM) prescribes to minimize the
+training error. \index{ERM}
 
 \begin{description}
 	\item[Consistency]

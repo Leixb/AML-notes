@@ -1,16 +1,16 @@
-\subsection{Homework} % (fold)
-\label{sub:Homework}
-
+\begin{exercise}{Homework}{}
 Ridge regression ($\lambda$)
 \begin{equation}
 	\rightsquigarrow \lambda ^* := \frac{.}{.}
 \end{equation}
-% subsection subsection name (end)
+\end{exercise}
 
 \section{Regularization-based learning} % (fold)
 \label{sec:Regularization-based-learning}
+\index{regularizer}
 
-Many \emph{MLA}s can be expressed as optimization problem.
+Many \emph{MLA}\footnote{Machine Learning Algorithm}%
+s can be expressed as optimization problem.
 
 \begin{itemize}
 	\item We depart from:
@@ -30,12 +30,13 @@ Many \emph{MLA}s can be expressed as optimization problem.
 \subsection{Typical choices for the regularizer} % (fold)
 
 \begin{align*}
-	\Omega(f) & = ||f||_q^q, \quad q \geq 1                 \\
-	\text{e.g. } q = 2 \text{ is the } \ell_2 \text{ norm.} \\
-	||f||_2^2 & = \sqrt{\int f^2(x) \, dx}
+	\Omega(f) & = \lVert f \rVert_q^q, \quad q \geq 1                 \\
+	\text{e.g. } q = 2 \text{ is the } \ell_2 \text{ norm:} \\
+	\lVert f \rVert_2^2 & = \sqrt{\int f^2(x) \, dx}
 \end{align*}
 
 \subsection*{Is this problem convex?} % (fold)
+\index{convexity}
 
 \begin{itemize}
 	\item All norms are convex.
@@ -58,25 +59,24 @@ Suppose we chose $\mathcal{F}, L, \Omega$ Questions:
 	f_{\text{basic model}}(x)        & = \omega_0 + \sum_{l = 1}^d \omega_l x_l, \quad \theta = \binom{\omega}{\omega_0}
 \end{align*}
 
-\paragraph{Linear model}
+\begin{definition}{Linear model}{linmod}
 
 A model $f_\theta$ is linear when it has a linear dependence on its parameters.
 
 ex:
 \begin{align*}
-	d      & = 1                            \\
+	d      & = 10                           \\
 	f_c(x) & = f(x;c)                       \\
 	       & = \sum_{l=0}^d c_l \cdot (x)^l
 \end{align*}
+\end{definition}
 
 \subparagraph{Hint} Define $z_l = x^l$ and $c_l = \omega_l$.
 
-\subsection{Homework}
-
+\begin{exercise}{Homework}{}
 Express a model in $\mathds{R}$ as a truncated Fourier series and
 that it is a \emph{linear model}
-
-\hrulefill
+\end{exercise}
 
 We can introduce:
 
@@ -102,7 +102,7 @@ A further generalization:
 	\text{Typically non-linear}
 \end{align*}
 
-In the context of neural networks $g$ is called an \emph{activation function}.
+In the context of neural networks $g$ is called an \iemph{activation function}.
 
 For linear regression we have $g(z) = z$ (identity function) or
 no activation function at all.
@@ -118,7 +118,9 @@ no activation function at all.
 
 We can set $\frac{1}{2}$ as a hyperparameter.
 
+\section{Generalized Linear Models}
 \subsection{A gentle introduction to GLMs}
+\index{GLM}
 
 Generalized Linear Models (GLMs) are a class of models that are
 parametrized by a linear combination of features.
@@ -139,18 +141,18 @@ Recall:
 	f_\omega(x) & = g\left(\omega^T\phi(x)\right) \quad \leftarrow \text{ glm}                       \\
 	            & \hcancel[red]{\omega^T\phi(x) + \omega_0}                                          \\
 	            & \Rightarrow y^i \sim \mathcal{N}\left(y; f_\omega(x^i), \sigma^2\right)            \\
-	\mu_i       & := \mathds{E}[y^i  | X = x^i] = f_\omega(x^i) = \omega^T\phi(x^i)
+	\mu_i       & := \mathds{E}[y^i  \mid X = x^i] = f_\omega(x^i) = \omega^T\phi(x^i)
 \end{align*}
 
 \begin{enumerate}
 	\item Can we arrange for distributions other than the Gaussian?
 
 	      It turns out that other distributions can be used. Those that
-	      we name the \emph{exponential family of distributions}.
+	      we name the \iemph{exponential family of distributions}.
 	      % \footnote{\href{https://en.wikipedia.org/wiki/Exponential_family#Table_of_distributions}{Wikipedia table}}
 
 	      \begin{equation*}
-		      P(y | \theta) = h(y)c(\theta) \exp\left(\sum_{j=1}^J \omega_j(\theta)t_j(x)\right)
+		      P(y \mid \theta) = h(y)c(\theta) \exp\left(\sum_{j=1}^J \omega_j(\theta)t_j(x)\right)
 	      \end{equation*}
 
 	\item Can we merge the relation between our model's prediction
@@ -162,14 +164,13 @@ Recall:
 
 	      \begin{equation*}
 		      \boxed{
-			      h\left(\mathds{E} [y | X = x] \right) = \omega^T x
+			      h\left(\mathds{E} [y \mid X = x] \right) = \omega^T x
 		      }
 	      \end{equation*}
 
 	      If $h$ admits an inverse function, then $g = h^{-1}$
 
-	      The function $h$ is called the \emph{link function}.
-
+	      The function $h$ is called the \iemph{link function}.
 
 \end{enumerate}
 
@@ -187,7 +188,9 @@ Recall:
 	\end{tabular}
 \end{center}
 
-The last layer of a neural network is a GLM.
+\begin{note}
+  The last layer of a neural network is a GLM.
+\end{note}
 
 \subsection{Kinds of response/target variables}
 

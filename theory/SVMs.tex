@@ -1,15 +1,17 @@
 %! TEX root = ../000-main.tex
 % 2022-10-07
 \section{Support Vector Machines}
+\index{SVM}
 
 \subsection{Linear SVM}
 \label{sec:linear-svm}
+\index{linear SVM}
 
 \begin{equation*}
 	D = \{ (x^1,\, y^1),\, \dots,\, (x^n,\, y^n) \} \quad  x^i \in \mathds{R}^d \; y^i \in \{-1,\, 1\} \mid i = 1,\, \dots,\, n
 \end{equation*}
 
-The sum is a \emph{binary classification}.
+The sum is a \iemph{binary classification}.
 
 \begin{equation}
 	\mathcal{F}_{\text{lim}} = \{x \to f\left(\omega^Tx + b\right),\quad \omega \in \mathds{R}^d, \; b \in \mathds{R} \}
@@ -20,7 +22,7 @@ The idea is to predict class $+1$ whenever $\omega^Tx + b \geq 0$ and class $-1$
 
 \begin{definition}{linsep}{}
 	% \paragraph{Def: linsep}
-	A dataset is \emph{linsep} if:
+	A dataset is \iemph{linsep} if:
 
 	\begin{equation*}
 		\exists (\omega,\, \omega_0) \in \mathds{R}^d \setminus \{0\} \times \mathds{R}
@@ -32,12 +34,12 @@ The idea is to predict class $+1$ whenever $\omega^Tx + b \geq 0$ and class $-1$
 We assume from now on that $D$ is \emph{linsep}.
 
 \begin{definition}{geometric margin}{}
-	The \emph{geometric margin} of a linear
+	The \iemph{geometric margin} of a linear
 	classifier $f \to \omega^Tx + b$ at a data point $x$ is the
 	euclidean distance from $x$ to the hyperplane $\pi$.
 
 	\begin{equation*}
-		\gamma(x) = \frac{\|\omega^Tx + b\|}{\lVert\omega\rVert} \tag{geometric margin}
+		\gamma(x) = \frac{\lVert\omega^Tx + b\rVert}{\lVert\omega\rVert} \tag{geometric margin}
 	\end{equation*}
 \end{definition}
 
@@ -115,6 +117,9 @@ its geometric margin over the data, $\gamma_{\text{min}}(f)$.
 \end{enumerate}
 
 \subsubsection{The dual problem}
+\index{dual}
+\index{lagrangian function}
+\index{lagrangian multiplier}
 
 The Lagrangian function:
 
@@ -172,7 +177,7 @@ The Lagrangian function:
 
 \begin{question}{What kind of problem do we have?}{}
 	Quadratic problem subject to linear (inequality) constraints is
-	a \emph{quadratic programming} (QP) problem.
+	a \iemph{quadratic programming} (QP) problem.
 \end{question}
 
 \begin{question}{What is the SVM model?}{}
@@ -184,7 +189,7 @@ The Lagrangian function:
 		\tag{PRIMAL}
 	\end{equation*}
 
-	For the primal version, we have $d+1$ parameters to estimate.
+  For the \iemph{primal} version, we have $d+1$ parameters to estimate.
 
 	\begin{align*}
 		 & = \text{sign} \left( \left(\sum_{i=1}^n \hat\alpha_i y^i x^i \right)^T x + \hat{b} \right) \\
@@ -213,7 +218,7 @@ The Lagrangian function:
 \end{question}
 
 \begin{definition}{Parametric model}{parametric}
-	A model is called \emph{parametric} when its size does not
+	A model is called \iemph{parametric} when its size does not
 	grow with the size of the training data.
 
 	\begin{enumerate}
@@ -223,7 +228,11 @@ The Lagrangian function:
 \end{definition}
 
 \begin{definition}{Leave One Out cross-validation error}{loo}
-	%TODO
+  \index{LOO}
+  $K$-fold cross-validation taken to the extreme: $K=n$.
+  Means that we train on $n-1$ data points and test on the remaining one.
+  We do this $n$ times, each time leaving out a different data point.
+  The LOO error is the average of the $n$ test errors.
 \end{definition}
 
 \begin{theorem}{LOO analysis}{looanal}
@@ -249,7 +258,7 @@ The Lagrangian function:
 			\right]
 	\end{equation*}
 
-	This is an argument in favor of \emph{sparsity} (def.\ref{def:sparsity}).
+	This is an argument in favor of \iemph{sparsity} (def.~\ref{def:sparsity}).
 \end{theorem}
 
 \begin{definition}{Sparsity}{sparsity}
@@ -268,50 +277,91 @@ The solution is:
 	i=1,\dots,n
 \end{equation*}
 
-These $\xi_i$ variables are called \emph{slack variables}.
+These $\xi_i$ variables are called \iemph{slack variables}.
 
 $\xi_i$ is the amount needed s.t. $y^i (\omega^T x^i + b) \geq 1$.
 
-The\begin{figure}[H]
-	\begin{tikzpicture}
-		\begin{axis}[
-				domain=0:10,
-				xmin=0.0, xmax=10,
-				ymin=0, ymax=10,
-				samples=100,
-				% area style,
-				ticks=none,
-			]
-			\addplot+[mark=none] {7 - x};
-			\addplot+[mark=none, dotted] {10 - x};
-			\addplot+[mark=none, dotted] {4 - x};
-			\addlegendentry{$\pi: \omega^Tx + b = 0$}
-			\addlegendentry{$ \omega^Tx + b = 1$}
-			\addlegendentry{$ \omega^Tx + b = -1$}
-			\node[name=x1,label={90:{$x_1$}},circle,fill,inner sep=2pt] at (axis cs:4,4) {};
-			\node[name=x2,label={90,red:{$x_2$}},circle,fill,red,inner sep=2pt] at (axis cs:3.5,2.2) {};
-			\draw[orange] (axis cs:3,7) -- (axis cs:1.5,5.5);
-			\node[label={90,orange:{$m$}}] at (axis cs:2,6) {};
-      \draw[green] (axis cs:2,2) -- (x1);
-			\node[label={90,green:{$\xi_i$}}] at (axis cs:2.5,2.5) {};
-		\end{axis}
+\begin{figure}[H]
+\begin{tikzpicture}[
+      important line/.style={thick,blue,thick},
+      dashed line/.style={dashed,blue,thick},
+      leftNode/.style={circle,minimum width=.5ex, fill=blue,draw},
+      rightNode/.style={rectangle,minimum width=.5ex, fill=red,thick,draw},
+  ]
+  \pgfmathsetseed{1234}
+  \begin{axis}[
+    width=0.8\textwidth,
+    xmin=-50,xmax=50,
+    ymin=-50,ymax=50,
+    ticks=none,
+    axis lines=none,
+    ]
+  \pgfmathsetmacro{\sep}{20};
+  \pgfmathsetmacro{\xorig}{120};
+  \pgfmathsetmacro{\rot}{60};
 
-	\end{tikzpicture}
+  \begin{scope}[rotate around={\rot:(0,0)}]
+    \draw[dashed line] (-100, -\sep) -- (100, -\sep);
+    \draw[dashed line] (-100, \sep) -- (100, \sep);
+    \draw[important line] (-100, 0) -- (100, 0);
+
+    \node[leftNode,label={$x_1$},name=x1] at (-20, \sep) {};
+    \node[rightNode,label={$x_2$},name=x2] at (-22, -\sep) {};
+
+    \node[leftNode,label={$x_3$},name=x3] at (-10, -\sep*3/2) {};
+    \node[leftNode,label={$x_5$},name=x5] at (-27, -\sep/3) {};
+
+    \node[rightNode,label={$x_4$},name=x4] at (10, -\sep*2/3) {};
+
+    \coordinate (origin) at (0, 0);
+    \coordinate (left) at (0, \sep);
+    \coordinate (right) at (0, -\sep);
+
+    \coordinate (x3l) at (x3 |- left);
+    \coordinate (x4r) at (x4 |- right);
+    \coordinate (x5l) at (x5 |- left);
+
+    \begin{scope}[color=purple]
+      \draw (x3) -- (x3l) {};
+      \draw (x4) -- (x4r) {};
+      \draw (x5) -- (x5l) {};
+      \node[anchor=north] at ($(x3)!0.5!(x3l)$) {$\xi_3$};
+      \node[anchor=north] at ($(x4)!0.5!(x4r)$) {$\xi_4$};
+      \node[anchor=north] at ($(x5)!0.5!(x5l)$) {$\xi_5$};
+    \end{scope}
+
+    \draw[<->,orange,line width=2pt] (-34,\sep) -- (-34,-\sep);
+    % \node[orange,anchor=north] at (-34,0) {$\frac{2}{\lVert \omega \rVert}$};
+    \node[orange,anchor=north,rotate=\rot-90,fill=white] at (-34.25,0) {margin = $\frac{2}{\lVert \omega \rVert}$};
+
+    \pgfplotsinvokeforeach{0.00,0.1,...,1.00}{
+      \node [leftNode] at (rand*30-20,\sep+rnd*30) {};
+      \node [rightNode] at (rand*30,-\sep-rnd*30) {};
+    }
+
+  \end{scope}
+    \node[blue,anchor=south east,rotate=\rot] at (2,45) {$\omega^T x + b = 1$};
+    \node[blue,anchor=south east,rotate=\rot] at (22,45) {$\pi:\,\omega^T x + b = 0$};
+    \node[blue,anchor=south east,rotate=\rot] at (42,45) {$\omega^T x + b = -1$};
+
+\end{axis}
+\end{tikzpicture}
+\caption{SVM Slack Variables}\label{fig:slack}
 \end{figure}
 
 If we remove the points inside the margin, we get a new dataset
 which is linearly separable and has 0 training error. This is called
-\emph{soft margin} SVM, in contrast with a hard-margin SVM, and
+\iemph{soft-margin SVM}, in contrast with a hard-margin SVM, and
 the margin will be $\frac{2}{\|\omega\|}$.
 
 Finding the hyperplane with the smallest training error
-if NP-hard.
+is NP-hard.
 
 We  have two antagonic goals:
 \begin{enumerate}
 	\item maximize the margin
 	\item \textbf{minimize the training error} An upper bound on the
-	      number of training errors is upper bounded y the sum of the slacks:
+	      number of training errors is upper bounded by the sum of the slacks:
 	      \begin{equation*}
 		      n TR \leq \sum_{i=1}^n \xi_i
 	      \end{equation*}
@@ -320,8 +370,8 @@ We  have two antagonic goals:
 The new optimization problem is:
 \begin{align*}
 	\min_{\omega, b, \xi} &
-	\underbrace{\frac{1}{2} \|\omega\|^2}_{\text{maximize the margin}}
-	+ C \cdot \underbrace{\sum_{i=1}^n \xi_i}_{\text{minimize the TR}} \\
+  \underbrace{\frac{1}{2} \|\omega\|^2}_{\substack{\text{maximize}\\\text{margin}}}
+  + C \cdot \underbrace{\sum_{i=1}^n \xi_i}_{\substack{\text{minimize}\\\text{TR}}} \\
 	\text{s.t.}           & \begin{rcases*}
 		                        y^i (\omega^T x^i + b) \geq 1 - \xi_i \\
 		                        \xi_i \geq 0
@@ -329,5 +379,5 @@ The new optimization problem is:
 	\quad i=1,\dots,n
 \end{align*}
 
-We add an hyperparameter $C$ which controls the tradeoff between
+We add a hyperparameter $C$ which controls the tradeoff between
 these two goals.

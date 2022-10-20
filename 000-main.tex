@@ -19,11 +19,11 @@
 \g@addto@macro\@floatboxreset\centering
 \makeatother
 
-\usepackage{ulem}
+\usepackage[normalem]{ulem}
 \usepackage{dsfont}
 \usepackage{tikz}
 % \usepackage{tikzexternal}
-\usetikzlibrary{shapes,arrows,positioning}
+\usetikzlibrary{shapes,arrows,positioning,calc}
 
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
@@ -81,7 +81,10 @@
 \author{Aleix Boné}
 \date{\today}
 
+\makeindex
+
 \begin{document}
+\newcommand{\iemph}[1]{\index{#1}\emph{#1}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TITLE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -125,6 +128,7 @@
 
 \nocite{*}
 
+\printindex\pagebreak
 \printbibliography
 
 \end{document}

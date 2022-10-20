@@ -1,4 +1,5 @@
 \section{A glimpse into Bayesian methods (for supervised ML)}
+\index{bayesian}
 
 We have a data sample \(D = \{ x^i, y^i\}\quad i = 1, \dots, n\)
 where \(x \in \mathcal{X} = \mathds{R}^d, y^i \in \mathcal{Y}\)
@@ -154,17 +155,17 @@ By convention \(\underbar{\omega} := (\omega,\, \omega_0)\)
 	      \end{align*}
 
 	      A parameter that controls other parameters is called a
-	      \emph{hyperparameter}. In this case, \(\sigma_\omega\) is an
+	      \iemph{hyperparameter}. In this case, \(\sigma_\omega\) is an
 	      hyperparameter.
 
-	\item \emph{The likelihood function}
+	\item The \emph{likelihood function}
 
 	      \[
 		      \mathcal{L}(\underbar{\omega} ; \beta) = \prod_{i=1}^n P(y^i | x^i, \underbar{\omega}) =
 		      \prod_{i=1}^n \mathcal{N}(y^i | f_{\underbar{\omega}}(x^i), \sigma^2)
 	      \]
 
-	\item \emph{The posterior distribution}
+	\item The \iemph{posterior distribution}
 \end{enumerate}
 
 \[P(\underbar{\omega} | y, X, \alpha, \beta) = \frac{\mathcal{L}(\underbar{\omega}; \beta) P(\underbar{\omega} | \alpha)}
