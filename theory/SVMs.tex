@@ -120,6 +120,7 @@ its geometric margin over the data, $\gamma_{\text{min}}(f)$.
 \index{dual}
 \index{lagrangian function}
 \index{lagrangian multiplier}
+\index{KKT}
 
 The Lagrangian function:
 
@@ -166,7 +167,7 @@ The Lagrangian function:
 
 \begin{note}{}{}
 	The (primal) solution vector $\omega$
-	can be expressed as a linear combination of the (known) data points$x^i$.
+	can be expressed as a linear combination of the (known) data points $x^i$.
 \end{note}
 
 % How \emph{general} are these properties?
@@ -189,7 +190,7 @@ The Lagrangian function:
 		\tag{PRIMAL}
 	\end{equation*}
 
-  For the \iemph{primal} version, we have $d+1$ parameters to estimate.
+	For the \iemph{primal} version, we have $d+1$ parameters to estimate.
 
 	\begin{align*}
 		 & = \text{sign} \left( \left(\sum_{i=1}^n \hat\alpha_i y^i x^i \right)^T x + \hat{b} \right) \\
@@ -228,11 +229,11 @@ The Lagrangian function:
 \end{definition}
 
 \begin{definition}{Leave One Out cross-validation error}{loo}
-  \index{LOO}
-  $K$-fold cross-validation taken to the extreme: $K=n$.
-  Means that we train on $n-1$ data points and test on the remaining one.
-  We do this $n$ times, each time leaving out a different data point.
-  The LOO error is the average of the $n$ test errors.
+	\index{LOO}
+	$K$-fold cross-validation taken to the extreme: $K=n$.
+	Means that we train on $n-1$ data points and test on the remaining one.
+	We do this $n$ times, each time leaving out a different data point.
+	The LOO error is the average of the $n$ test errors.
 \end{definition}
 
 \begin{theorem}{LOO analysis}{looanal}
@@ -282,71 +283,70 @@ These $\xi_i$ variables are called \iemph{slack variables}.
 $\xi_i$ is the amount needed s.t. $y^i (\omega^T x^i + b) \geq 1$.
 
 \begin{figure}[H]
-\begin{tikzpicture}[
-      important line/.style={thick,blue,thick},
-      dashed line/.style={dashed,blue,thick},
-      leftNode/.style={circle,minimum width=.5ex, fill=blue,draw},
-      rightNode/.style={rectangle,minimum width=.5ex, fill=red,thick,draw},
-  ]
-  \pgfmathsetseed{1234}
-  \begin{axis}[
-    width=0.8\textwidth,
-    xmin=-50,xmax=50,
-    ymin=-50,ymax=50,
-    ticks=none,
-    axis lines=none,
-    ]
-  \pgfmathsetmacro{\sep}{20};
-  \pgfmathsetmacro{\xorig}{120};
-  \pgfmathsetmacro{\rot}{60};
+	\begin{tikzpicture}[
+			important line/.style={thick,blue,thick},
+			dashed line/.style={dashed,blue,thick},
+			leftNode/.style={circle,minimum width=.5ex, fill=blue,draw},
+			rightNode/.style={rectangle,minimum width=.5ex, fill=red,thick,draw},
+		]
+		\pgfmathsetseed{1234}
+		\begin{axis}[
+				width=0.8\textwidth,
+				xmin=-50,xmax=50,
+				ymin=-50,ymax=50,
+				ticks=none,
+				axis lines=none,
+			]
+			\pgfmathsetmacro{\sep}{20};
+			\pgfmathsetmacro{\xorig}{120};
+			\pgfmathsetmacro{\rot}{60};
 
-  \begin{scope}[rotate around={\rot:(0,0)}]
-    \draw[dashed line] (-100, -\sep) -- (100, -\sep);
-    \draw[dashed line] (-100, \sep) -- (100, \sep);
-    \draw[important line] (-100, 0) -- (100, 0);
+			\begin{scope}[rotate around={\rot:(0,0)}]
+				\draw[dashed line] (-100, -\sep) -- (100, -\sep);
+				\draw[dashed line] (-100, \sep) -- (100, \sep);
+				\draw[important line] (-100, 0) -- (100, 0);
 
-    \node[leftNode,label={$x_1$},name=x1] at (-20, \sep) {};
-    \node[rightNode,label={$x_2$},name=x2] at (-22, -\sep) {};
+				\node[leftNode,label={$x_1$},name=x1] at (-20, \sep) {};
+				\node[rightNode,label={$x_2$},name=x2] at (-22, -\sep) {};
 
-    \node[leftNode,label={$x_3$},name=x3] at (-10, -\sep*3/2) {};
-    \node[leftNode,label={$x_5$},name=x5] at (-27, -\sep/3) {};
+				\node[leftNode,label={$x_3$},name=x3] at (-10, -\sep*3/2) {};
+				\node[leftNode,label={$x_5$},name=x5] at (-27, -\sep/3) {};
 
-    \node[rightNode,label={$x_4$},name=x4] at (10, -\sep*2/3) {};
+				\node[rightNode,label={$x_4$},name=x4] at (10, -\sep*2/3) {};
 
-    \coordinate (origin) at (0, 0);
-    \coordinate (left) at (0, \sep);
-    \coordinate (right) at (0, -\sep);
+				\coordinate (origin) at (0, 0);
+				\coordinate (left) at (0, \sep);
+				\coordinate (right) at (0, -\sep);
 
-    \coordinate (x3l) at (x3 |- left);
-    \coordinate (x4r) at (x4 |- right);
-    \coordinate (x5l) at (x5 |- left);
+				\coordinate (x3l) at (x3 |- left);
+				\coordinate (x4r) at (x4 |- right);
+				\coordinate (x5l) at (x5 |- left);
 
-    \begin{scope}[color=purple]
-      \draw (x3) -- (x3l) {};
-      \draw (x4) -- (x4r) {};
-      \draw (x5) -- (x5l) {};
-      \node[anchor=north] at ($(x3)!0.5!(x3l)$) {$\xi_3$};
-      \node[anchor=north] at ($(x4)!0.5!(x4r)$) {$\xi_4$};
-      \node[anchor=north] at ($(x5)!0.5!(x5l)$) {$\xi_5$};
-    \end{scope}
+				\begin{scope}[color=purple]
+					\draw (x3) -- (x3l) {};
+					\draw (x4) -- (x4r) {};
+					\draw (x5) -- (x5l) {};
+					\node[anchor=north] at ($(x3)!0.5!(x3l)$) {$\xi_3$};
+					\node[anchor=north] at ($(x4)!0.5!(x4r)$) {$\xi_4$};
+					\node[anchor=north] at ($(x5)!0.5!(x5l)$) {$\xi_5$};
+				\end{scope}
 
-    \draw[<->,orange,line width=2pt] (-34,\sep) -- (-34,-\sep);
-    % \node[orange,anchor=north] at (-34,0) {$\frac{2}{\lVert \omega \rVert}$};
-    \node[orange,anchor=north,rotate=\rot-90,fill=white] at (-34.25,0) {margin = $\frac{2}{\lVert \omega \rVert}$};
+				\draw[<->,orange,line width=2pt] (-34,\sep) -- (-34,-\sep);
+				\node[orange,anchor=north,rotate=\rot-90,fill=white] at (-34.25,0) {margin = $\frac{2}{\lVert \omega \rVert}$};
 
-    \pgfplotsinvokeforeach{0.00,0.1,...,1.00}{
-      \node [leftNode] at (rand*30-20,\sep+rnd*30) {};
-      \node [rightNode] at (rand*30,-\sep-rnd*30) {};
-    }
+				\pgfplotsinvokeforeach{0.00,0.1,...,1.00}{
+					\node [leftNode] at (rand*30-20,\sep+rnd*30) {};
+					\node [rightNode] at (rand*30,-\sep-rnd*30) {};
+				}
 
-  \end{scope}
-    \node[blue,anchor=south east,rotate=\rot] at (2,45) {$\omega^T x + b = 1$};
-    \node[blue,anchor=south east,rotate=\rot] at (22,45) {$\pi:\,\omega^T x + b = 0$};
-    \node[blue,anchor=south east,rotate=\rot] at (42,45) {$\omega^T x + b = -1$};
+			\end{scope}
+			\node[blue,anchor=south east,rotate=\rot] at (2,45) {$\omega^T x + b = 1$};
+			\node[blue,anchor=south east,rotate=\rot] at (22,45) {$\pi:\,\omega^T x + b = 0$};
+			\node[blue,anchor=south east,rotate=\rot] at (42,45) {$\omega^T x + b = -1$};
 
-\end{axis}
-\end{tikzpicture}
-\caption{SVM Slack Variables}\label{fig:slack}
+		\end{axis}
+	\end{tikzpicture}
+	\caption{SVM Slack Variables}\label{fig:slack}
 \end{figure}
 
 If we remove the points inside the margin, we get a new dataset
@@ -370,8 +370,8 @@ We  have two antagonic goals:
 The new optimization problem is:
 \begin{align*}
 	\min_{\omega, b, \xi} &
-  \underbrace{\frac{1}{2} \|\omega\|^2}_{\substack{\text{maximize}\\\text{margin}}}
-  + C \cdot \underbrace{\sum_{i=1}^n \xi_i}_{\substack{\text{minimize}\\\text{TR}}} \\
+	\underbrace{\frac{1}{2} \|\omega\|^2}_{\substack{\text{maximize}     \\\text{margin}}}
+	+ C \cdot \underbrace{\sum_{i=1}^n \xi_i}_{\substack{\text{minimize} \\\text{TR}\\\text{upper bound of TR}}} \\
 	\text{s.t.}           & \begin{rcases*}
 		                        y^i (\omega^T x^i + b) \geq 1 - \xi_i \\
 		                        \xi_i \geq 0
@@ -379,5 +379,160 @@ The new optimization problem is:
 	\quad i=1,\dots,n
 \end{align*}
 
-We add a hyperparameter $C$ which controls the tradeoff between
+We add a hyperparameter $C$ which controls the trade-off between
 these two goals.
+
+% 2022-10-21
+\subsection{Loss functions for the SVM (classification case)}
+
+\begin{align*}
+	\lVert \xi \rVert_q^q          & = \sum_{i=1}^n \xi_i,\quad q \geq 1      \\
+	\lVert \xi \rVert_\infty       & = \max \{ \xi_1,\,\xi_2,\,\dots \xi_n \} \\
+	\text{Typical values for $q$:} & \begin{cases*}
+		                                 q=1 & \text{1-norm SVM} \\
+		                                 q=2 & \text{2-norm SVM} \\
+	                                 \end{cases*}
+\end{align*}
+
+\begin{tikzpicture}
+	\pgfmathsetseed{1234}
+	\begin{axis}[
+			width=0.8\textwidth,
+			xmin=-3,xmax=3,
+			ymin=-1,ymax=5,
+			xtick={0,1},
+			ytick={0,1},
+			axis lines=middle,
+			xlabel=$z$,
+		]
+		% 0 1 loss
+		\draw[red, line width=2pt] (-5,1) -- (0,1);
+		\draw[red, line width=2pt](0,0) -- (5,0);
+		\addlegendimage{draw=red, line width=2pt};
+		\addlegendentry{0-1 loss}
+
+		% hinge loss
+		\draw[blue, line width=2pt] (-4,5) -- (1,0) -- (5,0);
+		\addlegendimage{draw=blue, line width=2pt};
+		\addlegendentry{hinge loss}
+
+		% quadratic hinge loss
+		\draw[green, line width=2pt] (1,0) -- (5,0);
+		\addplot[green, line width=2pt, domain=-3:1] {(1 - x)^2};
+		\addlegendimage{draw=green, line width=2pt};
+		\addlegendentry{quadratic hinge loss}
+
+		\node[red, fill=white, draw, circle, inner sep=0pt, minimum size=5pt] at (0,1) {};
+		\node[red, fill=red, draw, circle, inner sep=0pt, minimum size=5pt] at (0,0) {};
+	\end{axis}
+\end{tikzpicture}
+
+\begin{align*}
+	L_(0/1) (z)  & = \begin{cases}
+		                 0 & \text{if } z \geq 0 \\
+		                 1 & \text{if } z < 0
+	                 \end{cases} == \mathbb{1}_{z \leq 0}          \\
+	L_{hl} (z)   & = \max \{ 0, 1 - z \}                &  & (q=1) \\
+	L_{hl^2} (z) & = \max \{ 0, 1 - z \}^2              &  & (q=2) \\
+\end{align*}
+
+\begin{exercise}{Homework}{}
+	repeat all the steps from the primal to the final solution
+	(model): exactly the same!
+
+	\begin{equation*}
+		0 \leq \alpha_i \leq C
+	\end{equation*}
+\end{exercise}
+
+\subsection{SVMs for regression}
+\index{SVMC}
+\paragraph*{Idea}: we want a regression algorithm that maintains the defining
+(and good) features of the SVMC\footnote{Support Vector Machine for Classification}:
+\begin{itemize}
+	\item \textbf{Sparsity} and obtention of SVs (Support Vectors).
+	\item \textbf{Notion of margin} as a regularizer.
+	\item \textbf{Unique solution} (QP)
+	\item Data points $x_i$ appear in the model ($f_{SVM}$) and the QP problem
+	      \emph{only} as linear products.
+	\item Linear models
+\end{itemize}
+
+\begin{figure}[H]
+	\begin{tikzpicture}[
+			important line/.style={thick,blue,thick},
+			dashed line/.style={dashed,blue,thick},
+			leftNode/.style={circle,minimum width=.5ex, fill=blue,draw},
+			rightNode/.style={rectangle,minimum width=.5ex, fill=red,thick,draw},
+		]
+		\pgfmathsetseed{1234}
+		\begin{axis}[
+				width=0.8\textwidth,
+				xmin=-50,xmax=50,
+				ymin=-50,ymax=50,
+				ticks=none,
+				axis lines=none,
+        legend pos=north west,
+			]
+			\pgfmathsetmacro{\rot}{45};
+
+			\begin{scope}[rotate around={\rot:(0,0)}]
+
+				\pgfplotsinvokeforeach{1,...,30}{
+					\node [rightNode] at (rand*50, rand*20) {};
+				}
+
+				\draw (-50,0) -- (50,0);
+				\draw[dashed] (-50,10) -- (50,10);
+				\draw[dashed] (-50,-10) -- (50,-10);
+
+				\draw[fill=blue,opacity=0.4] (-50,-10) rectangle (50,10);
+				\addlegendimage{area legend,fill=blue,opacity=0.4};
+				\addlegendentry{$\varepsilon$-tube};
+
+			\end{scope}
+
+		\end{axis}
+	\end{tikzpicture}
+\end{figure}
+
+\begin{itemize}
+	\item $\varepsilon > 0$
+	\item All points strictly inside the $\epsilon$-tube entail 0 error.
+	\item All points (strictly) outside the $\epsilon$-tube entail a positive,
+	      equal to the vertical distance to the nearest margin side.
+\end{itemize}
+
+\begin{equation*}
+	L_{\epsilon} (y,\,y') = \begin{cases}
+		0                      & \text{if } |y - y'| \leq \varepsilon \\
+		|y - y'| - \varepsilon & \text{otherwise }
+	\end{cases}
+\end{equation*}
+
+We need to introduce two sets of slacks,
+$\overline{\xi_i},\, \underline{\xi_i} \geq 0,\; i=1,\dots,n$,
+
+\begin{align*}
+	\min_{w,\,b,\,\xi,\,\overline{\xi},\,\underline{\xi}} &
+	\left\{ \frac{1}{2} \|w\|^2 +
+	C \sum_{i=1}^n \left(\overline{\xi}_i + \underline{\xi}_i \right) \right\}                                                  \\
+	\text{s.t.}                                           & \quad \begin{rcases*}
+		                                                              (\omega^T x_i + b) \geq y_i + \varepsilon + \overline{\xi}_i  \\
+		                                                              (\omega^T x_i + b) \leq y_i - \varepsilon - \underline{\xi}_i \\
+		                                                              \overline{\xi}_i,\, \underline{\xi}_i \geq 0
+	                                                              \end{rcases*} \quad i=1,\dots,n \\
+                                                        && \text{Convex QP problem}
+\end{align*}
+
+\begin{align*}
+	f_{SVMR} (x) & = \sum_{i=1}^n (\overline{\alpha}_i - \underline{\alpha}_i)
+	(x^i)^T x + b =                                                                                                                           \\
+	             & \downarrow \beta_i = \overline{\alpha}_i - \underline{\alpha}_i                                                            \\
+	             & = \sum_{i=1}^n (\beta_i) (x^i)^T x + b                                                                                     \\
+	             &                                                                 & \text{Many of }\beta_i\text{ are zero}                   \\
+	             &                                                                 & \text{SVs are those }x^i/\beta_i \neq 0                  \\
+	             &                                                                 & \text{We have two hyper-parameters: }C,\,\varepsilon > 0 \\
+	             &                                                                 & \text{overfitting } C \to \infty,\, \varepsilon \to 0
+\end{align*}
+
