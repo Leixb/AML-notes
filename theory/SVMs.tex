@@ -394,44 +394,49 @@ these two goals.
 	                                 \end{cases*}
 \end{align*}
 
+\begin{figure}[H]
 \begin{tikzpicture}
 	\pgfmathsetseed{1234}
 	\begin{axis}[
-			width=0.8\textwidth,
-			xmin=-3,xmax=3,
+			% width=0.8\textwidth,
+			xmin=-3,xmax=3.5,
 			ymin=-1,ymax=5,
 			xtick={0,1},
 			ytick={0,1},
 			axis lines=middle,
 			xlabel=$z$,
+      yticklabel style={below left},
 		]
-		% 0 1 loss
-		\draw[red, line width=2pt] (-5,1) -- (0,1);
-		\draw[red, line width=2pt](0,0) -- (5,0);
-		\addlegendimage{draw=red, line width=2pt};
-		\addlegendentry{0-1 loss}
+		% quadratic hinge loss
+		\draw[green, line width=2pt] (1,0) -- (2,0);
+		\addplot[green, line width=2pt, domain=-3:1] {(1 - x)^2};
+		\addlegendentry{quadratic hinge loss}
 
 		% hinge loss
-		\draw[blue, line width=2pt] (-4,5) -- (1,0) -- (5,0);
+		\draw[blue, line width=2pt] (-4,5) -- (1,0) -- (2,0);
 		\addlegendimage{draw=blue, line width=2pt};
 		\addlegendentry{hinge loss}
 
-		% quadratic hinge loss
-		\draw[green, line width=2pt] (1,0) -- (5,0);
-		\addplot[green, line width=2pt, domain=-3:1] {(1 - x)^2};
-		\addlegendimage{draw=green, line width=2pt};
-		\addlegendentry{quadratic hinge loss}
+		% 0 1 loss
+		\draw[red, line width=2pt] (-5,1) -- (0,1);
+		\draw[red, line width=2pt](0,0) -- (2,0);
+		\draw[red, line width=2pt,dotted](2,0) -- (3,0);
+		\addlegendimage{draw=red, line width=2pt};
+		\addlegendentry{0-1 loss}
+
 
 		\node[red, fill=white, draw, circle, inner sep=0pt, minimum size=5pt] at (0,1) {};
 		\node[red, fill=red, draw, circle, inner sep=0pt, minimum size=5pt] at (0,0) {};
 	\end{axis}
 \end{tikzpicture}
+\caption{Loss functions for the SVM (classification case)}\label{fig:loss}
+\end{figure}
 
 \begin{align*}
-	L_(0/1) (z)  & = \begin{cases}
+	L_{0/1} (z)  & = \begin{cases}
 		                 0 & \text{if } z \geq 0 \\
 		                 1 & \text{if } z < 0
-	                 \end{cases} == \mathbb{1}_{z \leq 0}          \\
+                   \end{cases} \equiv \mathds{1}_{\{z \leq 0\}}          \\
 	L_{hl} (z)   & = \max \{ 0, 1 - z \}                &  & (q=1) \\
 	L_{hl^2} (z) & = \max \{ 0, 1 - z \}^2              &  & (q=2) \\
 \end{align*}
@@ -445,8 +450,9 @@ these two goals.
 	\end{equation*}
 \end{exercise}
 
+\pagebreak
 \subsection{SVMs for regression}
-\index{SVMC}
+\index{SVMR}
 \paragraph*{Idea}: we want a regression algorithm that maintains the defining
 (and good) features of the SVMC\footnote{Support Vector Machine for Classification}:
 \begin{itemize}
@@ -469,7 +475,7 @@ these two goals.
 		\begin{axis}[
 				width=0.8\textwidth,
 				xmin=-50,xmax=50,
-				ymin=-50,ymax=50,
+				ymin=-40,ymax=40,
 				ticks=none,
 				axis lines=none,
         legend pos=north west,
@@ -478,15 +484,24 @@ these two goals.
 
 			\begin{scope}[rotate around={\rot:(0,0)}]
 
+				\draw[fill=blue,opacity=0.4] (-80,-10) rectangle (80,10);
+
+        \draw[line width=2pt] (-80,0) -- (80,0);
+				\draw[dashed, line width=2pt] (-80,10) -- (80,10);
+				\draw[dashed, line width=2pt] (-80,-10) -- (80,-10);
+
 				\pgfplotsinvokeforeach{1,...,30}{
-					\node [rightNode] at (rand*50, rand*20) {};
-				}
+					\node [rightNode] at (rand*50, rand*15) {};
+				};
+				\pgfplotsinvokeforeach{1,...,5}{
+					\node [rightNode] at (rand*50, rnd*30 + 10) {};
+					\node [rightNode] at (rand*50, -rnd*30 - 10) {};
+				};
 
-				\draw (-50,0) -- (50,0);
-				\draw[dashed] (-50,10) -- (50,10);
-				\draw[dashed] (-50,-10) -- (50,-10);
+      % \addplot[only marks,red,mark=*,mark size=1pt,domain=-50:50] {rand*30};
 
-				\draw[fill=blue,opacity=0.4] (-50,-10) rectangle (50,10);
+        \addlegendimage{legend image code/.code={\node [rightNode,anchor=center] at (2mm,0){};}};
+        \addlegendentry{data};
 				\addlegendimage{area legend,fill=blue,opacity=0.4};
 				\addlegendentry{$\varepsilon$-tube};
 
@@ -494,6 +509,7 @@ these two goals.
 
 		\end{axis}
 	\end{tikzpicture}
+  \caption{SVMR: regression with an $\varepsilon$-tube}
 \end{figure}
 
 \begin{itemize}
