@@ -1,0 +1,85 @@
+%! TEX root = ../000-main.tex
+% 2022-10-24
+\subsection{SVM exercises}
+
+\begin{exercise}[breakable]{}{}
+	Consider a hard-margin SVM. We know that for all Svs $x_i$:
+	\begin{equation}
+		\label{eq:svm:margin}
+		\widehat\omega^T x^i + \widehat{b} = y^i
+	\end{equation}
+
+	\begin{enumerate}
+		\item Obtain an expression for $\widehat{b}$ in therms of the
+		      dual variable, $\widehat{\alpha}_i$.
+		      \begin{align*}
+			      \widehat\omega & = \sum_{i=1}^n \widehat\alpha_i y^i x^i                            \\
+			      \widehat{b}    & = y^i - \left( \sum_{j=1}^n \widehat\alpha_j y^j x^j \right)^T x^i \\
+			                     & = y^i - \sum_{j=1}^n \widehat\alpha_j y^j \left(x^j\right)^T x^i
+		      \end{align*}
+
+		      \begin{note}
+			      In practice, we use more than one support vector:
+			      \begin{equation*}
+				      %\doublehat
+				      \widehat b = \frac{1}{\left|S\right|} \sum_{i \in S}
+				      \left(
+				      y^i - \sum_{j=1}^n \widehat\alpha_j y^j \left(x^j\right)^T x^i
+				      \right)
+			      \end{equation*}
+		      \end{note}
+
+		\item Derive a simple expression for the margin of the dual.
+
+      Using the expression for $\widehat b$ from the previous part, we can
+      write the margin as:
+		      \begin{align*}
+            \widehat{b}   & = y^i - \sum_{j=1}^n \widehat\alpha_j y^j \left(x^j\right)^T x^i \label{eqstep:1}\tag{b} \\
+            m &= \frac{2}{\lVert \widehat\omega \rVert} \tag{target}\\
+            \sum_{i=1}^n \widehat\alpha_i y^i &= 0 \\
+            \span\text{We take \cref{eqstep:1} and multiply by } (\widehat\alpha_iy^i): \\
+            \widehat\alpha_iy^i \widehat b &= \widehat\alpha_iy^i y^i - \sum_{j=1}^n \widehat\alpha_iy^i \widehat\alpha_j y^j \left(x^j\right)^T x^i \\
+            \cancelto{0}{\widehat\alpha_iy^i \widehat b} &=
+            \widehat\alpha_i \cancelto{1}{y^i y^i} - \sum_{j=1}^n \widehat\alpha_iy^i \widehat\alpha_j y^j \left(x^j\right)^T x^i \\
+            0 &= \sum_{i=1}^n \widehat\alpha_i
+            - \sum_{i=1}^n \sum_{j=1}^n \widehat\alpha_i \widehat\alpha_j y^i y^j \left(x^j\right)^T x^i \\
+            \sum_{i=1}^n \widehat\alpha_i &= \sum_{i=1}^n \sum_{j=1}^n \widehat\alpha_i \widehat\alpha_j y^i y^j \left(x^j\right)^T x^i = \left(\widehat\omega\right)^T \widehat\omega \\
+            \sum_{i=1}^n \widehat\alpha_i &= \lVert \widehat\alpha \rVert_1 \\
+            \widehat\alpha_i \geq 0 &\implies \lVert \widehat\alpha \rVert_1 = \lVert \widehat\omega \rVert^2 \\
+            m &= \lVert \widehat\alpha \rVert_1^{-1/2}
+		      \end{align*}
+	\end{enumerate}
+\end{exercise}
+
+\begin{exercise}{}{}
+	Consider again a hard-margin SVM in the dual form. Express
+	the optimization problem as a minimization over a
+	recognizable QP (quadratic problem), in vector-matrix form.
+\end{exercise}
+
+\begin{exercise}{}{}
+  Consider this hypothesis space in $\mathds{R}$:
+  \begin{equation*}
+    \mathcal{F}_\text{SVM} := \left\{
+      x \to \text{sign}\left( \sin (\alpha x)\right),\; \alpha \in \mathds{R}
+    \right\},\; x \in \mathds{R}
+  \end{equation*}
+
+  Calculate the VC-dimension of $\mathcal{F}_\text{SVM}$.
+
+  \tcblower
+
+  The VC-dimension is intrinsically related to the number
+  of parameters.
+
+  You choose $n \geq 2$
+
+  \begin{align*}
+    x^i := 10^{-i},\; i \in \{1, \ldots, n\} \\
+    \alpha_j := \pi \left[
+      1 + \sum_{i=1}^n \left( \frac{1}{2}(1 + ?)1-10^i \right)^i
+    \right] \\
+    y = (-1, +1, -1, +1, -1, +1, -1, +1, -1, -1,  +1, +1, -1, +1, +1)
+  \end{align*}
+
+\end{exercise}
