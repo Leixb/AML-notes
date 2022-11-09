@@ -70,8 +70,7 @@ In most of the cases, randomness is ignorance of the true effects.
 		L(y,\, y') & = 0  \Longleftarrow y = y'
 	\end{align*}
 
-	Examples of loss functions:
-
+  \tcbsubtitle{Examples of loss functions}
 	\begin{align*}
 		L(y,\, y') & := \begin{cases}1 \quad \text{if } y \neq y' \\ 0 \quad \text{otherwise} \end{cases} &  & \text{(0-1 loss) / (zero-one) / } L_{01} \\
 		L(y,\, y') & := (y - y')^2                                                                        &  & \text{(squared error)}
@@ -99,6 +98,7 @@ In most of the cases, randomness is ignorance of the true effects.
 		\mathds{R}[f] := \mathds{E}_{(x,\, y) \sim p} \left[ L(f(x),\, y) \right]
 	\end{equation*}
 
+  \tcblower{}
 	\begin{note}
 		A function that takes a function as an argument is called a functional.
 
@@ -115,6 +115,7 @@ In most of the cases, randomness is ignorance of the true effects.
 		\hat{R}_{D^n}[f] = \frac{1}{n} \sum_{i=1}^n L(f(x_i), y_i)
 	\end{equation*}
 
+  \tcblower{}
 	\begin{note}
 		This is also a functional.
 	\end{note}
@@ -134,6 +135,7 @@ In most of the cases, randomness is ignorance of the true effects.
 		\mathds{E}_{D^{ijd}p^n}[\hat{R}_{D^n}[f]] = R[f]
 	\end{equation*}
 
+  \tcblower
 	\begin{proof} TODO
 	\end{proof}
 \end{prop}
@@ -168,7 +170,7 @@ In most of the cases, randomness is ignorance of the true effects.
 	classifier. Which is the one that given x, assigns the class with the
 	highest posterior probability.
 
-	\[f^* = \argmax {P(w | x)}\]
+	\[f^* = \argmax {P(w \mid x)}\]
 
 	\begin{enumerate}
 		\item The risk of \(f_{01}^*\) is the Bayes risk.
