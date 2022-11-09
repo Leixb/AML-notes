@@ -5,7 +5,6 @@
 % PREAMBLE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{001-preamble}
-\synctex=1
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % EXTRA PACKAGES / CONFIG
@@ -13,6 +12,8 @@
 
 % Set default figure size
 \setkeys{Gin}{width=.9\textwidth, keepaspectratio}
+
+\usepackage{fancyhdr}
 
 % Center figures by default
 \makeatletter
@@ -133,6 +134,10 @@
 \setlength{\parskip}{1em plus 0.5em minus 0.2em}
 %\setlength{\parindent}{0pt}
 
+\setlength{\headheight}{14.5pt}
+\pagestyle{fancy}
+
+\chapter{Theory}
 % Theory
 \include{2022-09-12} % Problemes
 \include{2022-09-23} % Teoria
@@ -141,6 +146,7 @@
 \include{theory/SVMs}
 \include{theory/complexity}
 
+\chapter{Problems}
 % Problem sessions
 \include{2022-10-02}
 \include{problems/2022-10-10}
