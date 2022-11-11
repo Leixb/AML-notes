@@ -1,5 +1,9 @@
 %! TEX root = ../000-main.tex
-\chapter{Learning in RKHSs}
+\chapter[RKHSs]{Learning in RKHSs}
+
+\section{Introduction}
+
+\subsection{Hilbert Spaces}
 
 \begin{definition}{Hilbert space}{hilber-space}
 	\begin{itemize}
@@ -16,7 +20,7 @@
 	\end{itemize}
 
 	A space in which all Cauchy sequences converge to an element of the space is
-	called \emph{complete}.
+  called \emph{complete}.\index{complete space}
 
 	A complete vector space in which we have
 	a norm ($\lVert \cdot \rVert$) is called a \iemph{Banach space}.
@@ -39,14 +43,15 @@
 	\end{itemize}
 \end{example}
 
-\begin{definition}{RKHSs}{RKHSs}
+\subsection{Reproducing Kernel}
+
+\begin{definition}[parbox=false]{RKHSs}{RKHSs}
 	$\mathcal{X}$ data space ($\mathds{R}^d$)
 
 	$\mathcal{H}$ of functions $f: \mathcal{X} \to \mathds{R}$
 
 	A \iemph{Reproducing Kernel Hilbert space} (RKHS) is a Hilbert space
-	of functions in which all linear evaluation functionals are continuous.
-
+	of functions in which all linear evaluation functionals are continuous:
 	\begin{align*}
 		[x](\cdot) : \mathcal{H} & \to \mathds{R}                                     \\
 		f                        & \mapsto [x](f) = f(x)                              \\
@@ -64,19 +69,21 @@
 	\begin{align*}
 		\langle \kappa_x(\cdot), f \rangle_{\mathcal{H}} = f(x) \forall f \in \mathcal{H}
 	\end{align*}
+\begin{marker}
+	$\kappa_x(\cdot)$ is a function, we add the $(\cdot)$ to emphasize it.
+\end{marker}
 \end{theorem}
 
-\begin{marker}
-	$\kappa_x(\cdot)$ is a function
-\end{marker}
 
 \begin{definition}{Reproducing kernel}{}
 	The symmetric function
 	\begin{equation*}
-		\kappa(x, x') := \kappa_x(x'),\; \forall x, x' \in \mathcal{X}
+		\kappa(x, x') \coloneqq \kappa_x(x'),\; \forall x, x' \in \mathcal{X}
 	\end{equation*}
 	is called the \iemph{reproducing kernel} of the space (rk).
 \end{definition}
+
+\subsection{Positive Semi-Definite Functions}
 
 \begin{definition}{Positive semi-definite functions}{psd}
 	Consider a data space $\mathcal{X}$. A symmetric bivariate function
@@ -84,7 +91,6 @@
 	\iemph{positive semi-definite} (PSD) when
 	$\forall n \in \mathds{N}^+, \forall \{x^1,\, x^2,\,\dots, x^n\},
 		x^i \in \mathcal{X}$.
-
 	\begin{align*}
 		\mathlarger{\sum_{i=1}^n} \sum_{j=1}^n  a_i a_j \kappa(x^i, x^j) \geq 0,\quad
 		\forall a=\begin{pmatrix} a_1 \\ \vdots \\ a_n \end{pmatrix}, a_i \in \mathds{R}
@@ -94,7 +100,7 @@
 
 	(alternative) If we form the following matrix:
 	\begin{align*}
-		\mathlarger{K}_{ij} := \kappa(x^i, x^j), \text{ then } a^TKa \geq 0
+		\mathlarger{K}_{ij} \coloneqq \kappa(x^i, x^j), \text{ then } a^TKa \geq 0
 	\end{align*}
 \end{definition}
 
@@ -115,7 +121,7 @@
 
 	More precisely,
 
-	Define $\kappa_x(\cdot) := \kappa(x, \cdot)$; then
+	Define $\kappa_x(\cdot) \coloneqq \kappa(x, \cdot)$; then
 	$\forall f \in \mathcal{H}_\kappa,
 		\langle \kappa_x, f \rangle = f(x), \forall x \in \mathcal{X}$.
 
@@ -130,12 +136,12 @@ Depart from a PSD function $\kappa: \mathcal{X} \times \mathcal{X} \to \mathds{R
 And a dataset $\mathcal{D} = \{x^1, \dots, x^n\}$.
 
 \begin{itemize}
-	\item $\mathcal{H}_\kappa := \emptyset$.
-	\item $\forall x \in \mathcal{X}$, define $\kappa_x(\cdot) := \kappa(x, \cdot)$.
+	\item $\mathcal{H}_\kappa \coloneqq \emptyset$.
+	\item $\forall x \in \mathcal{X}$, define $\kappa_x(\cdot) \coloneqq \kappa(x, \cdot)$.
 	      and $\forall x \in \mathcal{X}$, add $\kappa_x$ to $\mathcal{H}_\kappa$.
 	\item Add to $\mathcal{H}_\kappa$ its own \iemph{span}:
 	      \begin{equation*}
-		      \mathcal{H}_\kappa := \mathcal{H}_\kappa \cup \{
+		      \mathcal{H}_\kappa \coloneqq \mathcal{H}_\kappa \cup \{
 		      f(\cdot) = \sum_{i=1}^n a_i \kappa_{x^i}(\cdot) \mid
 		      \forall x \in \mathcal{X},
 		      \forall n \in \mathds{N}^+,
@@ -145,7 +151,7 @@ And a dataset $\mathcal{D} = \{x^1, \dots, x^n\}$.
 	      \end{equation*}
 	\item We now define the inner product:
 	      \begin{align*}
-          \langle f, g \rangle_{\mathcal{H}_\kappa} &:=
+          \langle f, g \rangle_{\mathcal{H}_\kappa} &\coloneqq
 		      \left\langle
             \sum_{i=1}^n a_i \kappa_{x^i}(\cdot), \sum_{j=1}^{n'} a'_j \kappa_{x'^j}(\cdot)
 		      \right\rangle \\

@@ -4,16 +4,16 @@
 Now, we know that, using Bayes formula:
 
 \begin{align*}
-  P(\omega_i|x) &= \frac{P(x|\omega_i)P(\omega_i)}{\sum_{j=1}^c P(x|\omega_j)P(\omega_j)}, \; i=1 \dots c \\
-                & \downarrow  a_i := \ln \left\{ P(x|\omega_i)P(\omega_i) \right\} \\
-                &= \frac{\exp(a_i)}{\sum_{j=1}^c exp(a_j)} := f_i(x)
+  P(\omega_i \mid x) &= \frac{P(x \mid \omega_i)P(\omega_i)}{\sum_{j=1}^c P(x \mid \omega_j)P(\omega_j)}, \; i=1 \dots c \\
+                & \downarrow  a_i \coloneqq \ln \left\{ P(x \mid \omega_i)P(\omega_i) \right\} \\
+                &= \frac{\exp(a_i)}{\sum_{j=1}^c exp(a_j)} \coloneqq f_i(x)
 \end{align*}
 
 This is called \emph{normalized exponential} or \emph{softmax}.
 
-Suppose that $P(\omega_i|x) >> P(\omega_j | x), \; i \neq j$
-$\Rightarrow P(\omega_i | x) \leq 1, P(\omega_j | x) \geq 0, \; i \neq j$
-$\sum_{j=1}^c P(x|\omega_j) = 1$.
+Suppose that $P(\omega_i \mid x) >> P(\omega_j  \mid x), \; i \neq j$
+$\Rightarrow P(\omega_i \mid x) \leq 1, P(\omega_j \mid x) \geq 0, \; i \neq j$
+$\sum_{j=1}^c P(x \mid \omega_j) = 1$.
 
 Suppose further that we want to use a \emph{linear model}:
 
@@ -29,15 +29,15 @@ Suppose further that we want to use a \emph{linear model}:
 Next we have to calculate the likelihood function (We'll use the log likelihood).
 
 \begin{align*}
-  \ell(\omega) := \ln\mathcal{L}(\omega) &= \ln
-  \prod_{i=1}^n \prod_{j=1}^c P\left(\omega_j|x^i\right)^{\tilde{y}_{ij}} \\
-  &= \sum_{i=1}^n \sum_{j=1}^c \tilde{y}_{ij} \ln P(\omega_j | x^i) \\
+  \ell(\omega) \coloneqq \ln\mathcal{L}(\omega) &= \ln
+  \prod_{i=1}^n \prod_{j=1}^c P\left(\omega_j \mid x^i\right)^{\tilde{y}_{ij}} \\
+  &= \sum_{i=1}^n \sum_{j=1}^c \tilde{y}_{ij} \ln P(\omega_j \mid x^i) \\
   &= \sum_{i=1}^n \sum_{j=1}^c \tilde{y}_{ij} \ln \underbrace{f_j(x^i)}_{\hat{y}_{ij}} \\[1em]
-  \tilde{y}_{ij} &:= \begin{cases}
+  \tilde{y}_{ij} &\coloneqq \begin{cases}
     1 & \text{if } x_i \in \omega_j \\
     0 & \text{otherwise}
   \end{cases} \\
-    E &:= -2\ln \mathcal{L} \tag{Error function / cross-entropy}
+    E &\coloneqq -2\ln \mathcal{L} \tag{Error function / cross-entropy}
 \end{align*}
 
 We want to minimize the \emph{cross-entropy} $E$. To do so, we have to
@@ -46,7 +46,7 @@ calculate it numerically through Newton-Raphson \textrightarrow{} IRLS.
 \begin{exercise}{}{} Consider a multiclassiflication problem for
 $c$ classes defined by prior class probabilities
 $\pi_j = P(\omega_j),\, j=1\dots, c$ and class densities
-$p_j(x) = P(x|\omega_j)$. We are given training data
+$p_j(x) = P(x\mid \omega_j)$. We are given training data
 $D = \left\{ (x^i, y^i) \right\}_{i=1}^n$ where $y^i \in \{1, \dots, c\}$.
 
 Obtain an estimation of the priors $\hat\pi_j$.

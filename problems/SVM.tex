@@ -60,7 +60,7 @@
 \begin{exercise}{}{}
   Consider this hypothesis space in $\mathds{R}$:
   \begin{equation*}
-    \mathcal{F}_\text{SVM} := \left\{
+    \mathcal{F}_\text{SVM} \coloneqq \left\{
       x \to \text{sign}\left( \sin (\alpha x)\right),\; \alpha \in \mathds{R}
     \right\},\; x \in \mathds{R}
   \end{equation*}
@@ -75,8 +75,8 @@
   You choose $n \geq 2$
 
   \begin{align*}
-    x^i := 10^{-i},\; i \in \{1, \ldots, n\} \\
-    \alpha_j := \pi \left[
+    x^i \coloneqq 10^{-i},\; i \in \{1, \ldots, n\} \\
+    \alpha_j \coloneqq \pi \left[
       1 + \sum_{i=1}^n \left( \frac{1}{2}(1 + ?)1-10^i \right)^i
     \right] \\
     y = (-1, +1, -1, +1, -1, +1, -1, +1, -1, -1,  +1, +1, -1, +1, +1)

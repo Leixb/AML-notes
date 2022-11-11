@@ -1,3 +1,4 @@
+\chapter[GLMs]{Generalized linear models}
 \section{Setting of the learning problem}
 
 \subsection{Learning problem definition}
@@ -72,8 +73,8 @@ In most of the cases, randomness is ignorance of the true effects.
 
   \tcbsubtitle{Examples of loss functions}
 	\begin{align*}
-		L(y,\, y') & := \begin{cases}1 \quad \text{if } y \neq y' \\ 0 \quad \text{otherwise} \end{cases} &  & \text{(0-1 loss) / (zero-one) / } L_{01} \\
-		L(y,\, y') & := (y - y')^2                                                                        &  & \text{(squared error)}
+		L(y,\, y') & \coloneqq \begin{cases}1 \quad \text{if } y \neq y' \\ 0 \quad \text{otherwise} \end{cases} &  & \text{(0-1 loss) / (zero-one) / } L_{01} \\
+		L(y,\, y') & \coloneqq (y - y')^2                                                                        &  & \text{(squared error)}
 	\end{align*}
 \end{definition}
 
@@ -95,15 +96,15 @@ In most of the cases, randomness is ignorance of the true effects.
 	error or generalization error.
 
 	\begin{equation*}
-		\mathds{R}[f] := \mathds{E}_{(x,\, y) \sim p} \left[ L(f(x),\, y) \right]
+		\mathds{R}[f] \coloneqq \mathds{E}_{(x,\, y) \sim p} \left[ L(f(x),\, y) \right]
 	\end{equation*}
 
   \tcblower{}
-	\begin{note}
-		A function that takes a function as an argument is called a functional.
+	\begin{marker}
+    A function that takes a function as an argument is called a \iemph{functional}.
 
-    Risk is a functional. \index{functional}
-	\end{note}
+    Risk is a functional.
+	\end{marker}
 \end{definition}
 
 \begin{definition}{Empirical error}{}\index{empirical error}
@@ -145,22 +146,22 @@ In most of the cases, randomness is ignorance of the true effects.
 
 \begin{definition}{Discriminative classifier}{discriminative}\index{discriminative}
 	A classifier that directly models the conditional probability
-	\(P(y | x)\) of the output given the input.
-
+	\(P(y \mid x)\) of the output given the input.
+  \tcblower
 	\paragraph{Example:} Logistic regression
 \end{definition}
 
 \begin{definition}{Generative classifier}{generative}\index{generative}
 	A classifier that models the joint probability distribution
 	\(P(x, y)\) of the input and the output.
-
+  \tcblower
 	\paragraph{Example:} Naïve Bayes
 \end{definition}
 
 \subsection{Risk minimizers}
 
 \begin{align*}
-	R[f] := \mathds{E}_{(x, y) \sim p} [ L(f(x), y) ] \\
+	R[f] \coloneqq \mathds{E}_{(x, y) \sim p} [ L(f(x), y) ] \\
 	\int_{\mathds{R}^d} \int_{\mathds{R}} L(f(x), y) p(x, y)\; dy\, dx
 \end{align*}
 
@@ -202,7 +203,7 @@ Where:
 		                           &                                                                    & (\text{MSE}[f])              \\
 		\text{where } f^*_{sq.}(x) & = \int_{\mathds{R}} y\cdot p(y(x))\; dy
 		                           &                                                                    & \text{(regression function)} \\
-		\text{in terms of statistics: }                                                                                                \\ \mathds{E}_{Y|x}[y | X = x] \\
+		\text{in terms of statistics: }                                                                                                \\ \mathds{E}_{Y \mid x}[y \mid X = x] \\
 		\Rightarrow R[f^*_{sq.}]
 	\end{align*}
 
@@ -227,7 +228,7 @@ Where:
 Given a dataset \(D = {x^i, y^i}\) of size \(n\) \((x^i, y^i)\sim p\) We
 choose a loss function \(L\) and a hypothesis space \(F\).
 
-\[F := { x \rightarrow f_\theta(x),\quad \theta \in \Theta }
+\[F \coloneqq { x \rightarrow f_\theta(x),\quad \theta \in \Theta }
 \]
 
 \subparagraph{Observations}
@@ -256,7 +257,7 @@ The expression being integrated is:
 
 Expected value of the model for all possible datasets in \(D_n\):
 \begin{align*}
-	\mathds{E}_{D_n} \left[ f_n(x) \right] & =: \overline{f_n}                                               \\
+	\mathds{E}_{D_n} \left[ f_n(x) \right] & \eqqcolon \overline{f_n}                                               \\
 	\left( \left( f_n(x) - \overline{f_n} \right) + \left( \overline{f_n} - f_{sq.}^*(x) \right) \right)^2 = \\
 	\left( \overline{f_n}(x) - f_{sq.}^*(x) \right)^2 +
 	\mathds{E}_{D_n} \left[ \left( f_n(x) - \overline{f_n}(x) \right)^2 \right]
@@ -286,7 +287,7 @@ Getting better data we reduce the irreducible error. (ignorance)
 We depart from a specific data sample \(D_n\) The training error of a
 model \(f\) is:
 \begin{equation*}
-	\hat{R}_n^{[f]} := \frac{1}{n} \sum_{i=1}^n L(f(x^i),\, y^i)
+	\hat{R}_n^{[f]} \coloneqq \frac{1}{n} \sum_{i=1}^n L(f(x^i),\, y^i)
 \end{equation*}
 
 So, when we learn a specific model \(f_n\) from \(D_n\) its

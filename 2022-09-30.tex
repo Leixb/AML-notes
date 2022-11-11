@@ -1,7 +1,7 @@
 \begin{exercise}{Homework}{}
 Ridge regression ($\lambda$)
 \begin{equation}
-	\rightsquigarrow \lambda ^* := \frac{.}{.}
+	\rightsquigarrow \lambda ^* \coloneqq \frac{.}{.}
 \end{equation}
 \end{exercise}
 
@@ -128,7 +128,7 @@ parametrized by a linear combination of features.
 Recall:
 
 \begin{align*}
-	glm  & := g(\omega^T\phi(x))  \tag{\text{General Linear Model}} \\
+	glm  & \coloneqq g(\omega^T\phi(x))  \tag{\text{General Linear Model}} \\
 	GMLs & \subset glms
 \end{align*}
 
@@ -141,7 +141,7 @@ Recall:
 	f_\omega(x) & = g\left(\omega^T\phi(x)\right) \quad \leftarrow \text{ glm}                       \\
 	            & \hcancel[red]{\omega^T\phi(x) + \omega_0}                                          \\
 	            & \Rightarrow y^i \sim \mathcal{N}\left(y; f_\omega(x^i), \sigma^2\right)            \\
-	\mu_i       & := \mathds{E}[y^i  \mid X = x^i] = f_\omega(x^i) = \omega^T\phi(x^i)
+	\mu_i       & \coloneqq \mathds{E}[y^i  \mid X = x^i] = f_\omega(x^i) = \omega^T\phi(x^i)
 \end{align*}
 
 \begin{enumerate}

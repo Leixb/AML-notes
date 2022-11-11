@@ -13,7 +13,7 @@ Reference: \fullcite{dobson_introduction_2018}
   \item Obtain an \emph{error function} as $E = -2\ln \mathcal{L}$ (deviance).
   \item Minimize the error $E$ by (typicall) Newton-Raphson.
     \begin{enumerate}
-      \item initialize $\theta (0) := \boldsymbol 0, \; t \gets 0$
+      \item initialize $\theta (0) \coloneqq \boldsymbol 0, \; t \gets 0$
         \begin{align*}
           \text{loop until convergence:} \\
           \theta (t+1) = \theta(t) - \nabla E(\theta(t)) \cdot H_\theta^{-1} E(\theta(t)) \\

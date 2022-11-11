@@ -4,7 +4,7 @@
 We have a data sample \(D = \{ x^i, y^i\}\quad i = 1, \dots, n\)
 where \(x \in \mathcal{X} = \mathds{R}^d, y^i \in \mathcal{Y}\)
 We consider a hypothesis space
-\(\mathcal{F} := \{ f_\theta (x), \theta \in \Theta \subset \mathds{R}^d \}\).
+\(\mathcal{F} \coloneqq \{ f_\theta (x), \theta \in \Theta \subset \mathds{R}^d \}\).
 
 The Bayesian idea is not to consider the optimal solution
 \(\hat{\theta}\) as a point solution, but as a set of possible solutions,
@@ -16,15 +16,15 @@ distribution.
 The Bayesian machinery makes use of the Bayes formula.
 
 \begin{align*}
-	P(D | \theta) \tag{likelihood} \\
-	P(\theta | D) \tag{posterior}  \\
+	P(D \mid \theta) \tag{likelihood} \\
+	P(\theta \mid D) \tag{posterior}  \\
 	P(\theta) \tag{prior}          \\
-	\int_\Theta P(D | \theta') P(\theta') d\theta' = P(D) \tag{EXPECTED \equiv EVIDENCE}
+	\int_\Theta P(D \mid \theta') P(\theta') d\theta' = P(D) \tag{EXPECTED \equiv EVIDENCE}
 \end{align*}
 
 \[
-	P(\theta | D) = \frac{P(D | \theta) P(\theta)}
-	{ \int_\Theta P(D | \theta') P(\theta') d\theta' }
+	P(\theta \mid D) = \frac{P(D \mid \theta) P(\theta)}
+	{ \int_\Theta P(D \mid \theta') P(\theta') d\theta' }
 \]
 
 \subsection{Procedure}
@@ -44,15 +44,15 @@ The Bayesian machinery makes use of the Bayes formula.
 		            Choose the \emph{prior} \(P(\theta)\) about the parameters
 	      \end{enumerate}
 	\item
-	      Calculate the \emph{likelihood function} \(P(y | x, \theta)\) (The
+	      Calculate the \emph{likelihood function} \(P(y \mid x, \theta)\) (The
 	      probability of getting the data \(D\) for a specific value of
 	      \(\theta\))
 	\item
 	      Calculate the \emph{posterior distribution} of \(\theta\)
 
 	      \[
-		      P(\theta | D) = \frac{P(\theta) \prod_{i=1}^n}{P(y^i|x^i, \theta)
-			      {\int_\Theta d\theta' P(\theta')\prod_{i=1}^n} P(y^i|x^i, \theta')}
+		      P(\theta \mid D) = \frac{P(\theta) \prod_{i=1}^n}{P(y^i \mid x^i, \theta)
+			      {\int_\Theta d\theta' P(\theta')\prod_{i=1}^n} P(y^i \mid x^i, \theta')}
 	      \]
 
 	\item
@@ -60,7 +60,7 @@ The Bayesian machinery makes use of the Bayes formula.
 
 	      \begin{enumerate}
 		      \item Eliminate the prior \(P(\theta)\) \textrightarrow{}
-		            \(P(\theta | D) \propto \mathcal{L}(\sigma ; D) \cdot P(\theta)\)
+		            \(P(\theta  \mid D) \propto \mathcal{L}(\sigma ; D) \cdot P(\theta)\)
 
 		            \begin{enumerate}
 			            \item
@@ -72,7 +72,7 @@ The Bayesian machinery makes use of the Bayes formula.
 		            \end{enumerate}
 		      \item
 		            Half Bayesian
-		            \(P(\theta | D) \propto \mathcal{L}(\sigma ; D) \cdot P(\theta)\)
+		            \(P(\theta \mid D) \propto \mathcal{L}(\sigma ; D) \cdot P(\theta)\)
 
 		            \begin{enumerate}
 			            \item
@@ -85,11 +85,11 @@ The Bayesian machinery makes use of the Bayes formula.
 			                  \(\hat{\theta}_{MAP} = \argmax_{\theta \in \Theta} \log \mathcal{L}(\sigma ; D) + \log P(\theta)\)
 		            \end{enumerate}
 		      \item
-		            Calculate the \emph{average of the posteriors} \(P(\theta | D)\)
+		            Calculate the \emph{average of the posteriors} \(P(\theta \mid D)\)
                 instead of the maximum. (average \textrightarrow{} expected value)
 
 		            \begin{enumerate}
-			            \item \(\hat{\theta}_{avg} = \int_\Theta \theta P(\theta | D) \; d\theta\)
+			            \item \(\hat{\theta}_{avg} = \int_\Theta \theta P(\theta \mid D) \; d\theta\)
 			            \item In practice, this integral is intractable, we have to use
 			                  numerical integration. Which is quite delicate.
 		            \end{enumerate}
@@ -100,7 +100,7 @@ The Bayesian machinery makes use of the Bayes formula.
 			                  (bayesian confidence intervals) (not in the scope of the course)
 			            \item Suppose that a new data point comes, \(x^0\):
 
-			                  \[P(y^0 | x^0, D) = \int_\Theta P(y^0 | x^0, \theta) P(\theta | D)\; d\theta
+			                  \[P(y^0 \mid x^0, D) = \int_\Theta P(y^0 \mid x^0, \theta) P(\theta \mid D)\; d\theta
 			                  \]
 
 			                  In the first 2 cases, we obtain a single unique model.In all
@@ -117,14 +117,14 @@ So \(x^i \in \mathds{R}^d,\; y^i \in \mathds{R}\) and we want to perform
 \emph{linear regression}.
 
 \begin{equation*}
-	\mathcal{F}_{\text{linr}} := \bigl\{
+	\mathcal{F}_{\text{linr}} \coloneqq \bigl\{
 	x \mapsto f_\omega(x) = \omega^T x + \omega_0 ,\quad
 	\omega \in \mathds{R}^d, \quad
 	\omega_0 \in \mathds{R}
 	\bigr\}
 \end{equation*}
 
-By convention \(\underbar{\omega} := (\omega,\, \omega_0)\)
+By convention \(\underbar{\omega} \coloneqq (\omega,\, \omega_0)\)
 
 \begin{itemize}
 	\item What loss function do we use?
@@ -146,12 +146,12 @@ By convention \(\underbar{\omega} := (\omega,\, \omega_0)\)
 	      \(y \in \mathds{R}\)
 	      \begin{align*}
 		      \epsilon                      & \sim \mathcal{N}(0, \sigma^2)                                       \\
-		      P(y | x,\, \underbar{\omega})   & = \mathcal{N}(y | f_{\underbar{\omega}}(x),\, \sigma^2)               \\
+		      P(y \mid x,\, \underbar{\omega})   & = \mathcal{N}(y \mid f_{\underbar{\omega}}(x),\, \sigma^2)               \\
 		      \beta                         & = \frac{1}{\sigma^2} \text{ (precision)}                            \\
 		      P(\underbar{\omega})          & = \mathcal{N}(\underbar{\omega} ;\, 0 ,\, \Sigma)                       \\
-		      \Sigma                        & := \text{ covariance matrix (Not viable in practice, we use other)} \\
-		      P(\underbar{\omega} | \alpha) & = \mathcal{N}(\underbar{\omega} ;\, 0 ,\,\sigma_{\omega}^2 I))         \\
-		      \alpha                        & := \frac{1}{\sigma_{\omega}^2}
+		      \Sigma                        & \coloneqq \text{ covariance matrix (Not viable in practice, we use other)} \\
+		      P(\underbar{\omega} \mid \alpha) & = \mathcal{N}(\underbar{\omega} ;\, 0 ,\,\sigma_{\omega}^2 I))         \\
+		      \alpha                        & \coloneqq \frac{1}{\sigma_{\omega}^2}
 	      \end{align*}
 
 	      A parameter that controls other parameters is called a
@@ -161,15 +161,15 @@ By convention \(\underbar{\omega} := (\omega,\, \omega_0)\)
 	\item The \emph{likelihood function}
 
 	      \[
-		      \mathcal{L}(\underbar{\omega} ; \beta) = \prod_{i=1}^n P(y^i | x^i, \underbar{\omega}) =
-		      \prod_{i=1}^n \mathcal{N}(y^i | f_{\underbar{\omega}}(x^i), \sigma^2)
+		      \mathcal{L}(\underbar{\omega} ; \beta) = \prod_{i=1}^n P(y^i \mid x^i, \underbar{\omega}) =
+		      \prod_{i=1}^n \mathcal{N}(y^i \mid f_{\underbar{\omega}}(x^i), \sigma^2)
 	      \]
 
 	\item The \iemph{posterior distribution}
 \end{enumerate}
 
-\[P(\underbar{\omega} | y, X, \alpha, \beta) = \frac{\mathcal{L}(\underbar{\omega}; \beta) P(\underbar{\omega} | \alpha)}
-	{\int_{\mathds{R}} \mathcal{L}(\underbar{\omega}; \beta) P(\underbar{\omega} | \alpha) d\underbar{\omega}}
+\[P(\underbar{\omega} \mid y, X, \alpha, \beta) = \frac{\mathcal{L}(\underbar{\omega}; \beta) P(\underbar{\omega} \mid \alpha)}
+	{\int_{\mathds{R}} \mathcal{L}(\underbar{\omega}; \beta) P(\underbar{\omega} \mid \alpha) d\underbar{\omega}}
 \]
 
 \begin{recap}{}{}
@@ -177,13 +177,13 @@ By convention \(\underbar{\omega} := (\omega,\, \omega_0)\)
 \subparagraph{Model}
 
 \[
-	P(y |  X, \underbar{\omega}, \beta) = \mathcal{N}(y | f_{\underbar{\omega}}(x), \beta) =
+	P(y \mid  X, \underbar{\omega}, \beta) = \mathcal{N}(y \mid f_{\underbar{\omega}}(x), \beta) =
 	\sqrt{\frac{\beta}{2\pi}} \exp \left( -\frac{\beta}{2} (y - f_{\underbar{\omega}}(x))^2 \right)
 \]
 
 \subparagraph{Prior}
 
-\[P(\underbar{\omega} | \alpha) = \mathcal{N}(\underbar{\omega} ; 0 , \sigma_{\omega}^2 I)) =
+\[P(\underbar{\omega} \mid \alpha) = \mathcal{N}(\underbar{\omega} ; 0 , \sigma_{\omega}^2 I)) =
 	\sqrt{\frac{\alpha}{2\pi}} \exp \left( -\frac{\alpha}{2} \underbar{\omega}^T \underbar{\omega} \right)
 \]
 
@@ -191,7 +191,7 @@ By convention \(\underbar{\omega} := (\omega,\, \omega_0)\)
 
 The posterior distribution turns out to be:
 
-\[P(\underbar{\omega} | D) = \mathcal{N}(\underbar{\omega} ; \mu, \Sigma)
+\[P(\underbar{\omega} \mid D) = \mathcal{N}(\underbar{\omega} ; \mu, \Sigma)
 	\mu = \beta \Sigma X^T y
 	\Sigma = \left( \alpha I + \beta X^T X \right)^{-1}
 \]
