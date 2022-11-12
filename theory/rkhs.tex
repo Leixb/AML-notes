@@ -5,19 +5,20 @@
 
 \subsection{Hilbert Spaces}
 
-\begin{definition}{Hilbert space}{hilber-space}
+\begin{definition}[parbox=false]{Hilbert space}{hilber-space}
 	\begin{itemize}
 		\item Consider a space $G$ of functions $f: \mathcal{X} \to \mathbb{R}$,
 		      where $\mathcal{X}$ is the data space.
 
-		\item Define an \iemph{inner product} (ip) $\langle f, g \rangle, \; f, g \in G$ by
+		\item Define an \iemph{inner product} (ip) $\langle f, g \rangle, \; f, g \in G$ % by ???
 		\item $\{f_n\}_{n \in \mathds{N}}$ converges to $f$ iff
-		      $\forall \epsilon > 0, \exists N \in \mathds{N} \text{ s.t. } \forall n \geq N, \; \lVert f_n - f \rVert < \epsilon$.
-
-		\item \iemph{Cauchy sequence}
-		      $\{f_n\}_{n \in \mathds{N}}$ is Cauchy when:
-		      $\forall \epsilon > 0, \; \exists N \in \mathds{N} \text{ s.t. } \forall n, m \geq N, \; \lVert f_n - f_m \rVert < \epsilon$.
+		      $$\forall \epsilon > 0, \exists N \in \mathds{N} \text{ s.t. } \forall n \geq N, \; \lVert f_n - f \rVert < \epsilon$$
 	\end{itemize}
+  \begin{definition}{Cauchy sequence}{cauchy-sequence}\index{Cauchy sequence}
+		      $\{f_n\}_{n \in \mathds{N}}$ is Cauchy when:
+
+		      $$\forall \epsilon > 0, \; \exists N \in \mathds{N} \text{ s.t. } \forall n, m \geq N, \; \lVert f_n - f_m \rVert < \epsilon$$
+  \end{definition}
 
 	A space in which all Cauchy sequences converge to an element of the space is
   called \emph{complete}.\index{complete space}
@@ -46,6 +47,7 @@
 \subsection{Reproducing Kernel}
 
 \begin{definition}[parbox=false]{RKHSs}{RKHSs}
+
 	$\mathcal{X}$ data space ($\mathds{R}^d$)
 
 	$\mathcal{H}$ of functions $f: \mathcal{X} \to \mathds{R}$
@@ -93,14 +95,14 @@
 		x^i \in \mathcal{X}$.
 	\begin{align*}
 		\mathlarger{\sum_{i=1}^n} \sum_{j=1}^n  a_i a_j \kappa(x^i, x^j) \geq 0,\quad
-		\forall a=\begin{pmatrix} a_1 \\ \vdots \\ a_n \end{pmatrix}, a_i \in \mathds{R}
+		\forall a=\begin{pmatrix} a_1 \\ \vdots \\ a_n \end{pmatrix},\; a_i \in \mathds{R}
 	\end{align*}
 
 	\tcblower
 
 	(alternative) If we form the following matrix:
 	\begin{align*}
-		\mathlarger{K}_{ij} \coloneqq \kappa(x^i, x^j), \text{ then } a^TKa \geq 0
+		\mathlarger{K}_{ij} \coloneqq \kappa(x^i, x^j),\\ \text{ then } a^TKa \geq 0
 	\end{align*}
 \end{definition}
 

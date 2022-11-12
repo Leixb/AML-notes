@@ -14,10 +14,10 @@ The optimal value for the regularization parameter $\lambda$ in \emph{ridge regr
 \(x^0 \to y^0\).
 
 \begin{align*}
-	P(y^0 | x^0, y, \alpha, \beta) & = \int_{\mathds{R}^{d+1}}
-	\underbrace{P(y^0 | x^0, \underbar{\omega}, \beta)}_{\substack{\text{Prob. setting}        \\ \text{of my model}}}
+	P(y^0 \mid x^0, y, \alpha, \beta) & = \int_{\mathds{R}^{d+1}}
+	\underbrace{P(y^0 \mid x^0, \underbar{\omega}, \beta)}_{\substack{\text{Prob. setting}        \\ \text{of my model}}}
 	\cdot
-	P(\underbar{\omega} | y, \alpha, \beta)
+	P(\underbar{\omega} \mid y, \alpha, \beta)
 	d\underbar{\omega}                                                                         \\
 	                               & = \mathcal{N}\left(y^0\mu^Tx^0,\; \sigma^2(x^0) \right)   \\
 	\sigma^2(x)                    & = \underbrace{\frac{1}{\beta}}_\text{Noise in the data} +
@@ -52,7 +52,7 @@ We wish to create a GLM to predict one of $c$ classes: $\{ \omega_1, \omega_2, \
 If we denote the probability of $x_l = 1$ by $\pi_l$
 
 \begin{align*}
-  P(x | \boldsymbol\pi) = \prod_{l=1}^c \pi_l^{x_l},\quad
+  P(x \mid \boldsymbol\pi) = \prod_{l=1}^c \pi_l^{x_l},\quad
   \boldsymbol{\pi} = (\pi_1, \pi_2, \cdots, \pi_c)^T,
   \pi_l \geq 0,\quad \sum_{l=1}^c \pi_l = 1
 \end{align*}
@@ -60,8 +60,8 @@ If we denote the probability of $x_l = 1$ by $\pi_l$
 \paragraph{Homework} Prove that:
 
 \begin{align*}
-  \sum_x P(x | \pi) &= 1 \\
-  \mathds{E}[x | \boldsymbol\pi] &= \boldsymbol\pi
+  \sum_x P(x \mid \pi) &= 1 \\
+  \mathds{E}[x \mid \boldsymbol\pi] &= \boldsymbol\pi
 \end{align*}
 
 \paragraph{Multinomial distribution}
@@ -72,7 +72,7 @@ Given a number of observations of data $x_1, x_2, \cdots, x_n$. We define:
 % and a set of probabilities $\pi_1, \pi_2, \cdots, \pi_k$ such that $\sum_{l=1}^k \pi_l = 1$, the probability of observing $x_1, x_2, \cdots, x_n$ is given by:
 
 % \begin{equation}
-  % P(x_1, x_2, \cdots, x_n | \boldsymbol\pi) = \frac{n!}{x_1! x_2! \cdots x_n!} \prod_{l=1}^k \pi_l^{x_l}
+  % P(x_1, x_2, \cdots, x_n \mid \boldsymbol\pi) = \frac{n!}{x_1! x_2! \cdots x_n!} \prod_{l=1}^k \pi_l^{x_l}
 % \end{equation}
 
 \begin{equation}
@@ -83,7 +83,7 @@ We consider now the joint distribution of the $m_1, m_2, \cdots, m_c$ conditiona
 parameters $\boldsymbol\pi$:
 
 \begin{align*}
-  \text{Mult}(\boldsymbol{m} | \boldsymbol\pi, n) &=
+  \text{Mult}(\boldsymbol{m} \mid \boldsymbol\pi, n) &=
 \underbrace{\binom{n}{m_1, m_2, \cdots, m_c}}_{\substack{\text{number of ways to distribute} \\ \text{$n$ observations among $m_1, m_2, \cdots, m_c$}}}
         \prod_{l=1}^c \pi_l^{m_l} \\
     \text{where } \sum_{l=1}^c m_l &= n \\

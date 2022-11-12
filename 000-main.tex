@@ -40,7 +40,7 @@
 \tcbuselibrary{most}
 
 \theoremstyle{plain}% from `amsthm'
-\newtheorem{lemma}{Lemma}% from `amsthm'
+% \newtheorem{lemma}{Lemma}% from `amsthm'
 % \newtheorem{prop}{Proposition}% from `amsthm'
 
 \theoremstyle{definition}% from `amsthm'
@@ -87,11 +87,13 @@
 {theo=blue}{def}
 
 \newtcbtheorem[number within=chapter]{theorem}{Theorem}%
-% {theo={red!80!black}}{th}
 {theo=purple}{th}
 
 \newtcbtheorem[number within=chapter]{prop}{Proposition}%
 {theo=red}{prop}
+
+\newtcbtheorem[number within=chapter]{lemma}{Lemma}%
+{theo=magenta}{lemma}
 
 \newtcbtheorem[number within=chapter]{recap}{Recap}%
 {theo=orange}{rec}

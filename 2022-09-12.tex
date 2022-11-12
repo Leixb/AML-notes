@@ -65,12 +65,12 @@ In most of the cases, randomness is ignorance of the true effects.
 \begin{definition}{Loss function}{}
 	A function
 	\(L: Y \times Y \longrightarrow \mathds{R}+\) such that:
-
 	\begin{align*}
 		L(y,\, y') & = L(y',\, y) \tag{symmetry} \\
 		L(y,\, y') & = 0  \Longleftarrow y = y'
 	\end{align*}
 
+  \tcblower
   \tcbsubtitle{Examples of loss functions}
 	\begin{align*}
 		L(y,\, y') & \coloneqq \begin{cases}1 \quad \text{if } y \neq y' \\ 0 \quad \text{otherwise} \end{cases} &  & \text{(0-1 loss) / (zero-one) / } L_{01} \\
@@ -161,14 +161,14 @@ In most of the cases, randomness is ignorance of the true effects.
 \subsection{Risk minimizers}
 
 \begin{align*}
-	R[f] \coloneqq \mathds{E}_{(x, y) \sim p} [ L(f(x), y) ] \\
-	\int_{\mathds{R}^d} \int_{\mathds{R}} L(f(x), y) p(x, y)\; dy\, dx
+	R[f] \coloneqq \mathds{E}_{(x,\, y) \sim p} [ L(f(x),\, y) ] \\
+  \mathlarger{\int_{\mathds{R}^d}} \int_{\mathds{R}} L(f(x),\, y) p(x,\, y)\; dy\, dx
 \end{align*}
 
 \begin{prop}{}{}
 
 	The function minimizing the risk on the zero-one loss is the Bayes
-	classifier. Which is the one that given x, assigns the class with the
+	classifier. Which is the one that given $x$, assigns the class with the
 	highest posterior probability.
 
 	\[f^* = \argmax {P(w \mid x)}\]
