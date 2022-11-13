@@ -74,6 +74,7 @@
 			};
 
 		\end{tikzpicture}
+    \caption{Shattering by intervals of $m = 2$ points.}
 	\end{figure}
 \end{example}
 
@@ -134,7 +135,7 @@
 			};
 
 		\end{tikzpicture}
-		\caption{Axis aligned rectangles in $\mathds{R}^2$}
+		\caption{Shattering with axis aligned rectangles in $\mathds{R}^2$}
 	\end{figure}
 \end{example}
 
@@ -146,33 +147,41 @@
 % 2022-11-11
 
 \begin{theorem}{Vapnik' 95}{}\index{Vapnik' 95}
-	Let $\mathcal{F}_{lim}^m$ be the class of linear binary classifiers that leave
+	Let $\mathcal{F}_{lin}^m$ be the class of linear binary classifiers that leave
 	a margin at least $m$, that is:
 	\begin{equation*}
-		\mathcal{F}_{lin}^m \coloneqq \{ x \mapsto \text{sign}( \omega^T x + b), \;
+		\mathcal{F}_{lin}^m \coloneqq \left\{
+		x \mapsto \text{sign}\left( \omega^T x + b\right) \;\Big|\;
 		\lVert \omega \rVert \leq \frac{1}{m^2}, \;
 		\omega, x \in \mathds{R}^d,\;
-		b \in \mathds{R} \}
+		b \in \mathds{R}
+		\right\}
 	\end{equation*}
 	Then:
-	\begin{align*}
+	\begin{equation*}
 		\text{VC-dim}(\mathcal{F}_{lin}^m)  \leq \min \left\{
 		\left\lceil \frac{R^2}{m^2} \right\rceil, \;
 		d
-		\right\}                                                                               \\
-		\text{where:}                                                                          \\
-		d                                   = \text{dimension of the data space } \mathds{R}^d \\
-		R                                   = \text{radius of the smallest hypersphere that contains all the data points}
+		\right\}
+  \end{equation*}
+  where:
+  \begin{align*}
+    d                                   &= \text{dimension of the data space } \mathds{R}^d \\
+    R                                   &= \text{radius of the smallest hypersphere that contains all the data points}
 	\end{align*}
-\end{theorem}
+
+\tcblower
 
 Consider the standard SVM classifier $\mathcal{F}_{lin}$:
 \begin{align*}
-	\mathcal{F}_{lin} \coloneqq \{ x \mapsto \text{sign}( \omega^T x + b), \;
+  \mathcal{F}_{lin} &\coloneqq \left\{ x \mapsto \text{sign}( \omega^T x + b) \mid
 	\lVert \omega \rVert \leq 1, \;
 	\omega, x \in \mathds{R}^d,\;
-	b \in \mathds{R} \} \\
-	\text{VC-dim}(\mathcal{F}_{lin}) = d + 1
+	b \in \mathds{R} \right\} \\
+  \text{VC-dim}(\mathcal{F}_{lin}) &= d + 1
 \end{align*}
 
+\begin{marker}
 This is a reason to fit the SVM with a wider margin.
+\end{marker}
+\end{theorem}

@@ -1,66 +1,70 @@
 \chapter[GLMs]{Generalized linear models}
 \section{Setting of the learning problem}
 
-\subsection{Learning problem definition}
+\begin{definition}{Learning problem}{learning-problem}
+	Can be defined as 3 components:
+	\begin{itemize}
+		\item
+		      A \iemph{generator} \(G\) of random data \(x\) from a
+		      probability distribution \(P(x)\) which is fixed and unknown to us.
+		\item
+		      A \iemph{supervisor} \(S\) which returns an output value ${y \in Y}$
+		      for every input \(x \in X\) according to a conditional
+		      probability distribution \(P(y \mid x)\), also fixed and unknown
+		      to us.
+		\item
+		      A \iemph{learning machine (algorithm)} \(L\) which is capable of
+		      implementing(computing) any of a set of functions (models).
+		      \(f_\theta\) where \(\theta\) is a set of parameters belonging to the
+		      parameter space \(\theta\).
+	\end{itemize}
 
-Can be defined as 3 components:
-\begin{itemize}
-	\item
-	      A \iemph{generator} \(G\) of random data \(x\) from a
-	      probability distribution \(P(x)\) which is fixed and unknown to us.
-	\item
-	      A \iemph{supervisor} \(S\) which returns an output value ${y \in Y}$
-	      for every input \(x \in X\) according to a conditional
-	      probability distribution \(P(y \mid x)\), also fixed and unknown
-	      to us.
-	\item
-	      A \iemph{learning machine (algorithm)} \(L\) which is capable of
-	      implementing(computing) any of a set of functions (models).
-	      \(f_\theta\) where \(\theta\) is a set of parameters belonging to the
-	      parameter space \(\theta\).
-\end{itemize}
+	\tcblower
 
-\begin{center}
-	\tikzstyle{block} = [draw, rectangle, minimum height=3em, minimum width=3em]
-	\tikzstyle{virtual} = [coordinate]
-	\begin{tikzpicture}[>=stealth, auto, node distance = 1cm and 3cm]
-		% Place nodes
-		\node [block] (G) {$G$};
-		\node [block, right=of G] (S) {$S$};
-		\node [block, below=of S] (L) {$L$};
-		\node [virtual, right=of S] (So) {};
-		\node [virtual, right=of L.340] (Lo) {};
-		\node [below right=of L, align=center] (d) {$L(y,\,\ddot{y})$ \\ (discrepancy)};
+	\begin{center}
+		\tikzstyle{block} = [draw, rectangle, minimum height=3em, minimum width=3em]
+		\tikzstyle{virtual} = [coordinate]
+		\begin{tikzpicture}[>=stealth, auto, node distance = 1cm and 3cm]
+			% Place nodes
+			\node [block] (G) {$G$};
+			\node [block, right=of G] (S) {$S$};
+			\node [block, below=of S] (L) {$L$};
+			\node [virtual, right=of S] (So) {};
+			\node [virtual, right=of L.340] (Lo) {};
+			\node [below right=of L, align=center] (d) {$L(y,\,\ddot{y})$ \\ (discrepancy)};
 
-		\draw [->] (G.east) -- node [name=x] {$x$} (S);
-		\draw [->, rounded corners] (x) |- (L);
+			\draw [->] (G.east) -- node [name=x] {$x$} (S);
+			\draw [->, rounded corners] (x) |- (L);
 
-		\draw [->] (S) -- node [name=y] {$y$} (So);
-		\draw [->, rounded corners] (y) |- (L.20);
+			\draw [->] (S) -- node [name=y] {$y$} (So);
+			\draw [->, rounded corners] (y) |- (L.20);
 
-		\draw [->] (L.340) -- node[below] {$\ddot{y}$} (Lo);
+			\draw [->] (L.340) -- node[below] {$\ddot{y}$} (Lo);
 
-		\draw [->, rounded corners] (d.west) -| node[below] {modify} (L.south);
-	\end{tikzpicture}
-\end{center}
+			\draw [->, rounded corners] (d.west) -| node[below] {modify} (L.south);
+		\end{tikzpicture}
+	\end{center}
 
-The selection of the best possible model according to \(L\) is done
-based on a learning data sample
-\(D = \bigl\{(x_1,\, y_1),\, (x_2,\, y_2),\, ...,\, (x_n,\, y_n)\bigr\}\) (where \(x_i\) are
-vectors)
+	The selection of the best possible model according to \(L\) is done
+	based on a learning data sample
+	\(D = \bigl\{(x_1,\, y_1),\, (x_2,\, y_2),\, ...,\, (x_n,\, y_n)\bigr\}\) (where \(x_i\) are
+	vectors)
+\end{definition}
 
-\subsection{Why is the relation between X and Y stochastic?}
+\begin{question}{Why is the relation between X and Y stochastic%
+		\footnote{Not deterministic \textrightarrow{} Not fully predictable, but has
+			some randomness in it}%
+		?}{}
+	In most of the cases, randomness is ignorance of the true effects:
+	\begin{enumerate}
+		\item Ignorance of the functional dependence on a not measured variable
+		      \(z\).
+		\item Technical invisibility. \footnote{e.g. the effect of a
+			      \emph{hidden} variable \(z\) on \(y\) is not measurable}
+	\end{enumerate}
+\end{question}
 
-In most of the cases, randomness is ignorance of the true effects.
-\begin{enumerate}
-	\item
-	      Ignorance of the functional dependence on a not measured variable
-	      \(z\).
-	\item
-	      Technical invisibility.
-\end{enumerate}
-
-\subsection{Some definitions}
+\subsection{Basic definitions}
 
 \begin{definition}{Loss function}{}
 	A function
@@ -70,53 +74,56 @@ In most of the cases, randomness is ignorance of the true effects.
 		L(y,\, y') & = 0  \Longleftarrow y = y'
 	\end{align*}
 
-  \tcblower
-  \tcbsubtitle{Examples of loss functions}
+	\tcblower
+	\tcbsubtitle{Examples of loss functions}
 	\begin{align*}
 		L(y,\, y') & \coloneqq \begin{cases}1 \quad \text{if } y \neq y' \\ 0 \quad \text{otherwise} \end{cases} &  & \text{(0-1 loss) / (zero-one) / } L_{01} \\
 		L(y,\, y') & \coloneqq (y - y')^2                                                                        &  & \text{(squared error)}
 	\end{align*}
 \end{definition}
 
-\begin{definition}{Hypothesis space}{}
+\begin{definition}{Hypothesis space}{hypothesis-space}
+	The set of all possible functions \(f_\theta\) that
+	map values from \(X\) to values from \(Y\)
+	where \(\theta\) is a set of
+	parameters belonging to the parameter space \(\Theta\):
 	\begin{equation*}
 		\mathcal{F} = \bigl\{f_\theta: \mathcal{X} \rightarrow \mathcal{Y} \mid \theta \in \varTheta \subseteq \mathds{R} \bigr\}
 	\end{equation*}
 \end{definition}
 
 
-\begin{definition}{Classifier}{}
+\begin{definition}{Classifier}{classifier}
 	Is a function \(f: X \longrightarrow Y\)
 	where \(Y\) is a set of different symbols.
 \end{definition}
 
-\begin{definition}{Risk}{}
-  \index{risk}\index{expected loss}\index{generalization error}\index{true error}
-	The risk of a function is its \emph{expected loss}. Also known as true
-	error or generalization error.
-
+\begin{definition}{Risk}{risk}\index{risk}
+	The risk of a function is its \iemph{expected loss}. Also known as
+	\iemph{true error} or \iemph{generalization error}:
+	%
 	\begin{equation*}
 		\mathds{R}[f] \coloneqq \mathds{E}_{(x,\, y) \sim p} \left[ L(f(x),\, y) \right]
 	\end{equation*}
 
-  \tcblower{}
+	\tcblower{}
 	\begin{marker}
-    A function that takes a function as an argument is called a \iemph{functional}.
+		A function that takes a function as an argument is called a \iemph{functional}.
 
-    Risk is a functional.
+		Risk is a functional.
 	\end{marker}
 \end{definition}
 
 \begin{definition}{Empirical error}{}\index{empirical error}
-
+	%
 	The average error or loss function evaluated on a specific data sample
-	\(D\).
-
+	\(D\):
+	%
 	\begin{equation*}
-		\hat{R}_{D^n}[f] = \frac{1}{n} \sum_{i=1}^n L(f(x_i), y_i)
+		\widehat{R}_{D^n}[f] = \frac{1}{n} \sum_{i=1}^n L\bigl(f(x^i),\, y^i\bigr)
 	\end{equation*}
 
-  \tcblower{}
+	\tcblower{}
 	\begin{note}
 		This is also a functional.
 	\end{note}
@@ -128,15 +135,15 @@ In most of the cases, randomness is ignorance of the true effects.
 \end{definition}
 
 \begin{prop}{Model error proposition}{}
-
-	For a fixed model \(f_θ\) the expected value of the
+	%
+	For a fixed model \(f_\theta\) the expected value of the
 	empirical error based on a data sample is equal to the true error.
-
+	%
 	\begin{equation*}
-		\mathds{E}_{D^{ijd}p^n}[\hat{R}_{D^n}[f]] = R[f]
+		\mathds{E}_{D^{ijd}p^n}\left[\widehat{R}_{D^n}[f]\right] = R[f]
 	\end{equation*}
 
-  \tcblower
+	\tcblower
 	\begin{proof} TODO
 	\end{proof}
 \end{prop}
@@ -147,14 +154,14 @@ In most of the cases, randomness is ignorance of the true effects.
 \begin{definition}{Discriminative classifier}{discriminative}\index{discriminative}
 	A classifier that directly models the conditional probability
 	\(P(y \mid x)\) of the output given the input.
-  \tcblower
+	\tcblower
 	\paragraph{Example:} Logistic regression
 \end{definition}
 
 \begin{definition}{Generative classifier}{generative}\index{generative}
 	A classifier that models the joint probability distribution
-	\(P(x, y)\) of the input and the output.
-  \tcblower
+	\(P(x,\, y)\) of the input and the output.
+	\tcblower
 	\paragraph{Example:} Naïve Bayes
 \end{definition}
 
@@ -162,22 +169,18 @@ In most of the cases, randomness is ignorance of the true effects.
 
 \begin{align*}
 	R[f] \coloneqq \mathds{E}_{(x,\, y) \sim p} [ L(f(x),\, y) ] \\
-  \mathlarger{\int_{\mathds{R}^d}} \int_{\mathds{R}} L(f(x),\, y) p(x,\, y)\; dy\, dx
+	\mathlarger{\int_{\mathds{R}^d}} \int_{\mathds{R}} L(f(x),\, y) p(x,\, y)\; dy\, dx
 \end{align*}
 
 \begin{prop}{}{}
-
 	The function minimizing the risk on the zero-one loss is the Bayes
 	classifier. Which is the one that given $x$, assigns the class with the
 	highest posterior probability.
-
 	\[f^* = \argmax {P(w \mid x)}\]
-
 	\begin{enumerate}
 		\item The risk of \(f_{01}^*\) is the Bayes risk.
 		\item The upper bound of the Bayes risk is 0.5
 	\end{enumerate}
-
 \end{prop}
 
 \subsection{Regression under the square error / loss function}
@@ -199,24 +202,24 @@ Where:
 
 \begin{prop}{}{}
 	\begin{align*}
-		R[f]                       & = \sigma^2 + \int_{\mathds{R}^d} (f(x) - f^*_{sq.}(x))^2 p(x)\; dx
+		R[f]                       & = \sigma^2 + \int_{\mathds{R}^d} \bigl(f(x) - f^*_{sq.}(x)\bigr)^2 p(x)\; dx
 		                           &                                                                    & (\text{MSE}[f])              \\
-		\text{where } f^*_{sq.}(x) & = \int_{\mathds{R}} y\cdot p(y(x))\; dy
+		\text{where: } f^*_{sq.}(x) & = \int_{\mathds{R}} y\cdot p(y(x))\; dy
 		                           &                                                                    & \text{(regression function)} \\
 		\text{in terms of statistics: }                                                                                                \\ \mathds{E}_{Y \mid x}[y \mid X = x] \\
 		\Rightarrow R[f^*_{sq.}]
 	\end{align*}
-
-	We cannot compute this in practice since we do not know the distribution
-	of the data.
+	\tcblower
+	\begin{note}
+		We cannot compute this in practice since we do not know the distribution
+		of the data.
+	\end{note}
 \end{prop}
 
 \begin{prop}{bias-variance decomposition}{}
-  \index{bias-variance decomposition}
-
-	The bias / variance decomposition of the mean squared error.
-
-	\[MSE[f] = Bias(f)^2 + Var(f)
+	\index{bias-variance decomposition}
+	of the mean squared error:
+  \[\text{MSE}[f] = \text{Bias}(f)^2 + \text{Var}(f)
 	\]
 
 	There is a trade-off between bias and variance, known as the
@@ -225,39 +228,36 @@ Where:
 
 \paragraph{Remainder}
 
-Given a dataset \(D = {x^i, y^i}\) of size \(n\) \((x^i, y^i)\sim p\) We
-choose a loss function \(L\) and a hypothesis space \(F\).
-
-\[F \coloneqq { x \rightarrow f_\theta(x),\quad \theta \in \Theta }
+Given a dataset \(D = \{x^i,\, y^i\}\) of size \(n\) \((x^i,\, y^i)\sim p\) We
+choose a loss function \(L\) and a hypothesis space \(\mathcal F\).
+\[\mathcal F \coloneqq { x \rightarrow f_\theta(x),\quad \theta \in \Theta }
 \]
 
 \subparagraph{Observations}
 
-The set of functions we chose matters a lot. In some sense \(F\) should
+The set of functions we chose matters a lot. In some sense \(\mathcal F\) should
 be large to minimize the chances that the chosen function is not in
-\(F\).
+\(\mathcal F\).
 
 \begin{itemize}
 	\item
-	      Choosing a Machine Learning Algorithm of \(F\) given a particular
+	      Choosing a Machine Learning Algorithm of \(\mathcal F\) given a particular
 	      \(D_n\) obviously depends on this \(D_n\):
-
 	      \[D_n! \rightsquigarrow f_\theta = f_n\]
-	\item The best possible solution \(f^*_{sq.}\) may not belong to \(F\).
+	\item The best possible solution \(f^*_{sq.}\) may not belong to \(\mathcal F\).
 
-	      In case \(f^*_{sq.} \notin F\) then we should find:
+	      In case \(f^*_{sq.} \notin \mathcal F\) then we should find:
 	      \(\hat{f}_{sq.} = \argmin {\lVert f - f^*_{sq.} \rVert}\)
 	      We could use different norm functions.
 \end{itemize}
 
 The expression being integrated is:
-
 \[\left( f_m(x) - f^*_{sq.}(x) \right)^2
 \]
 
 Expected value of the model for all possible datasets in \(D_n\):
 \begin{align*}
-	\mathds{E}_{D_n} \left[ f_n(x) \right] & \eqqcolon \overline{f_n}                                               \\
+	\mathds{E}_{D_n} \left[ f_n(x) \right] & \eqqcolon \overline{f_n}                                        \\
 	\left( \left( f_n(x) - \overline{f_n} \right) + \left( \overline{f_n} - f_{sq.}^*(x) \right) \right)^2 = \\
 	\left( \overline{f_n}(x) - f_{sq.}^*(x) \right)^2 +
 	\mathds{E}_{D_n} \left[ \left( f_n(x) - \overline{f_n}(x) \right)^2 \right]
@@ -300,7 +300,6 @@ training error. \index{ERM}
 \begin{description}
 	\item[Consistency]
 		The ERM is said to be \emph{consistent} if:
-
 		\begin{align*}
 			\hat{R}_n(f_n) & \xrightarrow[\text{infimum}_{f \in F}]{} R(f)
 			\text{ as } n \rightarrow \infty                               \\
@@ -340,11 +339,10 @@ Graphically:
 \end{figure}
 
 \begin{theorem}{Vapnik-Chervonenkis}{}
-
 	A necessary and sufficient condition for consistency is that the
-	hypothesis space \(F\) is compact.
+	hypothesis space \(\mathcal F\) is compact.
 
-  % TODO: formal definition
+	% TODO: formal definition
 	% \begin{equation*}
 	% 	\forall \varepsilon > \dots
 	% \end{equation*}

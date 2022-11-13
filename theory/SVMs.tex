@@ -11,19 +11,20 @@
 	D = \{ (x^1,\, y^1),\, \dots,\, (x^n,\, y^n) \} \quad  x^i \in \mathds{R}^d \; y^i \in \{-1,\, 1\} \mid i = 1,\, \dots,\, n
 \end{equation*}
 
-The sum is a \iemph{binary classification}.
-
+The sum is a \iemph{binary classification}:
 \begin{equation}
-	\mathcal{F}_{\text{lim}} = \{x \to f\left(\omega^Tx + b\right),\quad \omega \in \mathds{R}^d, \; b \in \mathds{R} \}
+	\mathcal{F}_{\text{lin}} = \left\{
+    x \to f\left(\omega^Tx + b\right) \mid
+    \omega \in \mathds{R}^d,
+    \; b \in \mathds{R}
+  \right\}
 \end{equation}
 
 The equation $\pi : \omega^Tx + b = 0$ defines a hyperplane.
 The idea is to predict class $+1$ whenever $\omega^Tx + b \geq 0$ and class $-1$ otherwise.
 
 \begin{definition}{linsep}{}
-	% \paragraph{Def: linsep}
-	A dataset is \iemph{linsep} if:
-
+	A dataset is linearly separable (\iemph{linsep}) if:
 	\begin{equation*}
 		\exists (\omega,\, \omega_0) \in \mathds{R}^d \setminus \{0\} \times \mathds{R}
 		\text{ such that: }
@@ -36,20 +37,21 @@ We assume from now on that $D$ is \emph{linsep}.
 \begin{definition}{geometric margin}{}
 	The \iemph{geometric margin} of a linear
 	classifier $f \to \omega^Tx + b$ at a data point $x$ is the
-	euclidean distance from $x$ to the hyperplane $\pi$.
-
+	euclidean distance from $x$ to the hyperplane $\pi$:
 	\begin{equation*}
-		\gamma(x) = \frac{\lVert\omega^Tx + b\rVert}{\lVert\omega\rVert} \tag{geometric margin}
+		\gamma(x) = \frac{\lVert\omega^Tx + b\rVert}{\lVert\omega\rVert} \tag{geometric margin at $x$}
 	\end{equation*}
-\end{definition}
+
+  \tcbline
 
 The geometric margin of a linear classifier on $D$ is the minimum of
 these geometric margins over all data points. That is, it is the distance
-from the closest point to the hyperplane.
-
+from the closest point to the hyperplane:
 \begin{equation*}
 	\gamma = \min_{x \in D} \gamma(x) \tag{geometric margin of a linear classifier}
 \end{equation*}
+
+\end{definition}
 
 \begin{figure}[H]
 	\begin{tikzpicture}
@@ -172,8 +174,7 @@ The Lagrangian function:
 
 % How \emph{general} are these properties?
 
-\begin{question}{}{}
-	How \emph{general} are these properties?
+\begin{question}{How \emph{general} are these properties?}{}
 \end{question}
 
 \begin{question}{What kind of problem do we have?}{}
@@ -210,18 +211,17 @@ The Lagrangian function:
 	\end{enumerate}
 \end{question}
 
-\begin{question}{What kind of model is the dual version of $f_\text{SVM}$}{}
+\begin{question}{What kind of model is the dual version of $f_\text{SVM}$?}{}
 	\begin{itemize}
-		\item linear
-		\item non-parametric (see def.~\ref{def:parametric})
-		\item discriminative (see def.~\ref{def:discriminative})
+		\item Linear (def.~\ref{def:linmod})
+		\item Non-Parametric (def.~\ref{def:parametric})
+		\item Discriminative (def.~\ref{def:discriminative})
 	\end{itemize}
 \end{question}
 
 \begin{definition}{Parametric model}{parametric}
-	A model is called \iemph{parametric} when its size does not
+	A model is \iemph{parametric} when its size does not
 	grow with the size of the training data.
-
 	\begin{enumerate}
 		\item size of the model = number of free parameters (unknowns)
 		\item size of the training data = $n$
@@ -456,8 +456,10 @@ these two goals.
 \pagebreak
 \subsection{SVMs for regression}
 \index{SVMR}
+\begin{marker}
 \paragraph*{Idea}: we want a regression algorithm that maintains the defining
 (and good) features of the SVMC\footnote{Support Vector Machine for Classification}:
+\end{marker}
 \begin{itemize}
 	\item \textbf{Sparsity} and obtention of SVs (Support Vectors).
 	\item \textbf{Notion of margin} as a regularizer.

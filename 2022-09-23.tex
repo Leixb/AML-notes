@@ -14,14 +14,14 @@ The available data \(D\) serves to reduce the uncertainty of the
 distribution.
 
 The Bayesian machinery makes use of the Bayes formula.
-
+%
 \begin{align*}
 	P(D \mid \theta) \tag{likelihood} \\
 	P(\theta \mid D) \tag{posterior}  \\
 	P(\theta) \tag{prior}          \\
 	\int_\Theta P(D \mid \theta') P(\theta') d\theta' = P(D) \tag{EXPECTED \equiv EVIDENCE}
 \end{align*}
-
+%
 \[
 	P(\theta \mid D) = \frac{P(D \mid \theta) P(\theta)}
 	{ \int_\Theta P(D \mid \theta') P(\theta') d\theta' }
@@ -115,10 +115,9 @@ We depart from a data sample and face a regression task.
 
 So \(x^i \in \mathds{R}^d,\; y^i \in \mathds{R}\) and we want to perform
 \emph{linear regression}.
-
 \begin{equation*}
 	\mathcal{F}_{\text{linr}} \coloneqq \bigl\{
-	x \mapsto f_\omega(x) = \omega^T x + \omega_0 ,\quad
+	x \mapsto f_\omega(x) = \omega^T x + \omega_0 \mid
 	\omega \in \mathds{R}^d, \quad
 	\omega_0 \in \mathds{R}
 	\bigr\}
@@ -145,7 +144,7 @@ By convention \(\underbar{\omega} \coloneqq (\omega,\, \omega_0)\)
 	\item For an arbitrary input \(x \in \mathds{R}^d\), we want to predict
 	      \(y \in \mathds{R}\)
 	      \begin{align*}
-		      \epsilon                      & \sim \mathcal{N}(0, \sigma^2)                                       \\
+		      \varepsilon                      & \sim \mathcal{N}(0, \sigma^2)                                       \\
 		      P(y \mid x,\, \underbar{\omega})   & = \mathcal{N}(y \mid f_{\underbar{\omega}}(x),\, \sigma^2)               \\
 		      \beta                         & = \frac{1}{\sigma^2} \text{ (precision)}                            \\
 		      P(\underbar{\omega})          & = \mathcal{N}(\underbar{\omega} ;\, 0 ,\, \Sigma)                       \\

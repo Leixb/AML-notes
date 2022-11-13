@@ -5,7 +5,7 @@
 
 \subsection{Hilbert Spaces}
 
-\begin{definition}[parbox=false]{Hilbert space}{hilber-space}
+\begin{definition}[parbox=false]{Hilbert space (HS)}{hilber-space}
 	\begin{itemize}
 		\item Consider a space $G$ of functions $f: \mathcal{X} \to \mathbb{R}$,
 		      where $\mathcal{X}$ is the data space.
@@ -51,7 +51,7 @@
 	$\mathcal{X}$ data space ($\mathds{R}^d$)
 
 	$\mathcal{H}$ of functions $f: \mathcal{X} \to \mathds{R}$
-
+  \tcbline
 	A \iemph{Reproducing Kernel Hilbert space} (RKHS) is a Hilbert space
 	of functions in which all linear evaluation functionals are continuous:
 	\begin{align*}
@@ -111,7 +111,7 @@
 		\mathcal{X} & = \{1, 2, 3, \dots, N \} \rightarrow{}
 		\text{ In this case } \kappa \text{ is empty } K     \\
 		\mathcal{X} & = [a,b] \subset \mathds{R}             \\
-		\mathcal{X} & = \mathds{R}^d                         \\
+		\mathcal{X} & = \mathds{R}^d
 	\end{align*}
 \end{example}
 
@@ -127,9 +127,10 @@
 	$\forall f \in \mathcal{H}_\kappa,
 		\langle \kappa_x, f \rangle = f(x), \forall x \in \mathcal{X}$.
 
-	The converse is also true:
+    \begin{note}The converse is also true:
 	If we depart from a RKHS $\mathcal{H}_{\kappa}$ having
 	$\kappa$ as reproducing kernel, then $\kappa$ is PSD function.
+\end{note}
 \end{theorem}
 
 \section{Construction of the RKHS}

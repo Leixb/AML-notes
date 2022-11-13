@@ -10,8 +10,7 @@ Ridge regression ($\lambda$)
 \index{regularizer}
 
 Many \emph{MLA}\footnote{Machine Learning Algorithm}%
-s can be expressed as optimization problem.
-
+s can be expressed as an optimization problem.
 \begin{itemize}
 	\item We depart from:
 	      \begin{itemize}
@@ -19,7 +18,7 @@ s can be expressed as optimization problem.
 		      \item loss function $L \geq 0$
 		      \item a regularizer $\Omega \geq 0$ which expresses how to discourage complex models.
 	      \end{itemize}
-	\item
+      \item Our objective function is:
 \[
 	\min_{f \in \mathcal{F}} \left(\frac{1}{n} \sum_{i=1}^n L\left(f(x^i),\, y^i\right) + \lambda\Omega(f) \right)
 	, \quad \lambda > 0 \text{ is a regularization parameter.}
@@ -29,28 +28,32 @@ s can be expressed as optimization problem.
 
 \subsection{Typical choices for the regularizer} % (fold)
 
-\begin{align*}
-	\Omega(f) & = \lVert f \rVert_q^q, \quad q \geq 1                 \\
-	\text{e.g. } q = 2 \text{ is the } \ell_2 \text{ norm:} \\
-	\lVert f \rVert_2^2 & = \sqrt{\int f^2(x) \, dx}
-\end{align*}
+Typically, we use the norm:
+\begin{equation*}
+	\Omega(f) = \lVert f \rVert_q^q, \quad q \geq 1
+\end{equation*}
+\begin{example}{$\ell_2$-norm ($q = 2$)}{}
+\begin{equation*}
+	\lVert f \rVert_2^2 = \sqrt{\int f^2(x) \, dx}
+\end{equation*}
+\end{example}
 
-\subsection*{Is this problem convex?} % (fold)
+\begin{question}{Is this problem convex?}{}
 \index{convexity}
-
 \begin{itemize}
 	\item All norms are convex.
 	\item If $L$ is convex on its first argument $\Rightarrow$ the problem is convex.
 \end{itemize}
+\end{question}
 
-Suppose we chose $\mathcal{F}, L, \Omega$ Questions:
-
+\begin{question}{Suppose we chose $\mathcal{F}, L, \Omega$:}{}
 \begin{itemize}
 	\item How can I justify these choices?
 	\item How do we optimize $\lambda \xrightarrow[D]{} \hat\lambda$?
 	\item What kind of knowledge do we obtain upon solving the problem?
 	\item How do we solve the general optimization problem?
 \end{itemize}
+\end{question}
 
 \subsection{Learning models} % (fold)
 
@@ -60,27 +63,25 @@ Suppose we chose $\mathcal{F}, L, \Omega$ Questions:
 \end{align*}
 
 \begin{definition}{Linear model}{linmod}
-
 A model $f_\theta$ is linear when it has a linear dependence on its parameters.
 
 \tcblower
 For example:
-\begin{align*}
-	d      & = 10                           \\
-	f_c(x) & = f(x;c)                       \\
-	       & = \sum_{l=0}^d c_l \cdot (x)^l
-\end{align*}
+\begin{equation*}
+	f_c(x) = f(x;\,c)
+	       = \sum_{l=0}^d c_l \cdot (x)^l, \quad d \in \mathds{N}
+\end{equation*}
+is linear since it only depends on the parameters $c_l$ linearly,
+Despite the fact that $f_c$ itself is not linear.
 \end{definition}
-
-\subparagraph{Hint} Define $z_l = x^l$ and $c_l = \omega_l$.
 
 \begin{exercise}{Homework}{}
 Express a model in $\mathds{R}$ as a truncated Fourier series and
 that it is a \emph{linear model}
+\subparagraph{Hint} Define $z_l = x^l$ and $c_l = \omega_l$.
 \end{exercise}
 
 We can introduce:
-
 \begin{equation*}
 	\phi (x) = \left(\begin{array}{c}
 			\phi_1(x) \\
@@ -90,13 +91,11 @@ We can introduce:
 \end{equation*}
 
 Generalize on basic model:
-
 \begin{equation}
 	\boxed{f_\omega(x) = \sum_{l=1}^n \omega_l \phi_l(x)}
 \end{equation}
 
 A further generalization:
-
 \begin{align*}
 	f_\omega(x) = g\left(\sum_{l=1}^n \omega_l \phi_l(x)\right) = g\left(\omega^T\phi(x)\right) \\
 	g: \mathds{R} \to \mathds{R} \text{ is a monotonic function (increasing)}                   \\
@@ -108,16 +107,16 @@ In the context of neural networks $g$ is called an \iemph{activation function}.
 For linear regression we have $g(z) = z$ (identity function) or
 no activation function at all.
 
-\paragraph{Examples of activation functions}
-
+\begin{example}{Activation function}{}
 \begin{equation*}
 	g(z) = \begin{cases}
 		z & \text{if } z \geq \frac{1}{2} \\
 		0 & \text{otherwise}
-	\end{cases}  = \mathds{1}_{\{z \geq 1/2\}}(z), \quad z \in (0, 1)
+	\end{cases}  \coloneqq \mathds{1}_{\{z \geq 1/2\}}(z), \quad z \in (0, 1)
 \end{equation*}
-
+\tcbline
 We can set $\frac{1}{2}$ as a hyperparameter.
+\end{example}
 
 \section{Generalized Linear Models}
 \subsection{A gentle introduction to GLMs}
