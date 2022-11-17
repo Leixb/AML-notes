@@ -107,7 +107,7 @@
 \newtcbtheorem[number within=chapter]{example}{Example}%
 {theo=black,colback=white}{ex}
 
-\newtcolorbox{marker}[1][]{marker=yellow,#1}
+\newtcolorbox{marker}[1][]{marker={yellow!50!white},#1}
 \newtcolorbox{important}[1][]{marker=red,#1}
 \newtcolorbox{cnote}[1][]{marker=orange,#1}
 \newtcolorbox{note}[1][]{marker=white,#1}
@@ -119,9 +119,9 @@
 % remove when using \maketitle:
 \renewcommand\and{\\[\baselineskip]}
 
-\title{\Huge Advanced Machine Learning\\ \Large Lecture Notes}
+\title{Advanced Machine Learning}
 \author{Aleix Boné}
-\date{\today}
+\date{Fall \\ 2022}
 
 \makeindex
 
@@ -134,6 +134,7 @@
 % Default title or use titlepage.tex
 
 %\maketitle
+\include{004-coverpage}
 \include{005-titlepage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -144,8 +145,6 @@
 
 %\setcounter{tocdepth}{2}
 \tableofcontents \pagebreak
-
-\listoffigures \listoftables \clearpage
 
 \pagenumbering{arabic}
 
@@ -179,6 +178,7 @@
 \nocite{*}
 
 \printindex\pagebreak
+\listoffigures \listoftables \clearpage
 \printbibliography
 
 \end{document}
