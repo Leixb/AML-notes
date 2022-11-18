@@ -36,7 +36,7 @@ We assume from now on that $D$ is \emph{linsep}.
 
 \begin{definition}{geometric margin}{}
 	The \iemph{geometric margin} of a linear
-	classifier $f \to \omega^Tx + b$ at a data point $x$ is the
+  classifier $f \to \omega^Tx + b$ \emph{at a data point $x$} is the
 	euclidean distance from $x$ to the hyperplane $\pi$:
 	\begin{equation*}
 		\gamma(x) = \frac{\lVert\omega^Tx + b\rVert}{\lVert\omega\rVert} \tag{geometric margin at $x$}
@@ -44,7 +44,7 @@ We assume from now on that $D$ is \emph{linsep}.
 
   \tcbline
 
-The geometric margin of a linear classifier on $D$ is the minimum of
+  The \iemph{geometric margin of a linear classifier} on $D$ is the minimum of
 these geometric margins over all data points. That is, it is the distance
 from the closest point to the hyperplane:
 \begin{equation*}
@@ -125,7 +125,6 @@ its geometric margin over the data, $\gamma_{\text{min}}(f)$.
 \index{KKT}
 
 The Lagrangian function:
-
 \begin{align*}
 	\mathscr{L}(\omega, b, \alpha)                   & = \frac{1}{2}\lVert\omega\rVert^2 - \sum_{i=1}^n \alpha_i \left[ y^i(\omega^Tx^i + b) - 1 \right] \\
 	\alpha                                           & = \begin{pmatrix} \alpha_1 \\ \vdots \\ \alpha_n \end{pmatrix}
