@@ -14,14 +14,14 @@
 		\item $\{f_n\}_{n \in \mathds{N}}$ converges to $f$ iff
 		      $$\forall \epsilon > 0, \exists N \in \mathds{N} \text{ s.t. } \forall n \geq N, \; \lVert f_n - f \rVert < \epsilon$$
 	\end{itemize}
-  \begin{definition}{Cauchy sequence}{cauchy-sequence}\index{Cauchy sequence}
-		      $\{f_n\}_{n \in \mathds{N}}$ is Cauchy when:
+	\begin{definition}{Cauchy sequence}{cauchy-sequence}\index{Cauchy sequence}
+		$\{f_n\}_{n \in \mathds{N}}$ is Cauchy when:
 
-		      $$\forall \epsilon > 0, \; \exists N \in \mathds{N} \text{ s.t. } \forall n, m \geq N, \; \lVert f_n - f_m \rVert < \epsilon$$
-  \end{definition}
+		$$\forall \epsilon > 0, \; \exists N \in \mathds{N} \text{ s.t. } \forall n, m \geq N, \; \lVert f_n - f_m \rVert < \epsilon$$
+	\end{definition}
 
 	A space in which all Cauchy sequences converge to an element of the space is
-  called \emph{complete}.\index{complete space}
+	called \emph{complete}.\index{complete space}
 
 	A complete vector space in which we have
 	a norm ($\lVert \cdot \rVert$) is called a \iemph{Banach space}.
@@ -51,7 +51,7 @@
 	$\mathcal{X}$ data space ($\mathds{R}^d$)
 
 	$\mathcal{H}$ of functions $f: \mathcal{X} \to \mathds{R}$
-  \tcbline
+	\tcbline
 	A \iemph{Reproducing Kernel Hilbert space} (RKHS) is a Hilbert space
 	of functions in which all linear evaluation functionals are continuous:
 	\begin{align*}
@@ -71,9 +71,9 @@
 	\begin{align*}
 		\langle \kappa_x(\cdot), f \rangle_{\mathcal{H}} = f(x) \forall f \in \mathcal{H}
 	\end{align*}
-\begin{marker}
-	$\kappa_x(\cdot)$ is a function, we add the $(\cdot)$ to emphasize it.
-\end{marker}
+	\begin{marker}
+		$\kappa_x(\cdot)$ is a function, we add the $(\cdot)$ to emphasize it.
+	\end{marker}
 \end{theorem}
 
 
@@ -102,7 +102,7 @@
 
 	(alternative) If we form the following matrix:
 	\begin{align*}
-		\mathlarger{K}_{ij} \coloneqq \kappa(x^i, x^j),\\ \text{ then } a^TKa \geq 0
+		\mathlarger{K}_{ij} \coloneqq \kappa(x^i, x^j), \\ \text{ then } a^TKa \geq 0
 	\end{align*}
 \end{definition}
 
@@ -127,12 +127,13 @@
 	$\forall f \in \mathcal{H}_\kappa,
 		\langle \kappa_x, f \rangle = f(x), \forall x \in \mathcal{X}$.
 
-    \begin{note}The converse is also true:
-	If we depart from a RKHS $\mathcal{H}_{\kappa}$ having
-	$\kappa$ as reproducing kernel, then $\kappa$ is PSD function.
-\end{note}
+	\begin{note}The converse is also true:
+		If we depart from a RKHS $\mathcal{H}_{\kappa}$ having
+		$\kappa$ as reproducing kernel, then $\kappa$ is PSD function.
+	\end{note}
 \end{theorem}
 
+\pagebreak
 \section{Construction of the RKHS}
 
 Depart from a PSD function $\kappa: \mathcal{X} \times \mathcal{X} \to \mathds{R}$.
@@ -154,26 +155,235 @@ And a dataset $\mathcal{D} = \{x^1, \dots, x^n\}$.
 	      \end{equation*}
 	\item We now define the inner product:
 	      \begin{align*}
-          \langle f, g \rangle_{\mathcal{H}_\kappa} &\coloneqq
+		      \langle f, g \rangle_{\mathcal{H}_\kappa} & \coloneqq
 		      \left\langle
-            \sum_{i=1}^n a_i \kappa_{x^i}(\cdot), \sum_{j=1}^{n'} a'_j \kappa_{x'^j}(\cdot)
-		      \right\rangle \\
-                                                    &= \mathlarger{\sum_{i=1}^n} \sum_{j=1}^{n'} a_i a'_j \kappa({x^i}, {x'^j})
+		      \sum_{i=1}^n a_i \kappa_{x^i}(\cdot), \sum_{j=1}^{n'} a'_j \kappa_{x'^j}(\cdot)
+		      \right\rangle                                                                                                          \\
+		                                                & = \mathlarger{\sum_{i=1}^n} \sum_{j=1}^{n'} a_i a'_j \kappa({x^i}, {x'^j})
 	      \end{align*}
-      \item Let's show that $\kappa$ is the r.k of $\mathcal{H}_\kappa$
-        \begin{align*}
-          \forall x &\in \mathcal{X} \\
-          \langle \kappa_x, f \rangle_{\mathcal{H}_\kappa} &=
-          \left\langle \kappa_x, \sum_{i=1}^n a_i \kappa_{x^i} \right\rangle_{\mathcal{H}_\kappa} = \\
-          \sum_{i=1}^n a_i \kappa(x, x^i) &= f(x)
-        \end{align*}
-      \item \iemph{Completeness}: We take all limits of Cauchy sequences
-        and add them to the space.
+	\item Let's show that $\kappa$ is the r.k of $\mathcal{H}_\kappa$
+	      \begin{align*}
+		      \forall x                                        & \in \mathcal{X}                          \\
+		      \langle \kappa_x, f \rangle_{\mathcal{H}_\kappa} & =
+		      \left\langle \kappa_x, \sum_{i=1}^n a_i \kappa_{x^i} \right\rangle_{\mathcal{H}_\kappa}     \\
+		                                                       & = \sum_{i=1}^n a_i \kappa(x, x^i) = f(x)
+	      \end{align*}
+	\item \iemph{Completeness}: We take all limits of Cauchy sequences
+	      and add them to the space.
 \end{itemize}
 
 \begin{definition}{Span of a set}{}\index{Span of a set}
 	The set of all linear combinations of the elements of the set.
 \end{definition}
 
-\begin{theorem}{Representer theorem}{}
+% 2022-11-18
+
+\begin{theorem}{Representer theorem}{representer}\index{Representer theorem}
+	(original by Kimmerldorf \& Wahba '70s)
+
+	Let $\mathcal X$ be a data space and
+	$\kappa : \mathcal X \times \mathcal X \to \mathds R$ a kernel function.
+
+	We are given a training set $D_n =\{(x^1, y^1), \dots, (x^n, y^n)\},\,
+		x^i \in \mathcal X,\, y^i \in \mathds R$.
+	call $\mathcal H_\kappa$ the \emph{RKHS} generated by $\kappa$.
+	let $\Omega: \mathcal H_\kappa \to \mathds R$ be a \emph{non-decreasing}
+	function (the \emph{regularizer}), and
+	$l: (\mathds R)^{2n} \to \mathds R^+_0$ be a \emph{loss function}.
+
+	Then, the following \iemph{optimization problem}:
+	\begin{align*}
+		\argmin_{f \in \mathcal H_\kappa}
+		\left\{
+		l(f(x^1), y^1 , \ldots , l(f(x^n), y^n) + \Omega(\lVert f \rVert_{\mathcal H_\kappa})
+		\right\}
+	\end{align*}
+	has solutions\footnote{There is always at least one solution with this form. (There could be more than one and others that do not have this form)} of the form:
+	\begin{align*}
+		f    & = \sum_{i=1}^n \alpha_i \kappa_{x^i} \in \mathcal H_\kappa \\
+		f(x) & = \sum_{i=1}^n \alpha_i
+		\underbrace{\kappa(x^i,\, x)}_{\kappa_{x^i}(x)}
+	\end{align*}
+
+	Moreover, if $\Omega$ is \emph{increasing}, then all solutions have
+	this form.
+
+	\begin{note}
+		Typically, the optimization problem is not that general and takes
+		the form:
+		\begin{equation*}
+			\argmin_{f \in \mathcal H_\kappa} \left\{
+			\underbrace{\sum_{i=1}^n l(f(x^i), y^i)}_{\text{Minimize TR}} +
+			\underbrace{\lambda \lVert f \rVert_{q\,\mathcal H_\kappa}^q}_{\text{Penalize complexity}}
+			\right\}
+		\end{equation*}
+		where $\lambda$ is the \emph{regularization constant}.
+
+		\tcbline
+
+		In this setting, if the loss function $l$ is \emph{convex}
+		with respect to the prediction $f(x)$, then the solution is
+		\emph{unique}.
+	\end{note}
+
 \end{theorem}
+
+\pagebreak
+\begin{example}[breakable]{Kernel ridge Regression (with basis functions)}{}
+	\tcbsubtitle{Standard Ridge Regression}
+	\begin{align*}
+		\min_{\omega \in \mathds R^D} \left\{
+		\sum_{i=1}^n (f(x_i) - y_i)^2 + \lambda \lVert \omega \rVert^2
+		\right\},\, \lambda > 0
+	\end{align*}
+	where:
+	\begin{align*}
+		f(x)      & = \omega^T \phi(x)                                    \\
+		\phi :    & \mathds R^D \to \mathds R^D                           \\
+		x \mapsto & \phi(x) = \begin{pmatrix}
+			                      \phi_1(x) \\
+			                      \vdots    \\
+			                      \phi_D(x)
+		                      \end{pmatrix},\, \phi \text{ is predefined}
+	\end{align*}
+	\tcbline
+	In matrix form: We depart from:
+	$X_{x\times d} \leadsto_{\phi} \Phi_{x\times D}$,
+	such as: $\Phi_{ij} = \phi_j(x^i)$. Then
+	% $f(x) = \omega^T \phi(x) = \omega^T \Phi^T x$.
+	the solution is:
+	\begin{equation*}
+		\hat \omega \coloneqq
+		(\underbrace{\vphantom{\bigr|}\Phi^T \Phi + \lambda I_D}_{\substack{\text{Positive definite}
+				\\ \implies \text{non-singular}}})^{-1} \Phi^T y
+	\end{equation*}
+
+	\paragraph{Computational complexity}
+	We have to solve a linear system of $D$ equations and $D$ unknowns,
+	which is $O(D^3)$.
+
+	\begin{note}
+		This is the \emph{PRIMAL} formulation of ridge regression.
+	\end{note}
+
+	\tcbsubtitle{DUAL formulation}
+
+	\begin{note}
+		The key idea is that $\omega$ can be expressed as linear combination of
+		the (transformed) data points:
+		\begin{equation*}
+			\omega = \sum_{i=1}^n \alpha_i \phi(x^i)
+		\end{equation*}
+		In matrix vector form:
+		\begin{equation*}
+			\omega = \Phi^T \alpha
+		\end{equation*}
+	\end{note}
+
+	$\frac{\partial J}{\partial \omega} = 0$ leads to:
+	\begin{equation*}
+		\Phi^T\Phi \omega + \lambda \omega = \Phi^T y \tag{normal equations}
+	\end{equation*}
+	\begin{align*}
+		\leadsto \omega = \frac{1}{\lambda} \Phi^T (y - \Phi \omega)
+		\equiv \Phi \alpha                              \\
+		\implies \lambda \alpha = y - \Phi\Phi^T \alpha \\
+		\hat \alpha = (\Phi\Phi^T + \lambda I)^{-1}y
+	\end{align*}
+
+	\begin{note}
+		$\Phi\Phi^T$ is a $n\times n$ matrix. In contrast, $\Phi^T\Phi$ is a
+		$D\times D$ matrix.
+
+		This is the \emph{DUAL} formulation of ridge regression.
+		and is more efficient than the primal formulation. Since
+		the cost is $O(n^3)$ instead of $O(D^3)$.
+	\end{note}
+
+	Left $G = \Phi\Phi^T$, then $G_{ij} = \phi(x^i)^T \phi(x^j)$.
+	It is a matrix of \emph{inner products} between known
+	data points. This is the \iemph{Gram matrix} (or the Gramian)
+
+	\tcbline
+
+	Now, we can write the solution in terms of the Gram matrix:
+	\begin{align*}
+		f(x) = \hat \omega^T \phi(x) & = (\Phi^T\hat\alpha)^T \phi(x) \\
+		                             & =
+		\underbrace{(\Phi^T(\Phi\Phi^T + \lambda I)^{-1}y)^T}_A \phi(x) = A\phi(x)
+	\end{align*}
+	\begin{align*}
+		f(x) = \hat\omega^T \phi(x) & =
+		\left(
+		\sum_{i=1}^n \alpha_i \phi(x^i)
+		\right)^T \phi(x)                                                             \\
+		                            & = \sum_{i=1}^n \hat\alpha_i \phi(x^i)^T \phi(x) \\
+	\end{align*}
+	These are the inner products between data points.
+
+	Now we \emph{kernelize} the inner products:
+
+	Replace $\phi(x^i)^T \phi(x)$ with $\kappa(x^i, x)$, where $\kappa$ is a
+	kernel function.
+
+	The model becomes:
+
+	\begin{equation*}
+		f(x) = \sum_{i=1}^n \hat\alpha_i \kappa(x^i, x)
+	\end{equation*}
+
+	Now we are doing ridge regression not in $\mathds R^d$, but in
+	$\mathds R^D$. But we are \emph{not} explicitly computing
+	any $\phi(\cdot)$.
+
+	This is what we call the \iemph{kernel trick}.
+
+  Our intuition\footnote{VC-dimension should be kept low.
+    The VC-dimension of a linear classifier is $d+1$
+  }
+  says that $D \gg d$. Actually, sometimes
+	$D \in \mathds N \vee \{\infty\}$.
+	\begin{align*}
+		\begin{pmatrix}
+			d + q \\
+			q
+		\end{pmatrix} & = D \in \mathds N \tag{Polynomial kernel} \\
+		D               & = \infty \tag{RBF kernel}
+	\end{align*}
+
+  We are doing standard ridge regression in the Hilbert space
+  $\mathcal H = \mathds R^D$, instead of the original space $\mathds R^d$.
+
+  \begin{note}
+    At no point we need to know that there is an inner product in the
+    data space $\mathcal X$.
+  \end{note}
+\end{example}
+
+\begin{example}{Same solution via the representer theorem}{}
+
+  Let $\phi: \mathds R^d \to \mathds R^D$ be a mapping between
+  the data space $\mathcal X$ and a Hilbert space $\mathcal H$.
+
+  Let $\kappa : \mathcal X \times \mathcal X \to \mathds R$ be a kernel
+  function.
+
+  Define:
+  \begin{equation*}
+    \kappa(x, x') \coloneqq \langle \phi(x), \phi(x') \rangle_{\mathcal H_\kappa}
+  \end{equation*}
+  where $\mathcal H_\kappa$ is the \emph{RKHS} associated with $\kappa$.
+  \begin{note}
+    We use the abstract inner product $\langle \cdot, \cdot \rangle$ to
+    denote the inner product in $\mathcal H$. (Not $\phi(x)^T \phi(x')$)
+  \end{note}
+
+  We have a data set $D_n$ and $l(f(x^i), y^i) = (f(x^i) - y^i)^2$.
+  \begin{equation*}
+    \Omega(\lVert f \rVert) =\lambda\lVert f \rVert_{\mathcal H_\kappa}^2
+  \end{equation*}
+
+
+\end{example}
+
+
