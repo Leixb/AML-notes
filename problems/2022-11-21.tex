@@ -1,0 +1,151 @@
+%! TEX root = ../000-main.tex
+% 2022-11-21
+\begin{exercise}{XOR}{}
+	\begin{equation*}
+		\kappa_{\text{poly}}(x,\,x') = \left( x^Tx'+c \right)^q,\quad x,x'\in\mathbb{R}^d
+	\end{equation*}
+	Using arbitrary $c,q=2,d=2$
+
+	\begin{align*}
+		\phi    & : \mathds R^2  \to \mathds R^d                      \\
+		D       & = \begin{pmatrix}
+			            q + d \\
+			            q
+		            \end{pmatrix} = \begin{pmatrix}
+			                            2+2 \\
+			                            2
+		                            \end{pmatrix} = \begin{pmatrix}
+			                                            4 \\
+			                                            2
+		                                            \end{pmatrix} = 6 \\
+		\phi(x) & = \begin{pmatrix}
+			            x_1^2          \\
+			            x_2^2          \\
+			            \sqrt{2}x_1x_2 \\
+			            \sqrt{?}x_1    \\
+			            \sqrt{?}x_2
+		            \end{pmatrix}
+	\end{align*}
+
+	\begin{figure}[H]
+		\begin{tikzpicture}
+			\begin{axis}[
+					axis lines=middle,
+					xmin=-1.5, xmax=1.5,
+					ymin=-1.5, ymax=1.5,
+				]
+				\addplot[red,mark=*,only marks,mark size=2pt,
+					symbolic y coords={yes,yes},
+					symbolic x coords={yes,yes},
+					nodes near coords,
+				] coordinates
+					{(-1,1) (1,1) (-1,-1) (1,-1)};
+			\end{axis}
+		\end{tikzpicture}
+	\end{figure}
+
+	\begin{hint}
+		The problem becomes linsep by the hyperplane:
+		$\pi: x_1x_2=0$
+	\end{hint}
+\end{exercise}
+
+\begin{exercise}{Study the RBF kernel}{}
+	\begin{equation*}
+		\kappa_{\text{RBF}}(x,\,x') = \exp\left(-\frac{|x-x'|^2}{2\sigma^2}\right)
+	\end{equation*}
+
+	\begin{figure}[H]
+		\begin{tikzpicture}
+			\begin{axis}
+				\addplot[domain=0:5] {exp(-x^2/2)};
+			\end{axis}
+		\end{tikzpicture}
+	\end{figure}
+
+	\tcblower
+	\begin{align*}
+		\exp\left(
+		\frac{x^Tx'}{\sigma^2}
+		\right)
+		    & = \sum_{n=0}^{+\infty} a_n z^n = \exp(x)               \\
+		    & = \sum_{n=0}^{+\infty} \frac{(x^Tx')^n}{n!\sigma^{2n}} \\[0.5em]
+		z   & = x^Tx'                                                \\
+		a_n & = \frac{1}{n!\sigma^{2n}}
+	\end{align*}
+\end{exercise}
+
+\begin{definition}{Normalization of kernels}{}
+	For all valid kernel $\kappa : \chi \times \chi \to \mathds R$
+	there is another kernel $\kappa_n : \chi \times \chi \to \mathds R$
+	such that:
+	\begin{equation*}
+		\kappa_n(x,\,x') = \frac{\kappa(x,\,x')}{\sqrt{\kappa(x,\,x)\kappa(x',\,x')}}, \quad \forall x,\,x' \in \chi
+	\end{equation*}
+
+	We call $\kappa_n$ the normalized kernel associated with $\kappa$.
+\end{definition}
+
+\begin{exercise}{Prove that
+		$\kappa_{GRBF}$ is a (valid) kernel using the notion of
+		normalized kernel.}{}
+
+	\begin{proof}
+		\begin{align*}
+			\kappa_{GRBF}(x,\,x') & = \exp\left(-\frac{|x-x'|^2}{2\sigma^2}\right) \\[1em]
+      \exp\left(\frac{x^Tx'}{\sigma^2}\right)   \tag{we know this is a valid kernel} \\
+      \downarrow{} \text{We normalize and use that: } e^{x^Tx} = e^{\lVert x\rVert^2}                                        \\
+			\frac{e^{x^Tx'/\sigma^2}}{
+				e^{\lVert x\rVert^2}
+				e^{\lVert x'\rVert^2}
+			} = e^{-\frac{\lVert x-x'\rVert^2}{2\sigma^2}} = \kappa_{GRBF}(x,\,x')
+		\end{align*}
+	\end{proof}
+
+	\begin{note}
+		The RBF kernel is already a normalized kernel
+	\end{note}
+\end{exercise}
+
+\begin{note}
+	\begin{equation*}
+		\forall x,\,x' \in \chi, \text{ for all } \kappa
+		\in \chi \times \chi \to \mathds R
+	\end{equation*}
+	\begin{itemize}
+		\item if $\nexists x$ such that $\kappa(x,\,x) = 0$ then
+		      $\kappa_n(x,\,x) = 1$
+		\item $\left| \kappa_n(x,\,x) \right| \leq 1$
+	\end{itemize}
+\end{note}
+
+\begin{exercise}{Homework}{}
+	What is the relation between the notion of \emph{normalized kernel}
+	and the notion of \emph{angle} between vectors?
+\end{exercise}
+
+\begin{exercise}{Homework}{}
+	What is the $\phi$ for the $\kappa_{GRBF}$ kernel?
+
+	\begin{hint}
+		\begin{equation*}
+			\exp\left(
+			\frac{x^Tx'}{\sigma^2}
+			\right) = \sum_{n=0}^{+\infty} \frac{1}{n!\sigma^{2n}} (x^Tx')^n
+		\end{equation*}
+
+    We have to express the kernel in terms of the inner product
+    between the images of $x$ and $x'$.
+	\end{hint}
+
+	\tcblower
+
+	\begin{equation*}
+    .
+	\end{equation*}
+\end{exercise}
+
+\begin{note}
+  Feature maps $\phi$ are a way to transform the input space into a
+  higher dimensional space.
+\end{note}

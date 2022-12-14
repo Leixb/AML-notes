@@ -5,7 +5,7 @@
 
 \subsection{Hilbert Spaces}
 
-\begin{definition}[parbox=false]{Hilbert space (HS)}{hilber-space}
+\begin{definition}[parbox=false]{Hilbert space (HS)}{hilbert-space}
 	\begin{itemize}
 		\item Consider a space $G$ of functions $f: \mathcal{X} \to \mathbb{R}$,
 		      where $\mathcal{X}$ is the data space.
@@ -230,6 +230,7 @@ And a dataset $\mathcal{D} = \{x^1, \dots, x^n\}$.
 
 \pagebreak
 \begin{example}[breakable]{Kernel ridge Regression (with basis functions)}{}
+
 	\tcbsubtitle{Standard Ridge Regression}
 	\begin{align*}
 		\min_{\omega \in \mathds R^D} \left\{
@@ -338,10 +339,10 @@ And a dataset $\mathcal{D} = \{x^1, \dots, x^n\}$.
 
 	This is what we call the \iemph{kernel trick}.
 
-  Our intuition\footnote{VC-dimension should be kept low.
-    The VC-dimension of a linear classifier is $d+1$
-  }
-  says that $D \gg d$. Actually, sometimes
+	Our intuition\footnote{VC-dimension should be kept low.
+		The VC-dimension of a linear classifier is $d+1$
+	}
+	says that $D \gg d$. Actually, sometimes
 	$D \in \mathds N \vee \{\infty\}$.
 	\begin{align*}
 		\begin{pmatrix}
@@ -351,39 +352,101 @@ And a dataset $\mathcal{D} = \{x^1, \dots, x^n\}$.
 		D               & = \infty \tag{RBF kernel}
 	\end{align*}
 
-  We are doing standard ridge regression in the Hilbert space
-  $\mathcal H = \mathds R^D$, instead of the original space $\mathds R^d$.
+	We are doing standard ridge regression in the Hilbert space
+	$\mathcal H = \mathds R^D$, instead of the original space $\mathds R^d$.
 
-  \begin{note}
-    At no point we need to know that there is an inner product in the
-    data space $\mathcal X$.
-  \end{note}
+	\begin{note}
+		At no point we need to know that there is an inner product in the
+		data space $\mathcal X$.
+	\end{note}
 \end{example}
 
-\begin{example}{Same solution via the representer theorem}{}
+\begin{example}[breakable]{Same solution via the representer theorem}{}
 
-  Let $\phi: \mathds R^d \to \mathds R^D$ be a mapping between
-  the data space $\mathcal X$ and a Hilbert space $\mathcal H$.
+	Let $\phi: \mathds R^d \to \mathds R^D$ be a mapping between
+	the data space $\mathcal X$ and a Hilbert space $\mathcal H$.
 
-  Let $\kappa : \mathcal X \times \mathcal X \to \mathds R$ be a kernel
-  function.
+	Let $\kappa : \mathcal X \times \mathcal X \to \mathds R$ be a kernel
+	function.
 
-  Define:
+	Define:
+	\begin{equation*}
+		\kappa(x, x') \coloneqq \langle \phi(x), \phi(x') \rangle_{\mathcal H_\kappa}
+	\end{equation*}
+	where $\mathcal H_\kappa$ is the \emph{RKHS} associated with $\kappa$.
+	\begin{note}
+		We use the abstract inner product $\langle \cdot, \cdot \rangle$ to
+		denote the inner product in $\mathcal H$. (Not $\phi(x)^T \phi(x')$)
+	\end{note}
+
+	We have a data set $D_n$ and $l(f(x^i), y^i) = (f(x^i) - y^i)^2$.
+	\begin{equation*}
+		\Omega(\lVert f \rVert) =\lambda\lVert f \rVert_{\mathcal H_\kappa}^2
+	\end{equation*}
+
+
+
+\begin{align*}
+	\min_{f \in \mathcal H_\kappa}
+	\left\{
+	\frac{1}{n} \sum_{i=1}^n \left(
+	f(x^i) - y^i
+	\right)^2 + \lambda \lVert f \rVert_{\mathcal H_\kappa}^2
+	\right\}
+	\\
+	D_n            & = \left\{ (x^i,\, y^i) \right\}_{i=1}^n   \\
+	\hat f_\lambda & = \sum_{i=1}^n \hat\alpha_i \kappa_{x^i},
+	\quad
+	\hat f_\lambda(\cdot) = \sum_{i=1}^n \hat\alpha_i \kappa(\cdot,\, x^i)
+\end{align*}
+
+\begin{align*}
+	\lVert f \rVert_{\mathcal H_\kappa}^2 & =_{Rep}
+	\left\langle \sum_i \alpha_i \kappa_{x^i}, \sum_j \alpha_j \kappa_{x^j} \right\rangle_{\mathcal H_\kappa}                                 \\
+	                                      & = \mathlarger{\sum_i} \sum_j \alpha_i \alpha_j \kappa\langle x^i, x^j \rangle_{\mathcal H_\kappa} \\
+	                                      & = \mathlarger{\sum_i} \sum_j \alpha_i \alpha_j \kappa(x^i, x^j)                                   \\
+	                                      & \downarrow{} K_{n \times n},\, K_{ij} = \kappa(x^i, x^j)                                          \\
+	                                      & = \alpha^T K \alpha
+\end{align*}
+
+\begin{exercise}{Homework}{}
+	Show that:
+
+	\begin{align*}
+		\frac{1}{n} \sum_{i=1}^n \left( f(x^i) - y^i \right)^2
+		= 1/n \left\lVert y - K\alpha \right\rVert^2
+	\end{align*}
+\end{exercise}
+
+From this we can rewrite the optimization problem as:
+\begin{align*}
+	\min_{\alpha \in \mathds R^n}
+  \underbrace{
+	\left\{
+	\frac{1}{n}
+	\left\lVert y - K\alpha \right\rVert^2 + \lambda \alpha^T K \alpha
+	\right\}
+}_{J(\alpha)}
+\end{align*}
+
+\begin{exercise}{Homework}{}
+  Show that the solution to the optimization problem is:
   \begin{equation*}
-    \kappa(x, x') \coloneqq \langle \phi(x), \phi(x') \rangle_{\mathcal H_\kappa}
-  \end{equation*}
-  where $\mathcal H_\kappa$ is the \emph{RKHS} associated with $\kappa$.
-  \begin{note}
-    We use the abstract inner product $\langle \cdot, \cdot \rangle$ to
-    denote the inner product in $\mathcal H$. (Not $\phi(x)^T \phi(x')$)
-  \end{note}
-
-  We have a data set $D_n$ and $l(f(x^i), y^i) = (f(x^i) - y^i)^2$.
-  \begin{equation*}
-    \Omega(\lVert f \rVert) =\lambda\lVert f \rVert_{\mathcal H_\kappa}^2
+    \hat\alpha = (K + n\lambda I_n)^{-1} y
   \end{equation*}
 
-
+  \begin{hint}
+    Develop $\frac{\partial J}{\partial \alpha} = 0$.
+  \end{hint}
+\end{exercise}
 \end{example}
 
+\begin{align*}
+  \kappa(x, x') = x^Tx' \implies K_{ij} = G_{ij} = (x^i)^T x^j \\
+  \phi(x) = x \implies K = XX^T \\
+  \hat \alpha = (XX^T + n\lambda I_n)^{-1} y \tag{Dual ridge regression}
+\end{align*}
 
+\begin{note}
+  \emph{Drawback:} The matrix inversion is $O(n^3)$.
+\end{note}
