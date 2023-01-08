@@ -33,7 +33,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Default title or use titlepage.tex
-
+\frontmatter
 %\maketitle
 \include{004-coverpage}
 \cleardoublepage
@@ -61,6 +61,7 @@
 
 \setlength{\headheight}{14.5pt}
 \pagestyle{fancy}
+\mainmatter
 
 % Theory
 \part{Theory}
@@ -82,10 +83,12 @@
 
 \nocite{*}
 
+\backmatter
 \printindex\pagebreak
 \listoffigures
 % \listoftables
-\clearpage
+\cleardoublepage
 \printbibliography
+\cleardoublepage\newpage\thispagestyle{empty}\null
 
 \end{document}
