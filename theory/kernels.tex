@@ -1,5 +1,6 @@
 %! TEX root = ../000-main.tex
 \section{Kernel design}
+\index{kernel!design}
 
 \begin{theorem}[breakable]{Generating valid kernels from other kernels}{}
 	Assume $\kappa,\,\kappa' : \mathcal{X} \times \mathcal{X} \to \mathbb{R}$.
@@ -125,6 +126,7 @@
 
 \pagebreak
 \subsection{Kernel from distances}
+\index{kernel!from distances}
 
 It is natural to create similarity measures from (metric) distances.
 
@@ -143,6 +145,8 @@ It is natural to create similarity measures from (metric) distances.
 \end{note}
 
 \begin{definition}{Conditionally Negative Semi-Definite (CNSD)}{}
+\index{Conditionally Negative Semi-Definite}
+\index{CNSD}
 
 	A kernel fn $K: \mathcal \chi \times \mathcal \chi \to \mathbb R$ is CNSD if
 	\begin{enumerate}
@@ -205,7 +209,7 @@ some functional space.
 	\end{align*}
 \end{theorem}
 
-\subsection{Kernels for sequences}
+\subsection{Kernels for sequences}\index{kernel!for sequences}
 
 \begin{marker}
 	Sequence and Stream can be taken as synonyms.
@@ -243,7 +247,7 @@ some functional space.
 	      $= \sum_{\mu \in \Sigma^p} \phi^p_\mu(s) \phi^p_\mu(s')$
 \end{enumerate}
 
-\begin{note}
+\begin{note}\index{spectral kernel}
 	We call this Spectral kernel
 \end{note}
 
@@ -257,7 +261,7 @@ This family can be extended usefully in many ways:
 	      we penalize the
 \end{itemize}
 
-\subsection{Kernels \emph{from} graphs}
+\subsection{Kernels \emph{from} graphs}\index{kernel!from graphs}
 
 \begin{marker}
 	FROM is different that FOR
@@ -321,7 +325,7 @@ In particular, we have:
 \end{theorem}
 
 
-\begin{definition}{exponential diffusion kernel}{}
+\begin{definition}{exponential diffusion kernel}{}\index{exponential diffusion kernel}
 \begin{equation*}
   \kappa \coloneqq \exp(\mu B) \in \mathds R^{n \times n}
 \end{equation*}

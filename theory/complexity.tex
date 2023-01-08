@@ -2,7 +2,7 @@
 \section[Model complexity]{Model complexity, VC-dimension and generalization bounds}
 \index{VC-dimension}\index{complexity}\index{generalization bound}
 
-\begin{definition}{dichotomy of a set}{dichotomy}
+\begin{definition}{dichotomy of a set}{dichotomy}\index{dichotomy}
 
 	Let $\mathcal{F}$ be a hypothesis set, let $S$ be a set of data points $S =
 		\{x_1, \ldots, x_m\},\quad x^i \in \mathds{R}^d$.
@@ -20,7 +20,7 @@
 	$\mathcal{F}$.
 \end{definition}
 
-\begin{definition}{VC-dimension}{vc-dimension-cont}
+\begin{definition}{VC-dimension}{vc-dimension-cont}\index{vc-dimension}
 	Vapnik-Chervonenkis dimension \\[1em]
 	The VC-dimension of a hypothesis space $\mathcal{F}$ is the size
 	of the largest set $S$ that can be shattered by $\mathcal{F}$.
@@ -139,14 +139,14 @@
 	\end{figure}
 \end{example}
 
-\begin{note}
+\begin{note}\index{Radamaiher complexity}
 	Radamaiher complexity encompases the VC-dimension adding
 	regression.
 \end{note}
 
 % 2022-11-11
 
-\begin{theorem}{Vapnik' 95}{}\index{Vapnik' 95}
+\begin{theorem}{Vapnik' 95}{}\index{Vapnik theorem}
 	Let $\mathcal{F}_{lin}^m$ be the class of linear binary classifiers that leave
 	a margin at least $m$, that is:
 	\begin{equation*}

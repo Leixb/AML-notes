@@ -11,6 +11,8 @@
 % EXTRA PACKAGES / CONFIG
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\usepackage{emptypage}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % METADATA
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -34,7 +36,9 @@
 
 %\maketitle
 \include{004-coverpage}
+\cleardoublepage
 \include{005-titlepage}
+\cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TOC & lists
@@ -79,7 +83,9 @@
 \nocite{*}
 
 \printindex\pagebreak
-\listoffigures \listoftables \clearpage
+\listoffigures
+% \listoftables
+\clearpage
 \printbibliography
 
 \end{document}

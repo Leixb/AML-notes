@@ -5,7 +5,7 @@
 
 \section{Linear SVM}
 \label{sec:linear-svm}
-\index{linear SVM}
+\index{SVM!linear}
 
 \begin{equation*}
 	D = \{ (x^1,\, y^1),\, \dots,\, (x^n,\, y^n) \} \quad  x^i \in \mathds{R}^d \; y^i \in \{-1,\, 1\} \mid i = 1,\, \dots,\, n
@@ -53,6 +53,7 @@ from the closest point to the hyperplane:
 
 \end{definition}
 
+\index{SVM!hyperplane}
 \begin{figure}[H]
 	\begin{tikzpicture}
 		\begin{axis}[
@@ -119,10 +120,10 @@ its geometric margin over the data, $\gamma_{\text{min}}(f)$.
 \end{enumerate}
 
 \subsubsection{The dual problem}
-\index{dual}
-\index{lagrangian function}
-\index{lagrangian multiplier}
-\index{KKT}
+\index{SVM!dual}
+\index{SVM!lagrangian function}
+\index{SVM!lagrangian multiplier}
+\index{SVM!KKT}
 
 The Lagrangian function:
 \begin{align*}
@@ -181,6 +182,7 @@ The Lagrangian function:
 	a \iemph{quadratic programming} (QP) problem.
 \end{question}
 
+\index{SVM!primal-dual}
 \begin{question}{What is the SVM model?}{}
 	We have two versions of the SVM model, the primal and the dual:
 	\begin{equation*}
@@ -235,7 +237,7 @@ The Lagrangian function:
 	The LOO error is the average of the $n$ test errors.
 \end{definition}
 
-\begin{theorem}{LOO analysis}{looanal}
+\begin{theorem}{LOO analysis}{looanal}\index{LOO!analysis}
 
 	\begin{lemma}{}{}
 			The average LOO-CV error $f_n$ data sets of size $n \geq 2$
@@ -261,7 +263,7 @@ The Lagrangian function:
   \end{note}
 \end{theorem}
 
-\begin{definition}{Sparsity}{sparsity}
+\begin{definition}{Sparsity}{sparsity}\index{sparsity}
 	The fraction of data points used in the final model.
 \end{definition}
 
@@ -378,11 +380,13 @@ The new optimization problem is:
 	\quad i=1,\dots,n
 \end{align*}
 
+\index{SVM!trade-off}
 We add a hyperparameter $C$ which controls the trade-off between
 these two goals.
 
 % 2022-10-21
 \subsection{Loss functions for the SVM (classification case)}
+\index{SVM!loss functions}
 
 \begin{align*}
 	\lVert \xi \rVert_q^q          & = \sum_{i=1}^n \xi_i,\quad q \geq 1      \\
@@ -456,6 +460,7 @@ these two goals.
 \pagebreak
 \subsection{SVMs for regression}
 \index{SVMR}
+\index{SVM!regression}
 \begin{marker}
 \paragraph*{Idea}: we want a regression algorithm that maintains the defining
 (and good) features of the SVMC\footnote{Support Vector Machine for Classification}:
@@ -533,6 +538,7 @@ these two goals.
 
 We need to introduce two sets of slacks,
 $\overline{\xi_i},\, \underline{\xi_i} \geq 0,\; i=1,\dots,n$,
+\index{SVM!slacks}
 
 \begin{align*}
 	\min_{w,\,b,\,\xi,\,\overline{\xi},\,\underline{\xi}} &

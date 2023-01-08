@@ -1,5 +1,6 @@
 %! TEX root = ../000-main.tex
 \chapter[RKHSs]{Learning in RKHSs}
+\index{RKHSs}
 
 \section{Introduction}
 
@@ -87,7 +88,7 @@
 
 \subsection{Positive Semi-Definite Functions}
 
-\begin{definition}{Positive semi-definite functions}{psd}
+\begin{definition}{Positive semi-definite functions}{psd}\index{PSD}
 	Consider a data space $\mathcal{X}$. A symmetric bivariate function
 	$\kappa: \mathcal{X} \times \mathcal{X} \to \mathds{R}$ is
 	\iemph{positive semi-definite} (PSD) when
@@ -115,7 +116,7 @@
 	\end{align*}
 \end{example}
 
-\begin{theorem}[parbox=false]{Moore-Aronszajn '50s}{}
+\begin{theorem}[parbox=false]{Moore-Aronszajn '50s}{}\index{Moore-Aronszajn}
 	For every PSD funciton $\kappa: \mathcal{X} \times \mathcal{X} \to \mathds{R}$, there
 	is a \emph{unique} RKHS $\mathcal{H}_\kappa$ for which $\kappa$ is the reproducing kernel.
 
@@ -229,7 +230,7 @@ And a dataset $\mathcal{D} = \{x^1, \dots, x^n\}$.
 \end{theorem}
 
 \pagebreak
-\begin{example}[breakable]{Kernel ridge Regression (with basis functions)}{}
+\begin{example}[breakable]{Kernel ridge Regression (with basis functions)}{}\index{kernel!ridge regression}
 
 	\tcbsubtitle{Standard Ridge Regression}
 	\begin{align*}
@@ -337,7 +338,7 @@ And a dataset $\mathcal{D} = \{x^1, \dots, x^n\}$.
 	$\mathds R^D$. But we are \emph{not} explicitly computing
 	any $\phi(\cdot)$.
 
-	This is what we call the \iemph{kernel trick}.
+  This is what we call the \emph{kernel trick}.\index{kernel!trick}
 
 	Our intuition\footnote{VC-dimension should be kept low.
 		The VC-dimension of a linear classifier is $d+1$
