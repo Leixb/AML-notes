@@ -30,7 +30,7 @@
           src = ./.;
           shellEscape = true;
           minted = true;
-          name = "document.pdf";
+          name = "AML-lecture-notes.pdf";
         };
 
         defaultPackage = packages.document;
