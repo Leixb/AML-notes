@@ -58,7 +58,7 @@
 	\begin{figure}[H]
 		\begin{tikzpicture}
 			\begin{axis}
-				\addplot[domain=0:5] {exp(-x^2/2)};
+				\addplot[smooth,domain=0:5] {exp(-x^2/2)};
 			\end{axis}
 		\end{tikzpicture}
 	\end{figure}
@@ -92,9 +92,9 @@
 
 	\begin{proof}
 		\begin{align*}
-			\kappa_{GRBF}(x,\,x') & = \exp\left(-\frac{|x-x'|^2}{2\sigma^2}\right) \\[1em]
-      \exp\left(\frac{x^Tx'}{\sigma^2}\right)   \tag{we know this is a valid kernel} \\
-      \downarrow{} \text{We normalize and use that: } e^{x^Tx} = e^{\lVert x\rVert^2}                                        \\
+			\kappa_{GRBF}(x,\,x') & = \exp\left(-\frac{|x-x'|^2}{2\sigma^2}\right)          \\[1em]
+			\exp\left(\frac{x^Tx'}{\sigma^2}\right)   \tag{we know this is a valid kernel}  \\
+			\downarrow{} \text{We normalize and use that: } e^{x^Tx} = e^{\lVert x\rVert^2} \\
 			\frac{e^{x^Tx'/\sigma^2}}{
 				e^{\lVert x\rVert^2}
 				e^{\lVert x'\rVert^2}
@@ -134,18 +134,18 @@
 			\right) = \sum_{n=0}^{+\infty} \frac{1}{n!\sigma^{2n}} (x^Tx')^n
 		\end{equation*}
 
-    We have to express the kernel in terms of the inner product
-    between the images of $x$ and $x'$.
+		We have to express the kernel in terms of the inner product
+		between the images of $x$ and $x'$.
 	\end{hint}
 
 	\tcblower
 
 	\begin{equation*}
-    .
+		.
 	\end{equation*}
 \end{exercise}
 
 \begin{note}
-  Feature maps $\phi$ are a way to transform the input space into a
-  higher dimensional space.
+	Feature maps $\phi$ are a way to transform the input space into a
+	higher dimensional space.
 \end{note}

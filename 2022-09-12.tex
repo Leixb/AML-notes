@@ -202,11 +202,11 @@ Where:
 
 \begin{prop}{}{}
 	\begin{align*}
-		R[f]                       & = \sigma^2 + \int_{\mathds{R}^d} \bigl(f(x) - f^*_{sq.}(x)\bigr)^2 p(x)\; dx
-		                           &                                                                    & (\text{MSE}[f])              \\
+		R[f]                        & = \sigma^2 + \int_{\mathds{R}^d} \bigl(f(x) - f^*_{sq.}(x)\bigr)^2 p(x)\; dx
+		                            &                                                                              & (\text{MSE}[f])              \\
 		\text{where: } f^*_{sq.}(x) & = \int_{\mathds{R}} y\cdot p(y(x))\; dy
-		                           &                                                                    & \text{(regression function)} \\
-		\text{in terms of statistics: }                                                                                                \\ \mathds{E}_{Y \mid x}[y \mid X = x] \\
+		                            &                                                                              & \text{(regression function)} \\
+		\text{in terms of statistics: }                                                                                                           \\ \mathds{E}_{Y \mid x}[y \mid X = x] \\
 		\Rightarrow R[f^*_{sq.}]
 	\end{align*}
 	\tcblower
@@ -219,7 +219,7 @@ Where:
 \begin{prop}{bias-variance decomposition}{}
 	\index{bias-variance decomposition}
 	of the mean squared error:
-  \[\text{MSE}[f] = \text{Bias}(f)^2 + \text{Var}(f)
+	\[\text{MSE}[f] = \text{Bias}(f)^2 + \text{Var}(f)
 	\]
 
 	There is a trade-off between bias and variance, known as the
@@ -328,8 +328,8 @@ Graphically:
 			\addlegendentry{\(R(f_n)\)};
 			\addlegendentry{\(\hat{R}_n(f_n)\)};
 			\addlegendentry{Convergence};
-			\addplot+[mark=none] {1/x};
-			\addplot+[mark=none] {-1/x};
+			\addplot+[smooth,mark=none] {1/x};
+			\addplot+[smooth,mark=none] {-1/x};
 			\addplot+[mark=none,dashed] {0};
 			\node at (axis cs:1,1.1) [anchor=north east] {\(\text{infimum}_{f \in \mathcal{F}} R(f)\)};
 		\end{axis}
